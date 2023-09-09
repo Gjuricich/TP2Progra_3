@@ -42,5 +42,31 @@ namespace GUI
             windowEdit.ShowDialog();
 
         }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void bFilter_Click(object sender, EventArgs e)
+        {
+            ControlManager Cmanager = new ControlManager();
+            dgArticles.DataSource = Cmanager.FiltrarPornombredeColumna(tbSearch.Text);
+        }
+
+
+        private void tbSearch_TextChanged(object sender, EventArgs e)
+        {
+            ControlManager Cmanager = new ControlManager();
+            dgArticles.DataSource = Cmanager.FiltrarPornombredeColumna(tbSearch.Text);
+        }
+
+        private void frmMain_Load_1(object sender, EventArgs e)
+        {
+
+            ControlManager Cmanager = new ControlManager();
+            dgArticles.DataSource = Cmanager.Listacompleta();
+
+        }
     }
+
 }

@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Articles.cs" />
+    <Compile Include="ControllerManager.cs" />
+    <Compile Include="DataManager.cs" />
     <Compile Include="frmAdd.cs">
       <SubType>Form</SubType>
     </Compile>
