@@ -59,5 +59,10 @@ namespace Managers
             conection.Close();
         }
 
+        public void setParameter(string name, object value)
+        {
+            command.Parameters.AddWithValue(name, value);
+        }
+
     }
 }

@@ -9,13 +9,13 @@ using Domain;
 namespace Managers
 {
 
-    public class CatalogManager
+    public class ItemManager
     {
        
        
-        public List<Article> uploadArticlesList(string query)
+        public List<Item> uploadArticlesList(string query)
         {
-            List<Article> articles = new List<Article>();
+            List<Item> articles = new List<Item>();
             try
             {
                 DataManager dataManager = new DataManager();
@@ -24,7 +24,7 @@ namespace Managers
                 dataManager.executeRead();
                 while (dataManager.Lector.Read())
                 {
-                    Article article = new Article();
+                    Item article = new Item();
 
                     article.Name = (string)dataManager.Lector["Nombre"];
                     article.Description = (string)dataManager.Lector["Descripcion"];
@@ -55,17 +55,17 @@ namespace Managers
 
 
         }
-        public List<Article> FiltrarPornombredeColumna(string palabra)
+        public List<Item> FiltrarPornombredeColumna(string palabra)
         {
             return uploadArticlesList("select A.Codigo As Codigo,A.Nombre As Nombre ,A.Descripcion As Descripcion ,M.Descripcion Marca,C.Descripcion As Categoria ,A.Precio  As Precio FROM  ARTICULOS A left JOIN  MARCAS M on M.Id= A.IdMarca left JOIN CATEGORIAS C on C.Id= A.IdCategoria  WHERE A.Nombre LIKE '%" + palabra + "%'");
         }
-        public List<Article> Listacompleta()
+        public List<Item> Listacompleta()
         {
             return uploadArticlesList("select A.Codigo As Codigo,A.Nombre As Nombre ,A.Descripcion As Descripcion ,M.Descripcion Marca,C.Descripcion As Categoria ,A.Precio  As Precio FROM  ARTICULOS A left JOIN  MARCAS M on M.Id= A.IdMarca left JOIN CATEGORIAS C on C.Id= A.IdCategoria");
         }
 
 
-        public void add(Article add)
+        public void add(Item add)
         {
             DataManager dataManager = new DataManager();
 
@@ -82,6 +82,22 @@ namespace Managers
             finally
             {
                 dataManager.closeConection();
+            }
+        }
+
+        public void delete(string Codigo)
+        {
+            try
+            {
+                DataManager data = new DataManager();
+                data.setQuery("delete from ARTICULOS where Codigo = @Codigo");
+                data.setParameter("@Codigo", Codigo);
+                data.executeRead();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 

@@ -27,8 +27,8 @@ namespace GUI
 
         private void bAddArticle_Click(object sender, EventArgs e)
         {
-            Article artNew = new Article();
-            CatalogManager Cmanager = new CatalogManager();
+            Item artNew = new Item();
+            ItemManager iManager = new ItemManager();
 
 
             try
@@ -48,7 +48,7 @@ namespace GUI
 
                 //artNew.Marc   Falta
 
-                Cmanager.add(artNew);
+                iManager.add(artNew);
                 MessageBox.Show("Successfully added");
                 Close();
             }

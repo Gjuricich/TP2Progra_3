@@ -14,6 +14,8 @@ namespace GUI
 {
     public partial class frmMain : Form
     {
+
+        private List<Item> listArticle;
         public frmMain()
         {
             InitializeComponent();
@@ -51,24 +53,63 @@ namespace GUI
 
         private void bFilter_Click(object sender, EventArgs e)
         {
-            CatalogManager Cmanager = new CatalogManager();
-            dgArticles.DataSource = Cmanager.FiltrarPornombredeColumna(tbSearch.Text);
+            ItemManager iManager = new ItemManager();
+            dgArticles.DataSource = iManager.FiltrarPornombredeColumna(tbSearch.Text);
         }
 
 
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
-            CatalogManager Cmanager = new CatalogManager();
-            dgArticles.DataSource = Cmanager.FiltrarPornombredeColumna(tbSearch.Text);
+            ItemManager iManager = new ItemManager();
+            dgArticles.DataSource = iManager.FiltrarPornombredeColumna(tbSearch.Text);
         }
 
         private void frmMain_Load_1(object sender, EventArgs e)
         {
 
-            CatalogManager Cmanager = new CatalogManager();
-            dgArticles.DataSource = Cmanager.Listacompleta();
+            ItemManager iManager = new ItemManager();
+            dgArticles.DataSource = iManager.Listacompleta();
 
         }
+
+        private void loadGrid()
+        {
+            ItemManager iManager = new ItemManager();
+            try
+            {
+                listArticle = iManager.Listacompleta();
+                dgArticles.DataSource = listArticle;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void bDelete_Click(object sender, EventArgs e)
+        {
+            ItemManager iManager = new ItemManager();
+            Item selected;
+
+            try
+            {
+                DialogResult answer = MessageBox.Show("The selected article will be deleted. Please confirm if you want to delete it.", "Removing", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (answer == DialogResult.Yes)
+                {
+                    selected = (Item)dgArticles.CurrentRow.DataBoundItem;
+                    iManager.delete(selected.ArtCode);
+                    loadGrid();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+        }
+            
+        
     }
 
 }

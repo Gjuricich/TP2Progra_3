@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class Article
+    public class Item
     {
         public string ArtCode { get; set; }
         public string Name { get; set; }
@@ -16,10 +16,10 @@ namespace Domain
         public decimal Price { get; set; }
 
 
-        public Article()
+        public Item()
         {
         }
-        public Article(string artCode, string name, string description, string marc, string category, decimal price)
+        public Item(string artCode, string name, string description, string marc, string category, decimal price)
         {
             ArtCode = artCode;
             Name = name;
