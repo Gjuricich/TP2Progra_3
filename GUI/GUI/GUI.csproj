@@ -46,7 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Articles.cs" />
+    <Compile Include="AddArticle.cs" />
+    <Compile Include="Article.cs" />
     <Compile Include="ControllerManager.cs" />
     <Compile Include="DataManager.cs" />
     <Compile Include="frmAdd.cs">
@@ -73,6 +74,7 @@
     <Compile Include="frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Marc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmAdd.resx">

@@ -12,9 +12,9 @@ namespace GUI
     {
        
        
-        public List<Articles> uploadArticlesList(string query)
+        public List<Article> uploadArticlesList(string query)
         {
-            List<Articles> articles = new List<Articles>();
+            List<Article> articles = new List<Article>();
             try
             {
                 DataManager dataManager = new DataManager();
@@ -23,7 +23,7 @@ namespace GUI
                 dataManager.executeRead();
                 while (dataManager.Lector.Read())
                 {
-                    Articles article = new Articles();
+                    Article article = new Article();
 
                     article.Name = (string)dataManager.Lector["Nombre"];
                     article.Description = (string)dataManager.Lector["Descripcion"];
@@ -54,11 +54,11 @@ namespace GUI
 
 
         }
-        public List<Articles> FiltrarPornombredeColumna(string palabra)
+        public List<Article> FiltrarPornombredeColumna(string palabra)
         {
             return uploadArticlesList("select A.Codigo As Codigo,A.Nombre As Nombre ,A.Descripcion As Descripcion ,M.Descripcion Marca,C.Descripcion As Categoria ,A.Precio  As Precio FROM  ARTICULOS A left JOIN  MARCAS M on M.Id= A.IdMarca left JOIN CATEGORIAS C on C.Id= A.IdCategoria  WHERE A.Nombre LIKE '%" + palabra + "%'");
         }
-        public List<Articles> Listacompleta()
+        public List<Article> Listacompleta()
         {
             return uploadArticlesList("select A.Codigo As Codigo,A.Nombre As Nombre ,A.Descripcion As Descripcion ,M.Descripcion Marca,C.Descripcion As Categoria ,A.Precio  As Precio FROM  ARTICULOS A left JOIN  MARCAS M on M.Id= A.IdMarca left JOIN CATEGORIAS C on C.Id= A.IdCategoria");
         }

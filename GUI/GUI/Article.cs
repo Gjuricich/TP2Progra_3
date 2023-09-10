@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GUI
 {
-    public class Articles
+    public class Article
     {
         public string ArtCode { get; set; }
         public string Name { get; set; }
@@ -16,10 +16,10 @@ namespace GUI
         public decimal Price { get; set; }
 
 
-        public Articles()
+        public Article()
         {
         }
-        public Articles(string artCode, string name, string description, string marc, string category, decimal price)
+        public Article(string artCode, string name, string description, string marc, string category, decimal price)
         {
             ArtCode = artCode;
             Name = name;
@@ -27,8 +27,9 @@ namespace GUI
             Marc = marc;
             Category = category;
             Price = price;
-           
+
         }
 
     }
+    
 }
