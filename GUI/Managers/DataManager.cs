@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GUI
+namespace Managers
 {
     class DataManager
 
@@ -22,10 +22,10 @@ namespace GUI
         {
             conection = new SqlConnection();
             command = new SqlCommand();
-            //conection.ConnectionString = "server=.\\SQLEXPRESS;database=CATALOGO_P3_DB;integrated security = true;";
+            conection.ConnectionString = "server=.\\SQLEXPRESS;database=CATALOGO_P3_DB;integrated security = true;";
 
             //Coneccion Alex
-            conection.ConnectionString = "server=DESKTOP-CTQ5TEH;database=CATALOGO_P3_DB;integrated security = true;";
+            //conection.ConnectionString = "server=DESKTOP-CTQ5TEH;database=CATALOGO_P3_DB;integrated security = true;";
 
         }
         

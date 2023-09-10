@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Domain;
+using Managers;
 
 namespace GUI
 {
@@ -26,7 +28,8 @@ namespace GUI
         private void bAddArticle_Click(object sender, EventArgs e)
         {
             Article artNew = new Article();
-            AddArticle addArt = new AddArticle();
+            CatalogManager Cmanager = new CatalogManager();
+
 
             try
             {
@@ -45,7 +48,7 @@ namespace GUI
 
                 //artNew.Marc   Falta
 
-                addArt.add(artNew);
+                Cmanager.add(artNew);
                 MessageBox.Show("Successfully added");
                 Close();
             }
@@ -57,7 +60,7 @@ namespace GUI
 
         private void frmAdd_Load(object sender, EventArgs e)
         {
-            Marc addMarc = new Marc();
+            Brand addMarc = new Brand();
             try
             {
 

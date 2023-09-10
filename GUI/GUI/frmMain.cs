@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Domain;
+using Managers;
 
 namespace GUI
 {
@@ -49,21 +51,21 @@ namespace GUI
 
         private void bFilter_Click(object sender, EventArgs e)
         {
-            ControlManager Cmanager = new ControlManager();
+            CatalogManager Cmanager = new CatalogManager();
             dgArticles.DataSource = Cmanager.FiltrarPornombredeColumna(tbSearch.Text);
         }
 
 
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
-            ControlManager Cmanager = new ControlManager();
+            CatalogManager Cmanager = new CatalogManager();
             dgArticles.DataSource = Cmanager.FiltrarPornombredeColumna(tbSearch.Text);
         }
 
         private void frmMain_Load_1(object sender, EventArgs e)
         {
 
-            ControlManager Cmanager = new ControlManager();
+            CatalogManager Cmanager = new CatalogManager();
             dgArticles.DataSource = Cmanager.Listacompleta();
 
         }

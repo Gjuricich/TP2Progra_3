@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain;
 
-namespace GUI
+namespace Managers
 {
-    public class Marc
+    public class BrandManager
     {
-        public int Id { get; set; }
-        public string Descripcion { get; private set; }
-
-        public List<Marc>listar()
+       
+        public List<Brand> listar()
         {
-            List<Marc> list = new List<Marc>();
+            List<Brand> list = new List<Brand>();
             DataManager dataManager = new DataManager();
 
             try
@@ -23,11 +22,11 @@ namespace GUI
                 dataManager.executeRead();
                 while (dataManager.Lector.Read())
                 {
-                   Marc addMarc = new Marc();
-                    addMarc.Id = (int)dataManager.Lector["IdMarca"];
-                    addMarc.Descripcion = (string)dataManager.Lector["Descripcion"];
+                    Brand brand = new Brand();
+                    brand.Id = (int)dataManager.Lector["IdMarca"];
+                    brand.Descripcion = (string)dataManager.Lector["Descripcion"];
 
-                    list.Add(addMarc);
+                    list.Add(brand);
                 }
 
                 return list;
