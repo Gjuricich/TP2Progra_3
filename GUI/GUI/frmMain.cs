@@ -129,7 +129,7 @@ namespace GUI
             catch (System.Net.WebException ex)
             {
                 pbImgArticles.Load("https://w7.pngwing.com/pngs/22/842/png-transparent-picture-frame-blue-border-empty-blank-isolated-thumbnail.png");
-                MessageBox.Show("La Ruta : " + url[currentIndex] + " es inaccesible" + url.Count().ToString());
+                MessageBox.Show("La Ruta : " + url[currentIndex] + " es inaccesible");
                 
             }
         }
