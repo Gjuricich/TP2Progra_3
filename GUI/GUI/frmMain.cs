@@ -115,6 +115,7 @@ namespace GUI
         }
         private void dgArticles_SelectionChanged(object sender, EventArgs e)
         {
+            
             ItemManager iManager = new ItemManager();
             Item selected = (Item)dgArticles.CurrentRow.DataBoundItem;
             url = iManager.imagesOfItems(selected.ID());
