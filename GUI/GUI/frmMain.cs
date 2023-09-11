@@ -62,8 +62,7 @@ namespace GUI
         private void frmMain_Load_1(object sender, EventArgs e)
         {
 
-            ItemManager iManager = new ItemManager();
-            dgArticles.DataSource = iManager.Listacompleta();
+            loadGrid();
         }
         private void loadGrid()
         {
@@ -72,6 +71,10 @@ namespace GUI
             {
                 listArticle = iManager.Listacompleta();
                 dgArticles.DataSource = listArticle;
+                dgArticles.Columns["Id"].Visible = false;
+                dgArticles.Columns["Description"].Visible = false;
+
+
 
             }
             catch (Exception ex)
@@ -110,7 +113,10 @@ namespace GUI
             {
                 // La selección cambia de una fila a otra y cambio el currentIndex a cero para que comienze con la primer foto de la nueva selección.
                 currentIndex = 0;
+                if (selected.Description != "")
+                    rtbDescription.Text = selected.Description;
                 LoadImageAtIndex(currentIndex);
+
             }
         }
         //divido la parte que se encarga de cargar la imagen segun un indice.
@@ -121,27 +127,18 @@ namespace GUI
                 if (url.Count() != 0 && index >= 0 && index < url.Count())
                 {
                     // Carga la URL en función del índice actual
-                    pbImgArticles.Load(url[index]);
+                    
+                    if (url[currentIndex] != "")
+                        pbImgArticles.Load(url[index]);
+
                 }
             }
             catch (System.Net.WebException ex)
             {
 
-                if (ex.ToString().Contains("404"))
-                {
-                    pbImgArticles.Load("https://www.antevenio.com/wp-content/uploads/2017/08/15-ejemplos-de-paginas-404-que-generan-engagement-1.jpg");
-                    MessageBox.Show(ex.ToString());
-                }
-                else if (ex.ToString().Contains("403"))
-                {
-                    pbImgArticles.Load("https://i.insider.com/605a704f106eb50019d053e0?width=1200&format=jpeg");
-                    MessageBox.Show(ex.ToString());
-                }
-                else
-                {
-                    pbImgArticles.Load("https://previews.123rf.com/images/yehorlisnyi/yehorlisnyi2104/yehorlisnyi210400016/167492439-sin-foto-o-icono-de-imagen-en-blanco-cargando-im%C3%A1genes-o-marca-de-imagen-faltante-imagen-no.jpg");
-                    MessageBox.Show(ex.ToString() + " La Ruta : " + url[index] + " es inaccesible");
-                }
+                    pbImgArticles.Load("https://lh3.googleusercontent.com/drive-viewer/AITFw-wS6RAUNTNl47sUUVoPu5qMvbp08NQ48aWAXQUFn-TsDK8497WjmJavnGyi0sS0Uvknmg17fx6wTY7MQYhYDIIRn551=w1366-h618");
+                    //MessageBox.Show(ex.ToString() + " La Ruta : " + url[index] + " es inaccesible");
+                
             }
         }
 
