@@ -33,7 +33,7 @@ namespace GUI
 
             try
             {
-                artNew.ArtCode = tbCodeArt.Text;
+                artNew.ItemCode = tbCodeArt.Text;
                 artNew.Name = tbName.Text;
                 artNew.Description = tbDescription.Text;
                 if (decimal.TryParse(tbPrice.Text, out decimal price))

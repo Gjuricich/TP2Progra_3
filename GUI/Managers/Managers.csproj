@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BrandManager.cs" />
+    <Compile Include="UrlImageManager.cs" />
+    <Compile Include="CategoryManager.cs" />
     <Compile Include="ItemManager.cs" />
     <Compile Include="DataManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

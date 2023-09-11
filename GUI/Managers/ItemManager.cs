@@ -28,8 +28,8 @@ namespace Managers
                     article.Id=(int)dataManager.Lector["Id"];
                     article.Name = (string)dataManager.Lector["Nombre"];
                     article.Description = (string)dataManager.Lector["Descripcion"];
-                    article.ArtCode = (string)dataManager.Lector["Codigo"];
-                    article.Marc = (string)dataManager.Lector["Marca"];
+                    article.ItemCode = (string)dataManager.Lector["Codigo"];
+                    article.Brand = (string)dataManager.Lector["Marca"];
                     if (dataManager.Lector.IsDBNull(dataManager.Lector.GetOrdinal("Categoria")))
                     {
                         article.Category = "Sin Categoria";
@@ -71,7 +71,7 @@ namespace Managers
 
             try
             {
-                dataManager.setQuery("INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion,Precio) values('" + add.ArtCode + "', '" + add.Name + "' , '" + add.Description + "', " + add.Price + ")");
+                dataManager.setQuery("INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion,Precio) values('" + add.ItemCode + "', '" + add.Name + "' , '" + add.Description + "', " + add.Price + ")");
                 dataManager.executeRead();
             }
             catch (Exception ex)
@@ -100,6 +100,7 @@ namespace Managers
                 throw ex;
             }
         }
+
         public List<string> imagesOfItems(int ID_Item)
         {
 
@@ -107,7 +108,7 @@ namespace Managers
             try
             {
                 DataManager dataManager = new DataManager();
-                dataManager.setQuery(" select ImagenUrl from IMAGENES where IdArticulo  = " +ID_Item);
+                dataManager.setQuery(" select ImagenUrl from IMAGENES where IdArticulo  = " + ID_Item);
                 dataManager.executeRead();
                 while (dataManager.Lector.Read())
                 {
@@ -123,6 +124,7 @@ namespace Managers
                 throw ex;
             }
         }
+
 
 
 

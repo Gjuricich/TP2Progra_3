@@ -18,7 +18,7 @@ namespace GUI
     { 
        
 
-        private List<Item> listArticle;
+        private List<Item> listItem;
         private int currentIndex = 0;
         List<string> url;
         public frmMain()
@@ -52,7 +52,6 @@ namespace GUI
 
         }
 
-       
 
         private void bFilter_Click(object sender, EventArgs e)
         {
@@ -71,11 +70,7 @@ namespace GUI
 
         private void frmMain_Load_1(object sender, EventArgs e)
         {
-
-            ItemManager iManager = new ItemManager();
-            dgArticles.DataSource = iManager.Listacompleta();
-  
-
+            loadGrid();
         }
 
         private void loadGrid()
@@ -84,8 +79,13 @@ namespace GUI
             try
 
             {
-                listArticle = iManager.Listacompleta();
-                dgArticles.DataSource = listArticle;
+                listItem = iManager.Listacompleta();
+                dgArticles.DataSource = listItem;
+                dgArticles.Columns["Id"].Visible = false;
+                dgArticles.Columns["Description"].Visible = false;
+               // rtbDescription.Text = listItem.Description;
+
+
             }
             catch (Exception ex)
             {
@@ -103,7 +103,7 @@ namespace GUI
                 if (answer == DialogResult.Yes)
                 {
                     selected = (Item)dgArticles.CurrentRow.DataBoundItem;
-                    iManager.delete(selected.ArtCode);
+                    iManager.delete(selected.ItemCode);
                     loadGrid();
                 }
             }
@@ -119,19 +119,24 @@ namespace GUI
             ItemManager iManager = new ItemManager();
             Item selected = (Item)dgArticles.CurrentRow.DataBoundItem;
             url = iManager.imagesOfItems(selected.ID());
+
             try
             {
                 if (url.Count() != 0 && currentIndex < url.Count())
                 {
                     // Carga la URL en función del índice actual
-                    pbImgArticles.Load(url[currentIndex]);
+                    if (selected.Description != "")
+                        rtbDescription.Text = selected.Description; 
+                    if(url[currentIndex] != "")
+                        pbImgArticles.Load(url[currentIndex]);
+
                 }
             }
             catch (System.Net.WebException ex)
             {
-                pbImgArticles.Load("https://w7.pngwing.com/pngs/22/842/png-transparent-picture-frame-blue-border-empty-blank-isolated-thumbnail.png");
-                MessageBox.Show("La Ruta : " + url[currentIndex] + " es inaccesible");
-                
+                pbImgArticles.Load("https://lh3.googleusercontent.com/drive-viewer/AITFw-wS6RAUNTNl47sUUVoPu5qMvbp08NQ48aWAXQUFn-TsDK8497WjmJavnGyi0sS0Uvknmg17fx6wTY7MQYhYDIIRn551=w1366-h618");
+                //MessageBox.Show("La Ruta : " + url[currentIndex] + " es inaccesible");
+                //"https://w7.pngwing.com/pngs/22/842/png-transparent-picture-frame-blue-border-empty-blank-isolated-thumbnail.png"
             }
         }
 
