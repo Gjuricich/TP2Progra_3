@@ -65,12 +65,10 @@ namespace GUI
             else
                 return false;
         }
-                
-                
-        
 
+        private void tbUser_TextChanged(object sender, EventArgs e)
+        {
 
-
-        
+        }
     }
 }

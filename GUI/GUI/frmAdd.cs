@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Deployment.Internal;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,8 @@ namespace GUI
 {
     public partial class frmAdd : Form
     {
+        private List<Brand> listBrand;
+        private List<Category> listCategory;
         public frmAdd()
         {
             InitializeComponent();
@@ -46,7 +49,8 @@ namespace GUI
                     return;
                 }
 
-                //artNew.Marc   Falta
+               // artNew.Brand = cbBrand.//Me tiene que devolver el id
+               // artNew.Category = cbCategory.//Me tiene que devolver el id
 
                 iManager.add(artNew);
                 MessageBox.Show("Successfully added");
@@ -59,17 +63,28 @@ namespace GUI
         }
 
         private void frmAdd_Load(object sender, EventArgs e)
-        {
-            Brand addMarc = new Brand();
-            try
-            {
+        { 
 
-            }
-            catch (Exception ex)
-            {
+            BrandManager bManger = new BrandManager();
+            listBrand = bManger.listar();
 
-                throw ex;
+            for(int x=0; x<listBrand.Count(); x++)
+            {
+                 cbBrand.Items.Add(listBrand[x].Descripcion);
             }
+
+            CategoryManager cManager = new CategoryManager();
+            listCategory = cManager.listar();
+
+            for (int i = 0; i < listCategory.Count(); i++)
+            {
+                cbCategory.Items.Add(listCategory[i].Descripcion);
+            }
+        }
+
+        private void cbBrand_SelectedIndexChanged(object sender, EventArgs e)
+        {           
+            
         }
     }
 }

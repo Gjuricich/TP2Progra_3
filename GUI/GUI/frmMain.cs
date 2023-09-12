@@ -133,7 +133,7 @@ namespace GUI
 
                 }
             }
-            catch (System.Net.WebException ex)
+            catch (System.Net.WebException)
             {
 
                     pbImgArticles.Load("https://lh3.googleusercontent.com/drive-viewer/AITFw-wS6RAUNTNl47sUUVoPu5qMvbp08NQ48aWAXQUFn-TsDK8497WjmJavnGyi0sS0Uvknmg17fx6wTY7MQYhYDIIRn551=w1366-h618");

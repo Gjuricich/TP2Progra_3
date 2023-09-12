@@ -49,7 +49,7 @@ namespace GUI
             this.lDescription = new System.Windows.Forms.Label();
             this.lName = new System.Windows.Forms.Label();
             this.lCodeArt = new System.Windows.Forms.Label();
-            this.cbMarc = new System.Windows.Forms.ComboBox();
+            this.cbBrand = new System.Windows.Forms.ComboBox();
             this.cbCategory = new System.Windows.Forms.ComboBox();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxUser)).BeginInit();
@@ -235,14 +235,15 @@ namespace GUI
             this.lCodeArt.TabIndex = 29;
             this.lCodeArt.Text = "Code Article:";
             // 
-            // cbMarc
+            // cbBrand
             // 
-            this.cbMarc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbMarc.FormattingEnabled = true;
-            this.cbMarc.Location = new System.Drawing.Point(227, 235);
-            this.cbMarc.Name = "cbMarc";
-            this.cbMarc.Size = new System.Drawing.Size(416, 21);
-            this.cbMarc.TabIndex = 44;
+            this.cbBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbBrand.FormattingEnabled = true;
+            this.cbBrand.Location = new System.Drawing.Point(227, 235);
+            this.cbBrand.Name = "cbBrand";
+            this.cbBrand.Size = new System.Drawing.Size(416, 21);
+            this.cbBrand.TabIndex = 44;
+            this.cbBrand.SelectedIndexChanged += new System.EventHandler(this.cbBrand_SelectedIndexChanged);
             // 
             // cbCategory
             // 
@@ -260,7 +261,7 @@ namespace GUI
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(854, 480);
             this.Controls.Add(this.cbCategory);
-            this.Controls.Add(this.cbMarc);
+            this.Controls.Add(this.cbBrand);
             this.Controls.Add(this.lImage);
             this.Controls.Add(this.tbImage);
             this.Controls.Add(this.lPrice);
@@ -310,7 +311,7 @@ namespace GUI
         private System.Windows.Forms.Label lDescription;
         private System.Windows.Forms.Label lName;
         private System.Windows.Forms.Label lCodeArt;
-        private System.Windows.Forms.ComboBox cbMarc;
+        private System.Windows.Forms.ComboBox cbBrand;
         private System.Windows.Forms.ComboBox cbCategory;
     }
 }

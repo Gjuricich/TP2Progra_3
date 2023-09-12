@@ -94,7 +94,7 @@ namespace GUI
             this.tituleMain1.BackColor = System.Drawing.Color.Transparent;
             this.tituleMain1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tituleMain1.ForeColor = System.Drawing.SystemColors.Window;
-            this.tituleMain1.Location = new System.Drawing.Point(84, 17);
+            this.tituleMain1.Location = new System.Drawing.Point(92, 17);
             this.tituleMain1.Name = "tituleMain1";
             this.tituleMain1.Size = new System.Drawing.Size(147, 25);
             this.tituleMain1.TabIndex = 9;
@@ -205,7 +205,7 @@ namespace GUI
             // 
             this.dgArticles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgArticles.Location = new System.Drawing.Point(10, 169);
-            this.dgArticles.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgArticles.Margin = new System.Windows.Forms.Padding(2);
             this.dgArticles.Name = "dgArticles";
             this.dgArticles.RowHeadersWidth = 51;
             this.dgArticles.RowTemplate.Height = 24;
@@ -217,7 +217,7 @@ namespace GUI
             // 
             this.btnAvanzar.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAvanzar.Location = new System.Drawing.Point(802, 123);
-            this.btnAvanzar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAvanzar.Margin = new System.Windows.Forms.Padding(2);
             this.btnAvanzar.Name = "btnAvanzar";
             this.btnAvanzar.Size = new System.Drawing.Size(19, 86);
             this.btnAvanzar.TabIndex = 20;
@@ -229,7 +229,7 @@ namespace GUI
             // 
             this.btnRetroceder.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRetroceder.Location = new System.Drawing.Point(514, 123);
-            this.btnRetroceder.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRetroceder.Margin = new System.Windows.Forms.Padding(2);
             this.btnRetroceder.Name = "btnRetroceder";
             this.btnRetroceder.Size = new System.Drawing.Size(19, 86);
             this.btnRetroceder.TabIndex = 21;

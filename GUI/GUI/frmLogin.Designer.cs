@@ -76,11 +76,11 @@ namespace GUI
             // tituleLogin1
             // 
             this.tituleLogin1.AutoSize = true;
-            this.tituleLogin1.Font = new System.Drawing.Font("Open Sans Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tituleLogin1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tituleLogin1.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.tituleLogin1.Location = new System.Drawing.Point(22, 45);
             this.tituleLogin1.Name = "tituleLogin1";
-            this.tituleLogin1.Size = new System.Drawing.Size(145, 28);
+            this.tituleLogin1.Size = new System.Drawing.Size(147, 25);
             this.tituleLogin1.TabIndex = 7;
             this.tituleLogin1.Text = "Management";
             // 
@@ -122,6 +122,7 @@ namespace GUI
             this.tbUser.Name = "tbUser";
             this.tbUser.Size = new System.Drawing.Size(143, 20);
             this.tbUser.TabIndex = 3;
+            this.tbUser.TextChanged += new System.EventHandler(this.tbUser_TextChanged);
             // 
             // pPassword
             // 
@@ -146,11 +147,11 @@ namespace GUI
             // tituleLogin
             // 
             this.tituleLogin.AutoSize = true;
-            this.tituleLogin.Font = new System.Drawing.Font("Open Sans Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tituleLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tituleLogin.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.tituleLogin.Location = new System.Drawing.Point(46, 17);
             this.tituleLogin.Name = "tituleLogin";
-            this.tituleLogin.Size = new System.Drawing.Size(88, 28);
+            this.tituleLogin.Size = new System.Drawing.Size(93, 25);
             this.tituleLogin.TabIndex = 0;
             this.tituleLogin.Text = "Catalog";
             this.tituleLogin.Click += new System.EventHandler(this.tituleLogin_Click);
