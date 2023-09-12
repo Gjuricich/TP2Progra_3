@@ -17,9 +17,11 @@ namespace GUI
     {
         private List<Brand> listBrand;
         private List<Category> listCategory;
+        
         public frmAdd()
         {
             InitializeComponent();
+            pbAddImage.AllowDrop = true;
         }
 
         private void bExit_Click(object sender, EventArgs e)
@@ -85,6 +87,36 @@ namespace GUI
         private void cbBrand_SelectedIndexChanged(object sender, EventArgs e)
         {           
             
+        }
+
+        private void pbAddImage_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        private void pbAddImage_DragDrop(object sender, DragEventArgs e)
+        {
+            Image img;
+            foreach (string pic in ((string[])e.Data.GetData(DataFormats.FileDrop)))
+            {
+                
+                img = Image.FromFile(pic);
+                pbAddImage.Image = img;
+            }
+        }
+
+        private void bBrowse_Click(object sender, EventArgs e)
+        {
+            String img;
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    img = ofd.FileName;
+                    pbAddImage.Image = Image.FromFile(ofd.FileName);
+                }
+            }
+
         }
     }
 }

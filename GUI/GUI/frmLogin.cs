@@ -17,6 +17,7 @@ namespace GUI
             InitializeComponent();
         }
 
+        //Borrar al final
         private void tituleLogin_Click(object sender, EventArgs e)
         {
 
@@ -66,6 +67,7 @@ namespace GUI
                 return false;
         }
 
+        //Borrar al final
         private void tbUser_TextChanged(object sender, EventArgs e)
         {
 
