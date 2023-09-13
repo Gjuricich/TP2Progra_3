@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -63,6 +64,8 @@ namespace GUI
         {
 
             loadGrid();
+            cbxBrand.DataSource=loadBrands();
+            cbxCategory.DataSource=loadCategorys();
         }
         private void loadGrid()
         {
@@ -78,6 +81,49 @@ namespace GUI
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+        List<string> loadBrands()
+        {
+            BrandManager brandManager = new BrandManager();
+            List<Brand>brands = new List<Brand>();
+            List<string>brandName = new List<string>();
+           
+            try
+            {
+                brands = brandManager.listar();
+
+                foreach (Brand elemento in brands)
+                {
+                    brandName.Add(elemento.Descripcion);
+                }
+                return brandName;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        List<string> loadCategorys()
+        {
+            CategoryManager cManager = new CategoryManager();
+            List<Category> categorys = new List<Category>();
+            List<string>categoryName = new List<string>();
+            try
+            {
+                categorys = cManager.listar();  
+                foreach(Category elemento in categorys)
+                {
+                    categoryName.Add(elemento.Descripcion);
+                }
+                return categoryName;    
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
         private void bDelete_Click(object sender, EventArgs e)
         {
@@ -103,18 +149,26 @@ namespace GUI
         {
             DataGridViewRow currentSelectedRow = dgArticles.CurrentRow;
             ItemManager iManager = new ItemManager();
-            Item selected = (Item)dgArticles.CurrentRow.DataBoundItem;
-            url = iManager.imagesOfItems(selected.ID());
-
-            if (currentSelectedRow != null)
+            try
             {
-                // La selección cambia de una fila a otra y cambio el currentIndex a cero para que comienze con la primer foto de la nueva selección.
-                currentIndex = 0;
-                if (selected.Description != "")
-                    rtbDescription.Text = selected.Description;
-                LoadImageAtIndex(currentIndex);
-
+                if (currentSelectedRow != null)
+                {
+                    Item selected = (Item)dgArticles.CurrentRow.DataBoundItem;
+                    url = iManager.imagesOfItems(selected.ID());
+                    // La selección cambia de una fila a otra y cambio el currentIndex a cero para que comienze con la primer foto de la nueva selección.
+                    currentIndex = 0;
+                    if (selected.Description != "")
+                        rtbDescription.Text = selected.Description;
+                    LoadImageAtIndex(currentIndex);
+                }
             }
+            catch (NullReferenceException ex )
+            {
+                throw ex;
+                 
+            }
+
+            
         }
         //divido la parte que se encarga de cargar la imagen segun un indice.
         private void LoadImageAtIndex(int index)
