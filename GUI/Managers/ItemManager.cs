@@ -29,14 +29,14 @@ namespace Managers
                     article.Name = (string)dataManager.Lector["Nombre"];
                     article.Description = (string)dataManager.Lector["Descripcion"];
                     article.ItemCode = (string)dataManager.Lector["Codigo"];
-                    article.Brand = (string)dataManager.Lector["Marca"];
+                    article.Brand.Descripcion = (string)dataManager.Lector["Marca"];
                     if (dataManager.Lector.IsDBNull(dataManager.Lector.GetOrdinal("Categoria")))
                     {
-                        article.Category = "Sin Categoria";
+                        article.Category.Descripcion = "Sin Categoria";
                     }
                     else
                     {
-                        article.Category = (string)dataManager.Lector["Categoria"];
+                        article.Category.Descripcion = (string)dataManager.Lector["Categoria"];
                     }
 
 

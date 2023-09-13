@@ -73,9 +73,6 @@ namespace GUI
                 dgArticles.DataSource = listArticle;
                 dgArticles.Columns["Id"].Visible = false;
                 dgArticles.Columns["Description"].Visible = false;
-
-
-
             }
             catch (Exception ex)
             {
