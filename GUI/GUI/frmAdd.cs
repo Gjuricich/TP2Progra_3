@@ -15,13 +15,14 @@ namespace GUI
 {
     public partial class frmAdd : Form
     {
-        private List<Brand> listBrand;
-        private List<Category> listCategory;
-        
+    
+        private List<UrlImage> listUrlImage;
+
         public frmAdd()
         {
             InitializeComponent();
-            pbAddImage.AllowDrop = true;
+            pbAddImage.AllowDrop = false;
+            listUrlImage = new List<UrlImage>();
         }
 
         private void bExit_Click(object sender, EventArgs e)
@@ -50,12 +51,13 @@ namespace GUI
                     MessageBox.Show("The price value is not valid.");
                     return;
                 }
-
-               // artNew.Brand = cbBrand.//Me tiene que devolver el id
-               // artNew.Category = cbCategory.//Me tiene que devolver el id
+                artNew.Images = listUrlImage;
+                artNew.Brand=(Brand)cbBrand.SelectedItem;
+                artNew.Category= (Category)cbCategory.SelectedItem;
 
                 iManager.add(artNew);
                 MessageBox.Show("Successfully added");
+                listUrlImage.Clear();
                 Close();
             }
             catch (Exception ex)
@@ -66,24 +68,15 @@ namespace GUI
 
         private void frmAdd_Load(object sender, EventArgs e)
         { 
-
             BrandManager bManger = new BrandManager();
-            listBrand = bManger.listar();
-
-            for(int x=0; x<listBrand.Count(); x++)
-            {
-                 cbBrand.Items.Add(listBrand[x].Descripcion);
-            }
-
             CategoryManager cManager = new CategoryManager();
-            listCategory = cManager.listar();
+            cbBrand.DataSource = bManger.listar();
+            cbCategory.DataSource = cManager.listar();
 
-            for (int i = 0; i < listCategory.Count(); i++)
-            {
-                cbCategory.Items.Add(listCategory[i].Descripcion);
-            }
         }
 
+
+        //borrar al final
         private void cbBrand_SelectedIndexChanged(object sender, EventArgs e)
         {           
             
@@ -117,6 +110,20 @@ namespace GUI
                 }
             }
 
+        }
+
+        private void bAddImage_Click(object sender, EventArgs e)
+        {
+            pbAddImage.Load(tbUrlImage.Text);
+        }
+
+        private void bSaveImage_Click(object sender, EventArgs e)
+        {
+            UrlImage aux = new UrlImage();
+            aux.Url = tbUrlImage.Text;
+            listUrlImage.Add(aux);
+            pbAddImage.Image = null;
+            tbUrlImage.Clear();
         }
     }
 }

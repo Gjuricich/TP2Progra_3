@@ -32,7 +32,7 @@ namespace Managers
                     article.Brand.Descripcion = (string)dataManager.Lector["Marca"];
                     if (dataManager.Lector.IsDBNull(dataManager.Lector.GetOrdinal("Categoria")))
                     {
-                        article.Category.Descripcion = "Sin Categoria";
+                        article.Category.Descripcion = " ";
                     }
                     else
                     {
@@ -71,7 +71,13 @@ namespace Managers
 
             try
             {
-                dataManager.setQuery("INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion,Precio) values('" + add.ItemCode + "', '" + add.Name + "' , '" + add.Description + "', " + add.Price + ")");
+                dataManager.setQuery("INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion,Precio, IdMarca, IdCategoria) values(@codigo, @nombre, @descripcion, @precio, @idMarca, @idCategoria)");
+                dataManager.setParameter("@codigo", add.ItemCode);
+                dataManager.setParameter("@nombre", add.Name);
+                dataManager.setParameter("@descripcion", add.Description);
+                dataManager.setParameter("@precio", add.Price);
+                dataManager.setParameter("@idMarca", add.Brand.Id);
+                dataManager.setParameter("@idCategoria", add.Category.Id);
                 dataManager.executeRead();
             }
             catch (Exception ex)

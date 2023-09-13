@@ -53,6 +53,8 @@ namespace GUI
             this.pbAddImage = new System.Windows.Forms.PictureBox();
             this.bSaveImage = new System.Windows.Forms.Button();
             this.bBrowse = new System.Windows.Forms.Button();
+            this.tituleUrl = new System.Windows.Forms.Label();
+            this.tbUrlImage = new System.Windows.Forms.TextBox();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddImage)).BeginInit();
@@ -69,7 +71,7 @@ namespace GUI
             this.panel3.Controls.Add(this.tituleMain);
             this.panel3.Location = new System.Drawing.Point(-1, -1);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(855, 65);
+            this.panel3.Size = new System.Drawing.Size(855, 73);
             this.panel3.TabIndex = 1;
             // 
             // tituleUser
@@ -77,7 +79,7 @@ namespace GUI
             this.tituleUser.AutoSize = true;
             this.tituleUser.BackColor = System.Drawing.Color.Transparent;
             this.tituleUser.ForeColor = System.Drawing.SystemColors.Menu;
-            this.tituleUser.Location = new System.Drawing.Point(762, 25);
+            this.tituleUser.Location = new System.Drawing.Point(762, 34);
             this.tituleUser.Name = "tituleUser";
             this.tituleUser.Size = new System.Drawing.Size(77, 13);
             this.tituleUser.TabIndex = 1;
@@ -88,7 +90,7 @@ namespace GUI
             this.pbxUser.BackColor = System.Drawing.Color.Transparent;
             this.pbxUser.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbxUser.BackgroundImage")));
             this.pbxUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbxUser.Location = new System.Drawing.Point(749, 24);
+            this.pbxUser.Location = new System.Drawing.Point(749, 33);
             this.pbxUser.Name = "pbxUser";
             this.pbxUser.Size = new System.Drawing.Size(15, 15);
             this.pbxUser.TabIndex = 10;
@@ -100,7 +102,7 @@ namespace GUI
             this.tituleMain1.BackColor = System.Drawing.Color.Transparent;
             this.tituleMain1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tituleMain1.ForeColor = System.Drawing.SystemColors.Window;
-            this.tituleMain1.Location = new System.Drawing.Point(92, 17);
+            this.tituleMain1.Location = new System.Drawing.Point(92, 26);
             this.tituleMain1.Name = "tituleMain1";
             this.tituleMain1.Size = new System.Drawing.Size(147, 25);
             this.tituleMain1.TabIndex = 9;
@@ -112,7 +114,7 @@ namespace GUI
             this.tituleMain.BackColor = System.Drawing.Color.Transparent;
             this.tituleMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tituleMain.ForeColor = System.Drawing.SystemColors.Window;
-            this.tituleMain.Location = new System.Drawing.Point(3, 17);
+            this.tituleMain.Location = new System.Drawing.Point(3, 26);
             this.tituleMain.Name = "tituleMain";
             this.tituleMain.Size = new System.Drawing.Size(93, 25);
             this.tituleMain.TabIndex = 8;
@@ -180,9 +182,9 @@ namespace GUI
             // 
             this.bAddArticle.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bAddArticle.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bAddArticle.Location = new System.Drawing.Point(396, 406);
+            this.bAddArticle.Location = new System.Drawing.Point(362, 399);
             this.bAddArticle.Name = "bAddArticle";
-            this.bAddArticle.Size = new System.Drawing.Size(75, 23);
+            this.bAddArticle.Size = new System.Drawing.Size(92, 23);
             this.bAddArticle.TabIndex = 7;
             this.bAddArticle.Text = "Save";
             this.bAddArticle.UseVisualStyleBackColor = false;
@@ -236,7 +238,9 @@ namespace GUI
             // 
             // cbBrand
             // 
+            this.cbBrand.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.cbBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbBrand.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbBrand.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.cbBrand.FormattingEnabled = true;
             this.cbBrand.Location = new System.Drawing.Point(55, 240);
@@ -247,7 +251,10 @@ namespace GUI
             // 
             // cbCategory
             // 
+            this.cbCategory.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.cbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCategory.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cbCategory.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.cbCategory.FormattingEnabled = true;
             this.cbCategory.Location = new System.Drawing.Point(55, 277);
             this.cbCategory.Name = "cbCategory";
@@ -258,20 +265,21 @@ namespace GUI
             // 
             this.bAddImage.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bAddImage.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bAddImage.Location = new System.Drawing.Point(212, 352);
+            this.bAddImage.Location = new System.Drawing.Point(747, 116);
             this.bAddImage.Name = "bAddImage";
-            this.bAddImage.Size = new System.Drawing.Size(101, 33);
+            this.bAddImage.Size = new System.Drawing.Size(75, 23);
             this.bAddImage.TabIndex = 46;
             this.bAddImage.Text = "Add Image";
             this.bAddImage.UseVisualStyleBackColor = false;
+            this.bAddImage.Click += new System.EventHandler(this.bAddImage_Click);
             // 
             // pbAddImage
             // 
             this.pbAddImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbAddImage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pbAddImage.Location = new System.Drawing.Point(431, 122);
+            this.pbAddImage.Location = new System.Drawing.Point(417, 145);
             this.pbAddImage.Name = "pbAddImage";
-            this.pbAddImage.Size = new System.Drawing.Size(285, 215);
+            this.pbAddImage.Size = new System.Drawing.Size(285, 192);
             this.pbAddImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbAddImage.TabIndex = 47;
             this.pbAddImage.TabStop = false;
@@ -282,24 +290,44 @@ namespace GUI
             // 
             this.bSaveImage.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bSaveImage.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bSaveImage.Location = new System.Drawing.Point(747, 161);
+            this.bSaveImage.Location = new System.Drawing.Point(747, 145);
             this.bSaveImage.Name = "bSaveImage";
             this.bSaveImage.Size = new System.Drawing.Size(75, 23);
             this.bSaveImage.TabIndex = 48;
             this.bSaveImage.Text = "Save Image";
             this.bSaveImage.UseVisualStyleBackColor = false;
+            this.bSaveImage.Click += new System.EventHandler(this.bSaveImage_Click);
             // 
             // bBrowse
             // 
             this.bBrowse.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bBrowse.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bBrowse.Location = new System.Drawing.Point(747, 120);
+            this.bBrowse.Location = new System.Drawing.Point(779, 78);
             this.bBrowse.Name = "bBrowse";
             this.bBrowse.Size = new System.Drawing.Size(75, 23);
             this.bBrowse.TabIndex = 49;
             this.bBrowse.Text = "Browse";
             this.bBrowse.UseVisualStyleBackColor = false;
+            this.bBrowse.Visible = false;
             this.bBrowse.Click += new System.EventHandler(this.bBrowse_Click);
+            // 
+            // tituleUrl
+            // 
+            this.tituleUrl.AutoSize = true;
+            this.tituleUrl.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.tituleUrl.Location = new System.Drawing.Point(414, 103);
+            this.tituleUrl.Name = "tituleUrl";
+            this.tituleUrl.Size = new System.Drawing.Size(52, 13);
+            this.tituleUrl.TabIndex = 51;
+            this.tituleUrl.Text = "Url Image";
+            // 
+            // tbUrlImage
+            // 
+            this.tbUrlImage.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.tbUrlImage.Location = new System.Drawing.Point(417, 119);
+            this.tbUrlImage.Name = "tbUrlImage";
+            this.tbUrlImage.Size = new System.Drawing.Size(285, 20);
+            this.tbUrlImage.TabIndex = 50;
             // 
             // frmAdd
             // 
@@ -307,6 +335,8 @@ namespace GUI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(854, 480);
+            this.Controls.Add(this.tituleUrl);
+            this.Controls.Add(this.tbUrlImage);
             this.Controls.Add(this.bBrowse);
             this.Controls.Add(this.bSaveImage);
             this.Controls.Add(this.pbAddImage);
@@ -366,5 +396,7 @@ namespace GUI
         private System.Windows.Forms.PictureBox pbAddImage;
         private System.Windows.Forms.Button bSaveImage;
         private System.Windows.Forms.Button bBrowse;
+        private System.Windows.Forms.Label tituleUrl;
+        private System.Windows.Forms.TextBox tbUrlImage;
     }
 }

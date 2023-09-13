@@ -15,7 +15,7 @@ namespace Domain
         public Brand Brand { get; set; }
         public Category Category { get; set; }
         public decimal Price { get; set; }
-        public List <string> Images { get; set; }
+        public List <UrlImage> Images { get; set; }
         public int ID() { return Id; }
 
 
@@ -34,7 +34,7 @@ namespace Domain
             Brand = brand;
             Category = category;
             Price = price;
-            Images = new List <string>();
+            Images = new List <UrlImage>();
 
         }
 

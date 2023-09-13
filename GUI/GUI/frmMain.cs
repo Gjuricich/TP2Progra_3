@@ -41,6 +41,7 @@ namespace GUI
         {
             frmAdd windowAdd = new frmAdd();
             windowAdd.ShowDialog();
+            loadGrid();
         }
 
         private void bEdit_Click(object sender, EventArgs e)
