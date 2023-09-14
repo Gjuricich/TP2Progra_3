@@ -78,8 +78,8 @@ namespace GUI
         {
 
             loadGrid();
-            cbxBrand.DataSource=loadBrands();
-            cbxCategory.DataSource=loadCategorys();
+            loadcbxBrands();
+            loadcbxCategorys();
         }
         private void loadGrid()
         {
@@ -97,49 +97,36 @@ namespace GUI
                 MessageBox.Show(ex.ToString());
             }
         }
-        List<string> loadBrands()
+        public void loadcbxBrands()
         {
             BrandManager brandManager = new BrandManager();
-            List<Brand>brands = new List<Brand>();
-            List<string>brandName = new List<string>();
-           
             try
             {
-                brands = brandManager.listar();
-
-                foreach (Brand elemento in brands)
-                {
-                    brandName.Add(elemento.Descripcion);
-                }
-                return brandName;
+                cbxBrand.DataSource = brandManager.listar();
+                cbxBrand.ValueMember = "Id";
+                cbxBrand.DisplayMember = "Descripcion";
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
-        List<string> loadCategorys()
+
+        public void loadcbxCategorys()
         {
             CategoryManager cManager = new CategoryManager();
-            List<Category> categorys = new List<Category>();
-            List<string>categoryName = new List<string>();
             try
             {
-                categorys = cManager.listar();  
-                foreach(Category elemento in categorys)
-                {
-                    categoryName.Add(elemento.Descripcion);
-                }
-                return categoryName;    
+                cbxCategory.DataSource = cManager.listar();
+                cbxCategory.ValueMember = "Id";
+                cbxCategory.DisplayMember = "Descripcion";
             }
             catch (Exception)
             {
-
                 throw;
             }
-
         }
+
         private void bDelete_Click(object sender, EventArgs e)
         {
             ItemManager iManager = new ItemManager();
