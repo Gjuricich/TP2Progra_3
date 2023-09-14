@@ -42,31 +42,61 @@ namespace GUI
 
         private void bAddArticle_Click(object sender, EventArgs e)
         {
-            Item artNew = new Item();
+            
             ItemManager iManager = new ItemManager();
 
 
             try
-            {
-                artNew.ItemCode = tbCodeArt.Text;
-                artNew.Name = tbName.Text;
-                artNew.Description = tbDescription.Text;
+            {   
+                if(item == null)
+                {
+                    Item item = new Item();
+                }
+                item.ItemCode = tbCodeArt.Text;
+                item.Name = tbName.Text;
+                item.Description = tbDescription.Text;
                 if (decimal.TryParse(tbPrice.Text, out decimal price))
                 {
-                    artNew.Price = price;
+                    item.Price = price;
                 }
                 else
                 {
                     MessageBox.Show("The price value is not valid.");
                     return;
                 }
-                artNew.Images = listUrlImage;
-                artNew.Brand=(Brand)cbBrand.SelectedItem;
-                artNew.Category= (Category)cbCategory.SelectedItem;
-                artNew.Images = listUrlImage;
+
+                item.Brand=(Brand)cbBrand.SelectedItem;
+                item.Category= (Category)cbCategory.SelectedItem;
+                //Pisa la lista que traia el objeto cuando modifico
+
+                if (item.Images[0].Id != 0)
+                {
+                    for (int i = 0; i < item.Images.Count(); i++)
+                    {
+                        item.Images[i].Url= listUrlImage[i].Url;
+                     
+                    }                  
+                                       
+   
+                }
+                else
+                {
+                    item.Images = listUrlImage;
+                }
+
+                if (item.Id != 0)
+                {
+
+                    iManager.edit(item);
+                    MessageBox.Show("Successfully edited");
+                }
+                else
+                {
+                    iManager.add(item);
+                    MessageBox.Show("Successfully added");
+                }
                 
-                iManager.add(artNew);
-                MessageBox.Show("Successfully added");
+               
                 listUrlImage.Clear();
                 Close();
             }
@@ -98,7 +128,16 @@ namespace GUI
                     tbPrice.Text = item.Price.ToString();
                     cbBrand.SelectedValue = item.Brand.Id;
                     cbCategory.SelectedValue = item.Category.Id;
-                    // falta cargar las imagenes
+                    UrlImageManager aux = new UrlImageManager();
+                    item.Images = aux.imagesOfItems(item.Id);
+                    //tbUrlImage.Text =item.Images.
+
+                  
+
+                    foreach (UrlImage elemento in item.Images)
+                    {
+                        pbAddImage.Load(elemento.Url);
+                    }
 
 
                 }
@@ -113,8 +152,8 @@ namespace GUI
         }
 
 
-        //borrar al final
-     
+
+
 
         private void pbAddImage_DragEnter(object sender, DragEventArgs e)
         {
@@ -157,9 +196,21 @@ namespace GUI
         {
             UrlImage aux = new UrlImage();
             aux.Url = tbUrlImage.Text;
-            listUrlImage.Add(aux);
-            pbAddImage.Image = null;
-            tbUrlImage.Clear();
+            //if (item == null)
+            //{
+             
+                listUrlImage.Add(aux);
+                pbAddImage.Image = null;
+                tbUrlImage.Clear();
+            //}
+           
+            //else
+            //{
+
+                //pbAddImage.ImageLocation;
+                //item.Images;
+             //}
+
         }
 
         private void bclear_Click(object sender, EventArgs e)

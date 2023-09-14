@@ -31,6 +31,7 @@ namespace Managers
                     article.ItemCode = (string)dataManager.Lector["Codigo"];
                     article.Brand.Descripcion = (string)dataManager.Lector["Marca"];
                     article.Brand.Id = (int)dataManager.Lector["Id"];
+                   
                     if (dataManager.Lector.IsDBNull(dataManager.Lector.GetOrdinal("Categoria")))
                     {
                         article.Category.Descripcion = " ";
@@ -63,7 +64,7 @@ namespace Managers
        }
         public List<Item> Listacompleta()
         {
-            return uploadArticlesList("select A.Id As Id, A.Codigo As Codigo,A.Nombre As Nombre ,A.Descripcion As Descripcion ,M.Descripcion Marca,C.Descripcion As Categoria ,A.Precio  As Precio FROM  ARTICULOS A left JOIN  MARCAS M on M.Id= A.IdMarca left JOIN CATEGORIAS C on C.Id= A.IdCategoria");
+            return uploadArticlesList("select A.Id As Id, A.Codigo As Codigo,A.Nombre As Nombre ,A.Descripcion As Descripcion ,M.Descripcion Marca,C.Descripcion As Categoria ,A.Precio  As Precio FROM  ARTICULOS A left JOIN  MARCAS M on M.Id= A.IdMarca left JOIN CATEGORIAS C on C.Id= A.IdCategoria;");
         }
 
 
@@ -138,6 +139,49 @@ namespace Managers
             {
                 throw ex;
             }
+        }
+
+        public void edit(Item item)
+        {
+            DataManager dataManager = new DataManager();
+            try
+            {
+                
+                    dataManager.setQuery("UPDATE ARTICULOS set Codigo = @codigo, Nombre = @nombre , Descripcion = @descripcion,Precio = @precio, IdMarca = @idMarca, IdCategoria = @idCategoria WHERE Id = @id");
+                    dataManager.setParameter("@codigo", item.ItemCode);
+                    dataManager.setParameter("@nombre", item.Name);
+                    dataManager.setParameter("@descripcion", item.Description);
+                    dataManager.setParameter("@precio", item.Price);
+                    dataManager.setParameter("@idMarca", item.Brand.Id);
+                    dataManager.setParameter("@idCategoria", item.Category.Id);
+                    dataManager.setParameter("@id", item.Id);
+                    dataManager.executeRead();
+                    dataManager.closeConection();
+
+
+                    for (int i = 0; i <item.Images.Count(); i++)
+                    {
+                       dataManager = new DataManager();
+                       dataManager.setQuery("UPDATE IMAGENES set ImagenUrl=@Url  WHERE Id = @Id");
+                       dataManager.setParameter("@Url", item.Images[i].Url);
+                       dataManager.setParameter("@Id", item.Images[i].Id);
+                       dataManager.executeRead();
+                       dataManager.closeConection();
+                     }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+
+                dataManager.closeConection();
+            }
+
+
         }
 
         public List<string> imagesOfItems(int ID_Item)

@@ -56,8 +56,7 @@ namespace GUI
             this.tituleUrl = new System.Windows.Forms.Label();
             this.tbUrlImage = new System.Windows.Forms.TextBox();
             this.bclear = new System.Windows.Forms.Button();
-            this.cbUrlImage = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.bDelete = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddImage)).BeginInit();
@@ -139,7 +138,7 @@ namespace GUI
             // 
             this.lPrice.AutoSize = true;
             this.lPrice.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lPrice.Location = new System.Drawing.Point(63, 313);
+            this.lPrice.Location = new System.Drawing.Point(63, 333);
             this.lPrice.Name = "lPrice";
             this.lPrice.Size = new System.Drawing.Size(31, 13);
             this.lPrice.TabIndex = 41;
@@ -148,7 +147,7 @@ namespace GUI
             // tbPrice
             // 
             this.tbPrice.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.tbPrice.Location = new System.Drawing.Point(66, 329);
+            this.tbPrice.Location = new System.Drawing.Point(66, 349);
             this.tbPrice.Name = "tbPrice";
             this.tbPrice.Size = new System.Drawing.Size(274, 20);
             this.tbPrice.TabIndex = 5;
@@ -157,7 +156,7 @@ namespace GUI
             // 
             this.lCategory.AutoSize = true;
             this.lCategory.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lCategory.Location = new System.Drawing.Point(63, 274);
+            this.lCategory.Location = new System.Drawing.Point(63, 286);
             this.lCategory.Name = "lCategory";
             this.lCategory.Size = new System.Drawing.Size(52, 13);
             this.lCategory.TabIndex = 39;
@@ -166,7 +165,7 @@ namespace GUI
             // tbCodeArt
             // 
             this.tbCodeArt.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.tbCodeArt.Location = new System.Drawing.Point(66, 134);
+            this.tbCodeArt.Location = new System.Drawing.Point(66, 119);
             this.tbCodeArt.Name = "tbCodeArt";
             this.tbCodeArt.Size = new System.Drawing.Size(274, 20);
             this.tbCodeArt.TabIndex = 0;
@@ -175,7 +174,7 @@ namespace GUI
             // 
             this.lMarc.AutoSize = true;
             this.lMarc.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lMarc.Location = new System.Drawing.Point(63, 235);
+            this.lMarc.Location = new System.Drawing.Point(63, 242);
             this.lMarc.Name = "lMarc";
             this.lMarc.Size = new System.Drawing.Size(35, 13);
             this.lMarc.TabIndex = 36;
@@ -204,7 +203,7 @@ namespace GUI
             // tbName
             // 
             this.tbName.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.tbName.Location = new System.Drawing.Point(66, 173);
+            this.tbName.Location = new System.Drawing.Point(66, 166);
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(274, 20);
             this.tbName.TabIndex = 1;
@@ -223,7 +222,7 @@ namespace GUI
             // 
             this.lName.AutoSize = true;
             this.lName.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lName.Location = new System.Drawing.Point(63, 157);
+            this.lName.Location = new System.Drawing.Point(63, 150);
             this.lName.Name = "lName";
             this.lName.Size = new System.Drawing.Size(35, 13);
             this.lName.TabIndex = 30;
@@ -233,7 +232,7 @@ namespace GUI
             // 
             this.lCodeArt.AutoSize = true;
             this.lCodeArt.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lCodeArt.Location = new System.Drawing.Point(63, 118);
+            this.lCodeArt.Location = new System.Drawing.Point(63, 103);
             this.lCodeArt.Name = "lCodeArt";
             this.lCodeArt.Size = new System.Drawing.Size(64, 13);
             this.lCodeArt.TabIndex = 29;
@@ -246,7 +245,7 @@ namespace GUI
             this.cbBrand.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbBrand.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.cbBrand.FormattingEnabled = true;
-            this.cbBrand.Location = new System.Drawing.Point(66, 252);
+            this.cbBrand.Location = new System.Drawing.Point(66, 259);
             this.cbBrand.Name = "cbBrand";
             this.cbBrand.Size = new System.Drawing.Size(274, 21);
             this.cbBrand.TabIndex = 44;
@@ -258,7 +257,7 @@ namespace GUI
             this.cbCategory.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbCategory.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.cbCategory.FormattingEnabled = true;
-            this.cbCategory.Location = new System.Drawing.Point(66, 289);
+            this.cbCategory.Location = new System.Drawing.Point(66, 301);
             this.cbCategory.Name = "cbCategory";
             this.cbCategory.Size = new System.Drawing.Size(274, 21);
             this.cbCategory.TabIndex = 45;
@@ -281,7 +280,7 @@ namespace GUI
             this.pbAddImage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pbAddImage.Location = new System.Drawing.Point(415, 157);
             this.pbAddImage.Name = "pbAddImage";
-            this.pbAddImage.Size = new System.Drawing.Size(285, 192);
+            this.pbAddImage.Size = new System.Drawing.Size(285, 212);
             this.pbAddImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbAddImage.TabIndex = 47;
             this.pbAddImage.TabStop = false;
@@ -292,7 +291,7 @@ namespace GUI
             // 
             this.bSaveImage.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bSaveImage.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bSaveImage.Location = new System.Drawing.Point(747, 174);
+            this.bSaveImage.Location = new System.Drawing.Point(747, 212);
             this.bSaveImage.Name = "bSaveImage";
             this.bSaveImage.Size = new System.Drawing.Size(75, 23);
             this.bSaveImage.TabIndex = 48;
@@ -317,7 +316,7 @@ namespace GUI
             // 
             this.tituleUrl.AutoSize = true;
             this.tituleUrl.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.tituleUrl.Location = new System.Drawing.Point(412, 115);
+            this.tituleUrl.Location = new System.Drawing.Point(412, 103);
             this.tituleUrl.Name = "tituleUrl";
             this.tituleUrl.Size = new System.Drawing.Size(52, 13);
             this.tituleUrl.TabIndex = 51;
@@ -326,7 +325,7 @@ namespace GUI
             // tbUrlImage
             // 
             this.tbUrlImage.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.tbUrlImage.Location = new System.Drawing.Point(415, 131);
+            this.tbUrlImage.Location = new System.Drawing.Point(415, 119);
             this.tbUrlImage.Name = "tbUrlImage";
             this.tbUrlImage.Size = new System.Drawing.Size(285, 20);
             this.tbUrlImage.TabIndex = 50;
@@ -343,29 +342,16 @@ namespace GUI
             this.bclear.UseVisualStyleBackColor = false;
             this.bclear.Click += new System.EventHandler(this.bclear_Click);
             // 
-            // cbUrlImage
+            // bDelete
             // 
-            this.cbUrlImage.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.cbUrlImage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbUrlImage.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cbUrlImage.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.cbUrlImage.FormattingEnabled = true;
-            this.cbUrlImage.Location = new System.Drawing.Point(415, 93);
-            this.cbUrlImage.Name = "cbUrlImage";
-            this.cbUrlImage.Size = new System.Drawing.Size(285, 21);
-            this.cbUrlImage.TabIndex = 53;
-            this.cbUrlImage.Visible = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label1.Location = new System.Drawing.Point(412, 77);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
-            this.label1.TabIndex = 54;
-            this.label1.Text = "Url Image";
-            this.label1.Visible = false;
+            this.bDelete.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.bDelete.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.bDelete.Location = new System.Drawing.Point(747, 172);
+            this.bDelete.Name = "bDelete";
+            this.bDelete.Size = new System.Drawing.Size(75, 37);
+            this.bDelete.TabIndex = 53;
+            this.bDelete.Text = "Delete Image";
+            this.bDelete.UseVisualStyleBackColor = false;
             // 
             // frmAddEdit
             // 
@@ -373,8 +359,7 @@ namespace GUI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(854, 480);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.cbUrlImage);
+            this.Controls.Add(this.bDelete);
             this.Controls.Add(this.bclear);
             this.Controls.Add(this.tituleUrl);
             this.Controls.Add(this.tbUrlImage);
@@ -440,7 +425,6 @@ namespace GUI
         private System.Windows.Forms.Label tituleUrl;
         private System.Windows.Forms.TextBox tbUrlImage;
         private System.Windows.Forms.Button bclear;
-        private System.Windows.Forms.ComboBox cbUrlImage;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button bDelete;
     }
 }
