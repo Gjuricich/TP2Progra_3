@@ -184,29 +184,7 @@ namespace Managers
 
         }
 
-        public List<string> imagesOfItems(int ID_Item)
-        {
-
-            List<string> ArticleImages = new List<string>();
-            try
-            {
-                DataManager dataManager = new DataManager();
-                dataManager.setQuery(" select ImagenUrl from IMAGENES where IdArticulo  = " + ID_Item);
-                dataManager.executeRead();
-                while (dataManager.Lector.Read())
-                {
-                    string Url = (string)dataManager.Lector["ImagenUrl"];
-                    ArticleImages.Add(Url);
-                }
-                dataManager.closeConection();
-                return ArticleImages;
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+     
 
 
 

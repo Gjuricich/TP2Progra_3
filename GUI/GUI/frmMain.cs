@@ -19,7 +19,7 @@ namespace GUI
     {
         private List<Item> listArticle;
         private int currentIndex = 0;
-        private List<string> url;
+        private List<UrlImage> currentUrls;
         public frmMain()
         {
             InitializeComponent();
@@ -55,12 +55,12 @@ namespace GUI
                 windowEdit.ShowDialog();
                 loadGrid();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
                 //MessageBox.Show("You must select an item to modify");
             }
-          
+
 
         }
         private void tbSearch_TextChanged(object sender, EventArgs e)
@@ -90,13 +90,15 @@ namespace GUI
                 dgArticles.DataSource = listArticle;
                 dgArticles.Columns["Id"].Visible = false;
                 dgArticles.Columns["Description"].Visible = false;
-            
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
         }
+
+
         public void loadcbxBrands()
         {
             BrandManager brandManager = new BrandManager();
@@ -150,13 +152,13 @@ namespace GUI
         private void dgArticles_SelectionChanged(object sender, EventArgs e)
         {
             DataGridViewRow currentSelectedRow = dgArticles.CurrentRow;
-            ItemManager iManager = new ItemManager();
+            UrlImageManager uManager = new UrlImageManager();
             try
             {
                 if (currentSelectedRow != null)
                 {
                     Item selected = (Item)dgArticles.CurrentRow.DataBoundItem;
-                    url = iManager.imagesOfItems(selected.ID());
+                    currentUrls = uManager.imagesOfItems(selected.ID());
                     // La selección cambia de una fila a otra y cambio el currentIndex a cero para que comienze con la primer foto de la nueva selección.
                     currentIndex = 0;
                     if (selected.Description != "")
@@ -164,34 +166,34 @@ namespace GUI
                     LoadImageAtIndex(currentIndex);
                 }
             }
-            catch (NullReferenceException ex )
+            catch (NullReferenceException ex)
             {
                 throw ex;
-                 
+
             }
 
-            
+
         }
         //divido la parte que se encarga de cargar la imagen segun un indice.
         private void LoadImageAtIndex(int index)
         {
             try
             {
-                if (url.Count() != 0 && index >= 0 && index < url.Count())
+                if (currentUrls.Count() != 0 && index >= 0 && index < currentUrls.Count())
                 {
                     // Carga la URL en función del índice actual
-                    
-                    if (url[currentIndex] != "")
-                        pbImgArticles.Load(url[index]);
+
+                    if (currentUrls[currentIndex].Url != "")
+                        pbImgArticles.Load(currentUrls[index].Url);
 
                 }
             }
             catch (System.Net.WebException)
             {
 
-                    pbImgArticles.Load("https://lh3.googleusercontent.com/drive-viewer/AITFw-wS6RAUNTNl47sUUVoPu5qMvbp08NQ48aWAXQUFn-TsDK8497WjmJavnGyi0sS0Uvknmg17fx6wTY7MQYhYDIIRn551=w1366-h618");
-                    //MessageBox.Show(ex.ToString() + " La Ruta : " + url[index] + " es inaccesible");
-                
+                pbImgArticles.Load("https://lh3.googleusercontent.com/drive-viewer/AITFw-wS6RAUNTNl47sUUVoPu5qMvbp08NQ48aWAXQUFn-TsDK8497WjmJavnGyi0sS0Uvknmg17fx6wTY7MQYhYDIIRn551=w1366-h618");
+                //MessageBox.Show(ex.ToString() + " La Ruta : " + url[index] + " es inaccesible");
+
             }
         }
 
@@ -205,15 +207,12 @@ namespace GUI
         }
         private void btnAvanzar_Click(object sender, EventArgs e)
         {
-            if (currentIndex < url.Count - 1)
+            if (currentIndex < currentUrls.Count - 1)
             {
                 currentIndex++;
                 LoadImageAtIndex(currentIndex);
             }
 
         }
-
-
     }
-
 }
