@@ -1,7 +1,7 @@
 ﻿
 namespace GUI
 {
-    partial class frmAdd
+    partial class frmAddEdit
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace GUI
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAdd));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddEdit));
             this.panel3 = new System.Windows.Forms.Panel();
             this.tituleUser = new System.Windows.Forms.Label();
             this.pbxUser = new System.Windows.Forms.PictureBox();
@@ -55,6 +55,9 @@ namespace GUI
             this.bBrowse = new System.Windows.Forms.Button();
             this.tituleUrl = new System.Windows.Forms.Label();
             this.tbUrlImage = new System.Windows.Forms.TextBox();
+            this.bclear = new System.Windows.Forms.Button();
+            this.cbUrlImage = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddImage)).BeginInit();
@@ -136,7 +139,7 @@ namespace GUI
             // 
             this.lPrice.AutoSize = true;
             this.lPrice.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lPrice.Location = new System.Drawing.Point(52, 301);
+            this.lPrice.Location = new System.Drawing.Point(63, 313);
             this.lPrice.Name = "lPrice";
             this.lPrice.Size = new System.Drawing.Size(31, 13);
             this.lPrice.TabIndex = 41;
@@ -145,7 +148,7 @@ namespace GUI
             // tbPrice
             // 
             this.tbPrice.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.tbPrice.Location = new System.Drawing.Point(55, 317);
+            this.tbPrice.Location = new System.Drawing.Point(66, 329);
             this.tbPrice.Name = "tbPrice";
             this.tbPrice.Size = new System.Drawing.Size(274, 20);
             this.tbPrice.TabIndex = 5;
@@ -154,7 +157,7 @@ namespace GUI
             // 
             this.lCategory.AutoSize = true;
             this.lCategory.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lCategory.Location = new System.Drawing.Point(52, 262);
+            this.lCategory.Location = new System.Drawing.Point(63, 274);
             this.lCategory.Name = "lCategory";
             this.lCategory.Size = new System.Drawing.Size(52, 13);
             this.lCategory.TabIndex = 39;
@@ -163,7 +166,7 @@ namespace GUI
             // tbCodeArt
             // 
             this.tbCodeArt.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.tbCodeArt.Location = new System.Drawing.Point(55, 122);
+            this.tbCodeArt.Location = new System.Drawing.Point(66, 134);
             this.tbCodeArt.Name = "tbCodeArt";
             this.tbCodeArt.Size = new System.Drawing.Size(274, 20);
             this.tbCodeArt.TabIndex = 0;
@@ -172,7 +175,7 @@ namespace GUI
             // 
             this.lMarc.AutoSize = true;
             this.lMarc.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lMarc.Location = new System.Drawing.Point(52, 223);
+            this.lMarc.Location = new System.Drawing.Point(63, 235);
             this.lMarc.Name = "lMarc";
             this.lMarc.Size = new System.Drawing.Size(35, 13);
             this.lMarc.TabIndex = 36;
@@ -182,7 +185,7 @@ namespace GUI
             // 
             this.bAddArticle.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bAddArticle.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bAddArticle.Location = new System.Drawing.Point(362, 399);
+            this.bAddArticle.Location = new System.Drawing.Point(348, 410);
             this.bAddArticle.Name = "bAddArticle";
             this.bAddArticle.Size = new System.Drawing.Size(92, 23);
             this.bAddArticle.TabIndex = 7;
@@ -193,7 +196,7 @@ namespace GUI
             // tbDescription
             // 
             this.tbDescription.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.tbDescription.Location = new System.Drawing.Point(55, 200);
+            this.tbDescription.Location = new System.Drawing.Point(66, 212);
             this.tbDescription.Name = "tbDescription";
             this.tbDescription.Size = new System.Drawing.Size(274, 20);
             this.tbDescription.TabIndex = 2;
@@ -201,7 +204,7 @@ namespace GUI
             // tbName
             // 
             this.tbName.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.tbName.Location = new System.Drawing.Point(55, 161);
+            this.tbName.Location = new System.Drawing.Point(66, 173);
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(274, 20);
             this.tbName.TabIndex = 1;
@@ -210,7 +213,7 @@ namespace GUI
             // 
             this.lDescription.AutoSize = true;
             this.lDescription.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lDescription.Location = new System.Drawing.Point(52, 184);
+            this.lDescription.Location = new System.Drawing.Point(63, 196);
             this.lDescription.Name = "lDescription";
             this.lDescription.Size = new System.Drawing.Size(60, 13);
             this.lDescription.TabIndex = 31;
@@ -220,7 +223,7 @@ namespace GUI
             // 
             this.lName.AutoSize = true;
             this.lName.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lName.Location = new System.Drawing.Point(52, 145);
+            this.lName.Location = new System.Drawing.Point(63, 157);
             this.lName.Name = "lName";
             this.lName.Size = new System.Drawing.Size(35, 13);
             this.lName.TabIndex = 30;
@@ -230,7 +233,7 @@ namespace GUI
             // 
             this.lCodeArt.AutoSize = true;
             this.lCodeArt.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lCodeArt.Location = new System.Drawing.Point(52, 106);
+            this.lCodeArt.Location = new System.Drawing.Point(63, 118);
             this.lCodeArt.Name = "lCodeArt";
             this.lCodeArt.Size = new System.Drawing.Size(64, 13);
             this.lCodeArt.TabIndex = 29;
@@ -243,11 +246,10 @@ namespace GUI
             this.cbBrand.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbBrand.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.cbBrand.FormattingEnabled = true;
-            this.cbBrand.Location = new System.Drawing.Point(55, 240);
+            this.cbBrand.Location = new System.Drawing.Point(66, 252);
             this.cbBrand.Name = "cbBrand";
             this.cbBrand.Size = new System.Drawing.Size(274, 21);
             this.cbBrand.TabIndex = 44;
-            this.cbBrand.SelectedIndexChanged += new System.EventHandler(this.cbBrand_SelectedIndexChanged);
             // 
             // cbCategory
             // 
@@ -256,7 +258,7 @@ namespace GUI
             this.cbCategory.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbCategory.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.cbCategory.FormattingEnabled = true;
-            this.cbCategory.Location = new System.Drawing.Point(55, 277);
+            this.cbCategory.Location = new System.Drawing.Point(66, 289);
             this.cbCategory.Name = "cbCategory";
             this.cbCategory.Size = new System.Drawing.Size(274, 21);
             this.cbCategory.TabIndex = 45;
@@ -269,7 +271,7 @@ namespace GUI
             this.bAddImage.Name = "bAddImage";
             this.bAddImage.Size = new System.Drawing.Size(75, 23);
             this.bAddImage.TabIndex = 46;
-            this.bAddImage.Text = "Add Image";
+            this.bAddImage.Text = "Load Image";
             this.bAddImage.UseVisualStyleBackColor = false;
             this.bAddImage.Click += new System.EventHandler(this.bAddImage_Click);
             // 
@@ -277,7 +279,7 @@ namespace GUI
             // 
             this.pbAddImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbAddImage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pbAddImage.Location = new System.Drawing.Point(417, 145);
+            this.pbAddImage.Location = new System.Drawing.Point(415, 157);
             this.pbAddImage.Name = "pbAddImage";
             this.pbAddImage.Size = new System.Drawing.Size(285, 192);
             this.pbAddImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -290,7 +292,7 @@ namespace GUI
             // 
             this.bSaveImage.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bSaveImage.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bSaveImage.Location = new System.Drawing.Point(747, 145);
+            this.bSaveImage.Location = new System.Drawing.Point(747, 174);
             this.bSaveImage.Name = "bSaveImage";
             this.bSaveImage.Size = new System.Drawing.Size(75, 23);
             this.bSaveImage.TabIndex = 48;
@@ -315,7 +317,7 @@ namespace GUI
             // 
             this.tituleUrl.AutoSize = true;
             this.tituleUrl.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.tituleUrl.Location = new System.Drawing.Point(414, 103);
+            this.tituleUrl.Location = new System.Drawing.Point(412, 115);
             this.tituleUrl.Name = "tituleUrl";
             this.tituleUrl.Size = new System.Drawing.Size(52, 13);
             this.tituleUrl.TabIndex = 51;
@@ -324,17 +326,56 @@ namespace GUI
             // tbUrlImage
             // 
             this.tbUrlImage.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.tbUrlImage.Location = new System.Drawing.Point(417, 119);
+            this.tbUrlImage.Location = new System.Drawing.Point(415, 131);
             this.tbUrlImage.Name = "tbUrlImage";
             this.tbUrlImage.Size = new System.Drawing.Size(285, 20);
             this.tbUrlImage.TabIndex = 50;
             // 
-            // frmAdd
+            // bclear
+            // 
+            this.bclear.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.bclear.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.bclear.Location = new System.Drawing.Point(747, 145);
+            this.bclear.Name = "bclear";
+            this.bclear.Size = new System.Drawing.Size(75, 23);
+            this.bclear.TabIndex = 52;
+            this.bclear.Text = "Clear";
+            this.bclear.UseVisualStyleBackColor = false;
+            this.bclear.Click += new System.EventHandler(this.bclear_Click);
+            // 
+            // cbUrlImage
+            // 
+            this.cbUrlImage.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.cbUrlImage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbUrlImage.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cbUrlImage.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.cbUrlImage.FormattingEnabled = true;
+            this.cbUrlImage.Location = new System.Drawing.Point(415, 93);
+            this.cbUrlImage.Name = "cbUrlImage";
+            this.cbUrlImage.Size = new System.Drawing.Size(285, 21);
+            this.cbUrlImage.TabIndex = 53;
+            this.cbUrlImage.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label1.Location = new System.Drawing.Point(412, 77);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 13);
+            this.label1.TabIndex = 54;
+            this.label1.Text = "Url Image";
+            this.label1.Visible = false;
+            // 
+            // frmAddEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(854, 480);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.cbUrlImage);
+            this.Controls.Add(this.bclear);
             this.Controls.Add(this.tituleUrl);
             this.Controls.Add(this.tbUrlImage);
             this.Controls.Add(this.bBrowse);
@@ -358,7 +399,7 @@ namespace GUI
             this.Controls.Add(this.panel3);
             this.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "frmAdd";
+            this.Name = "frmAddEdit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAdd";
             this.Load += new System.EventHandler(this.frmAdd_Load);
@@ -398,5 +439,8 @@ namespace GUI
         private System.Windows.Forms.Button bBrowse;
         private System.Windows.Forms.Label tituleUrl;
         private System.Windows.Forms.TextBox tbUrlImage;
+        private System.Windows.Forms.Button bclear;
+        private System.Windows.Forms.ComboBox cbUrlImage;
+        private System.Windows.Forms.Label label1;
     }
 }

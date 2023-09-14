@@ -25,11 +25,12 @@ namespace Managers
                 while (dataManager.Lector.Read())
                 {
                     Item article = new Item();
-                    article.Id=(int)dataManager.Lector["Id"];
+                    article.Id = (int)dataManager.Lector["Id"];
                     article.Name = (string)dataManager.Lector["Nombre"];
                     article.Description = (string)dataManager.Lector["Descripcion"];
                     article.ItemCode = (string)dataManager.Lector["Codigo"];
                     article.Brand.Descripcion = (string)dataManager.Lector["Marca"];
+                    article.Brand.Id = (int)dataManager.Lector["Id"];
                     if (dataManager.Lector.IsDBNull(dataManager.Lector.GetOrdinal("Categoria")))
                     {
                         article.Category.Descripcion = " ";
@@ -37,6 +38,7 @@ namespace Managers
                     else
                     {
                         article.Category.Descripcion = (string)dataManager.Lector["Categoria"];
+                        article.Category.Id = (int)dataManager.Lector["Id"];
                     }
 
 
@@ -57,7 +59,7 @@ namespace Managers
         }
         public List<Item> FiltbyName(string palabra)
         {
-            return uploadArticlesList("select A.Id As Id,A.Codigo As Codigo,A.Nombre As Nombre ,A.Descripcion As Descripcion ,M.Descripcion Marca,C.Descripcion As Categoria ,A.Precio  As Precio FROM  ARTICULOS A left JOIN  MARCAS M on M.Id= A.IdMarca left JOIN CATEGORIAS C on C.Id= A.IdCategoria  WHERE A.Nombre LIKE '%" + palabra + "%'");
+            return uploadArticlesList("select A.Id As Id,A.Codigo As Codigo,A.Nombre As Nombre ,A.Descripcion As Descripcion ,M.Descripcion Marca, M.Id Marca,C.Descripcion As Categoria, C.Id Categoria ,A.Precio  As Precio FROM  ARTICULOS A left JOIN  MARCAS M on M.Id= A.IdMarca left JOIN CATEGORIAS C on C.Id= A.IdCategoria  WHERE A.Nombre LIKE '%" + palabra + "%'");
        }
         public List<Item> Listacompleta()
         {
@@ -68,6 +70,7 @@ namespace Managers
         public void add(Item add)
         {
             DataManager dataManager = new DataManager();
+           
 
             try
             {
@@ -79,6 +82,36 @@ namespace Managers
                 dataManager.setParameter("@idMarca", add.Brand.Id);
                 dataManager.setParameter("@idCategoria", add.Category.Id);
                 dataManager.executeRead();
+                dataManager.closeConection();
+
+                dataManager = new DataManager();
+                dataManager.setQuery("SELECT Id FROM ARTICULOS WHERE Codigo = @Codigo");
+                dataManager.setParameter("@Codigo", add.ItemCode);
+                dataManager.executeRead();
+                dataManager.Lector.Read();
+
+                    for (int i = 0; i < add.Images.Count(); i++)
+                    {
+                        add.Images[i].IdArticulo = (int)dataManager.Lector["Id"];
+                    }
+
+                dataManager.closeConection();
+
+               
+                for (int i = 0; i < add.Images.Count(); i++)
+                {
+                    dataManager = new DataManager();
+                    dataManager.setQuery("INSERT INTO IMAGENES (IdArticulo, ImagenUrl) values (@IdArt,@Url)");
+                    dataManager.setParameter("@IdArt", add.Images[i].IdArticulo);
+                    dataManager.setParameter("@Url", add.Images[i].Url);
+                    dataManager.executeRead();
+                    dataManager.closeConection();
+                }
+
+                
+               
+
+
             }
             catch (Exception ex)
             {

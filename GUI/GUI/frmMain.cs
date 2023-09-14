@@ -23,9 +23,8 @@ namespace GUI
         public frmMain()
         {
             InitializeComponent();
-
-
         }
+
         private void bExit_Click(object sender, EventArgs e)
         {
             Close();
@@ -39,15 +38,29 @@ namespace GUI
         }
         private void bAdd_Click(object sender, EventArgs e)
         {
-            frmAdd windowAdd = new frmAdd();
+            frmAddEdit windowAdd = new frmAddEdit();
             windowAdd.ShowDialog();
             loadGrid();
         }
 
         private void bEdit_Click(object sender, EventArgs e)
         {
-            frmEdit windowEdit = new frmEdit();
-            windowEdit.ShowDialog();
+            ItemManager iManager = new ItemManager();
+            Item selected;
+
+            try
+            {
+                selected = (Item)dgArticles.CurrentRow.DataBoundItem;
+                frmAddEdit windowEdit = new frmAddEdit(selected);
+                windowEdit.ShowDialog();
+                loadGrid();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                //MessageBox.Show("You must select an item to modify");
+            }
+          
 
         }
         private void tbSearch_TextChanged(object sender, EventArgs e)
@@ -77,6 +90,7 @@ namespace GUI
                 dgArticles.DataSource = listArticle;
                 dgArticles.Columns["Id"].Visible = false;
                 dgArticles.Columns["Description"].Visible = false;
+            
             }
             catch (Exception ex)
             {

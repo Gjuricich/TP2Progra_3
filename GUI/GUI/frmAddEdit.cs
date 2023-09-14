@@ -13,16 +13,25 @@ using Managers;
 
 namespace GUI
 {
-    public partial class frmAdd : Form
+    public partial class frmAddEdit : Form
     {
     
         private List<UrlImage> listUrlImage;
+        private Item item = null;
 
-        public frmAdd()
+        public frmAddEdit()
         {
             InitializeComponent();
             pbAddImage.AllowDrop = false;
             listUrlImage = new List<UrlImage>();
+        }
+
+        public frmAddEdit(Item item)
+        {
+            InitializeComponent();
+            pbAddImage.AllowDrop = false;
+            listUrlImage = new List<UrlImage>();
+            this.item = item;
         }
 
         private void bExit_Click(object sender, EventArgs e)
@@ -54,7 +63,8 @@ namespace GUI
                 artNew.Images = listUrlImage;
                 artNew.Brand=(Brand)cbBrand.SelectedItem;
                 artNew.Category= (Category)cbCategory.SelectedItem;
-
+                artNew.Images = listUrlImage;
+                
                 iManager.add(artNew);
                 MessageBox.Show("Successfully added");
                 listUrlImage.Clear();
@@ -67,20 +77,44 @@ namespace GUI
         }
 
         private void frmAdd_Load(object sender, EventArgs e)
-        { 
+        {
             BrandManager bManger = new BrandManager();
             CategoryManager cManager = new CategoryManager();
-            cbBrand.DataSource = bManger.listar();
-            cbCategory.DataSource = cManager.listar();
 
+            try
+            {
+                cbBrand.DataSource = bManger.listar(); 
+                cbBrand.ValueMember = "Id";      
+                cbBrand.DisplayMember = "Descripcion";
+                cbCategory.DataSource = cManager.listar();
+                cbCategory.ValueMember = "Id";
+                cbCategory.DisplayMember = "Descripcion";
+
+                if (item != null)
+                {
+                    tbCodeArt.Text = item.ItemCode;
+                    tbName.Text = item.Name;
+                    tbDescription.Text = item.Description;
+                    tbPrice.Text = item.Price.ToString();
+                    cbBrand.SelectedValue = item.Brand.Id;
+                    cbCategory.SelectedValue = item.Category.Id;
+                    // falta cargar las imagenes
+
+
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
 
         //borrar al final
-        private void cbBrand_SelectedIndexChanged(object sender, EventArgs e)
-        {           
-            
-        }
+     
 
         private void pbAddImage_DragEnter(object sender, DragEventArgs e)
         {
@@ -110,6 +144,8 @@ namespace GUI
                 }
             }
 
+          
+
         }
 
         private void bAddImage_Click(object sender, EventArgs e)
@@ -122,6 +158,12 @@ namespace GUI
             UrlImage aux = new UrlImage();
             aux.Url = tbUrlImage.Text;
             listUrlImage.Add(aux);
+            pbAddImage.Image = null;
+            tbUrlImage.Clear();
+        }
+
+        private void bclear_Click(object sender, EventArgs e)
+        {
             pbAddImage.Image = null;
             tbUrlImage.Clear();
         }
