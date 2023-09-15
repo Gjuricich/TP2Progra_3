@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using Domain;
 using Managers;
 
@@ -44,13 +45,13 @@ namespace GUI
         {
             
             ItemManager iManager = new ItemManager();
-
+            Item item = null;
 
             try
             {   
                 if(item == null)
                 {
-                    Item item = new Item();
+                     item = new Item();
                 }
                 item.ItemCode = tbCodeArt.Text;
                 item.Name = tbName.Text;
@@ -69,15 +70,14 @@ namespace GUI
                 item.Category= (Category)cbCategory.SelectedItem;
                 //Pisa la lista que traia el objeto cuando modifico
 
-                if (item.Images[0].Id != 0)
+                if (item.Images != null && item.Images.Count > 0 && item.Images[0].Id != 0)
                 {
                     for (int i = 0; i < item.Images.Count(); i++)
                     {
                         item.Images[i].Url= listUrlImage[i].Url;
                      
                     }                  
-                                       
-   
+
                 }
                 else
                 {
@@ -132,17 +132,27 @@ namespace GUI
                     item.Images = aux.imagesOfItems(item.Id);
                     //tbUrlImage.Text =item.Images.
 
-                  
-
                     foreach (UrlImage elemento in item.Images)
                     {
-                        pbAddImage.Load(elemento.Url);
+                        if (!string.IsNullOrEmpty(elemento.Url))
+                        {
+                            try
+                            {
+                                pbAddImage.Load(elemento.Url);
+                            }
+                            catch (Exception ex)
+                            {
+                                elemento.Url =null;
+                            }
+                        }
+                        else
+                        {
+                            elemento.Url = null;
+                        }
+
                     }
 
-
                 }
-
-
 
             }
             catch (Exception ex)
@@ -150,9 +160,6 @@ namespace GUI
                 MessageBox.Show(ex.ToString());
             }
         }
-
-
-
 
 
         private void pbAddImage_DragEnter(object sender, DragEventArgs e)
