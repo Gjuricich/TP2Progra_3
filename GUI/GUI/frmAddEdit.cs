@@ -196,8 +196,35 @@ namespace GUI
 
         private void bAddImage_Click(object sender, EventArgs e)
         {
+            string url = tbUrlImage.Text;
+
+            do
+            {
+                if (IsValidUrl(url))
+                {
+                    pbAddImage.Load(url);
+                    break; 
+                }
+                else
+                {
+                    MessageBox.Show("Plis, add a valid URL.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            while (true);
+
             pbAddImage.Load(tbUrlImage.Text);
         }
+
+        private bool IsValidUrl(string url)
+        {
+            Uri result;
+            return Uri.TryCreate(url, UriKind.Absolute, out result) &&
+                   (result.Scheme == Uri.UriSchemeHttp || result.Scheme == Uri.UriSchemeHttps);
+
+
+        }
+
 
         private void bSaveImage_Click(object sender, EventArgs e)
         {
@@ -206,17 +233,35 @@ namespace GUI
             //if (item == null)
             //{
              
-                listUrlImage.Add(aux);
-                pbAddImage.Image = null;
-                tbUrlImage.Clear();
+                //listUrlImage.Add(aux);
+                //pbAddImage.Image = null;
+                //tbUrlImage.Clear();
             //}
-           
+
             //else
             //{
 
-                //pbAddImage.ImageLocation;
-                //item.Images;
-             //}
+            //pbAddImage.ImageLocation;
+            //item.Images;
+            //}
+
+            do
+            {
+                if (IsValidUrl(aux.Url))
+                {
+                    pbAddImage.Load(aux.Url);
+                    break;
+                }
+                else
+                {
+                    MessageBox.Show("Plis, add a valid URL.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            while (true);
+            listUrlImage.Add(aux);
+            pbAddImage.Image = null;
+            tbUrlImage.Clear();
 
         }
 
