@@ -21,6 +21,10 @@ namespace GUI
         private Item item = null;
         private int currentIndex = 0;
         private bool empty = false;
+        private List<UrlImage> idDeleted = null;
+        private List<UrlImage> idEdited = null;
+        private List<UrlImage> idNewAdded = null;
+        
 
         public frmAddEdit()
         {
@@ -35,6 +39,10 @@ namespace GUI
             InitializeComponent();
             pbAddImage.AllowDrop = false;
             listUrlImage = new List<UrlImage>();
+            idDeleted = new List<UrlImage>();
+            idEdited = new List<UrlImage>();
+            idNewAdded =  new List<UrlImage>();
+
             this.item = item;
         }
 
@@ -153,10 +161,12 @@ namespace GUI
         {
             
             ItemManager iManager = new ItemManager();
+            UrlImageManager uManager = new UrlImageManager();
             
           
             try
             {   
+                //Caso agregar uno nuevo
                 if(item == null)
                 {
                      item = new Item();
@@ -171,19 +181,8 @@ namespace GUI
                      
                 }
 
-                if (item.Images != null && item.Images.Count > 0)
-                {
-                    for (int i = 0; i < item.Images.Count(); i++)
-                    {
-                        item.Images[0].Url = listUrlImage[0].Url; //lo hace solo para una unica imagen con id existente
-
-                    }
-                }
-                else
-                {
-                    empty = true;
-                    item.Images = listUrlImage;
-                }
+            
+                //Propiedades en comun 
 
                 item.ItemCode = tbCodeArt.Text;
                 item.Name = tbName.Text;
@@ -201,18 +200,39 @@ namespace GUI
                 item.Brand=(Brand)cbBrand.SelectedItem;
                 item.Category= (Category)cbCategory.SelectedItem;
           
+                //Editar un item existente
 
                 if (item.Id != 0)
                 {
+                    if (idDeleted != null && idDeleted.Count() > 0)
+                    {
+                        foreach(UrlImage element in idDeleted)
+                        {
+                            uManager.deleteImage(element.Id);
+                        }
+                
+                    }
+                    
+                    if(idEdited != null && idEdited.Count() > 0)
+                    {
+                        uManager.updateImage(idEdited);
 
-                    iManager.edit(item,empty);
+                    }
+                    
+                    if(idNewAdded != null && idNewAdded.Count() > 0)
+                    {
+                        uManager.addImage(idNewAdded);
+
+                    }
+                
+                    iManager.edit(item);
                     MessageBox.Show("Successfully edited");
                 }
                 else
                 {
 
                     iManager.add(item, empty);
-                    MessageBox.Show("Agregado exitosamente.");
+                    MessageBox.Show("Successfully added.");
                 }
           
 
@@ -272,10 +292,40 @@ namespace GUI
             }
             else
             {
+                //Descartamos ids que se agregaron y se borraron en memoria app
+
+                foreach (UrlImage element in idDeleted)
+                {
+                    if (element.Id == 0)
+                    {
+                        idDeleted.Remove(element);
+                    }
+                }
+
+                //contamos cuantas imagenes nuevas hay que insertar
+
+                foreach (UrlImage d in idDeleted)
+                {
+                    foreach (UrlImage ed in idEdited)
+                    {
+
+                        if (d.Id == ed.Id)
+                        {
+                            idEdited.Remove(ed);
+                        }
+                    }
+
+                    foreach (UrlImage n in idNewAdded)
+                    {
+
+                        if (d.Url == n.Url)
+                        {
+                            idNewAdded.Remove(n);
+                        }
+                    }
+                }
                 //se guardan los cambios add, delete, edit
             }
-
-     
 
         }
 
@@ -301,8 +351,8 @@ namespace GUI
             UrlImage aux = new UrlImage();
             aux.Url = tbUrlImage.Text;
             aux.IdArticulo = item.Id;
-            listUrlImage = item.Images;
             item.Images.Add(aux);
+            idNewAdded.Add(aux);
             pbAddImage.Image = null;
             tbUrlImage.Clear();
             LoadImageAtIndex(currentIndex);
@@ -312,8 +362,8 @@ namespace GUI
         //SOLO FUNCIONA EN LA VENTANA EDIT - FALTA BOTON SAVE CAMBIOS Y CONSULTAS
         private void bDelete_Click(object sender, EventArgs e)
         {
-           
-            listUrlImage = item.Images;
+
+            idDeleted.Add(item.Images[currentIndex]);//si la id =0 nunca se guardó en la base
             item.Images.Remove(item.Images[currentIndex]);
             pbAddImage.Image = null;
             tbUrlImage.Clear();
@@ -327,6 +377,7 @@ namespace GUI
         private void bEditImage_Click(object sender, EventArgs e)
         {
             item.Images[currentIndex].Url= tbUrlImage.Text;
+            idEdited.Add(item.Images[currentIndex]);
             pbAddImage.Image = null;
             tbUrlImage.Clear();
             LoadImageAtIndex(currentIndex);

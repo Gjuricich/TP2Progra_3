@@ -68,7 +68,8 @@ namespace Managers
         {
             DataManager dataManager = new DataManager();
             try
-            {
+            {   
+           
 
                 for (int i = 0; i < imagesItem.Count(); i++)
                 {

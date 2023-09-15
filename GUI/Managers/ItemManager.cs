@@ -164,11 +164,11 @@ namespace Managers
             }
         }
 
-        public void edit(Item item, bool empty)
+        public void edit(Item item)
         {
             DataManager dataManager = new DataManager();
             UrlImageManager imageManager = new UrlImageManager();
-            int aux;
+            
             try
             {
 
@@ -181,29 +181,7 @@ namespace Managers
                 dataManager.setParameter("@idCategoria", item.Category.Id);
                 dataManager.setParameter("@id", item.Id);
                 dataManager.executeRead();
-                dataManager.closeConection();
-
-                if (!empty)
-                {
-                    imageManager.updateImage(item.Images);
-                }
-                else
-                {
-
-                    aux = findId(item);
-                    for (int i = 0; i < item.Images.Count(); i++)
-                    {
-                        item.Images[i].IdArticulo = aux;
-                    }
-
-                    dataManager.closeConection();
-
-                    imageManager.addImage(item.Images);
-                }
-
-
-
-
+          
             }
             catch (Exception)
             {
