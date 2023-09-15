@@ -19,6 +19,11 @@ namespace GUI
     
         private List<UrlImage> listUrlImage;
         private Item item = null;
+        private int currentIndex = 0;
+      
+
+       
+       
 
         public frmAddEdit()
         {
@@ -34,6 +39,92 @@ namespace GUI
             listUrlImage = new List<UrlImage>();
             this.item = item;
         }
+
+        private void frmAdd_Load(object sender, EventArgs e)
+        {
+            BrandManager bManger = new BrandManager();
+            CategoryManager cManager = new CategoryManager();
+
+            try
+            {
+                cbBrand.DataSource = bManger.listar();
+                cbBrand.ValueMember = "Id";
+                cbBrand.DisplayMember = "Descripcion";
+                cbCategory.DataSource = cManager.listar();
+                cbCategory.ValueMember = "Id";
+                cbCategory.DisplayMember = "Descripcion";
+
+                if (item != null)
+                {
+                    tbCodeArt.Text = item.ItemCode;
+                    tbName.Text = item.Name;
+                    tbDescription.Text = item.Description;
+                    tbPrice.Text = item.Price.ToString();
+                    cbBrand.SelectedValue = item.Brand.Id;
+                    cbCategory.SelectedValue = item.Category.Id;
+                    UrlImageManager aux = new UrlImageManager();
+                    item.Images = aux.imagesOfItems(item.Id);
+                    //tbUrlImage.Text =item.Images.
+                    currentIndex = 0;
+                    LoadImageAtIndex(currentIndex);
+
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        //////////////////////////////           Index                ///////////////////////////////////
+
+        private void LoadImageAtIndex(int index)
+        {
+            try
+            {
+                if (item.Images.Count() != 0 && index >= 0 && index < item.Images.Count())
+                {
+                    // Carga la URL en función del índice actual
+
+                    if (item.Images[currentIndex].Url != "")
+                        pbAddImage.Load(item.Images[index].Url);
+
+                }
+            }
+            catch (System.Net.WebException)
+            {
+
+                pbAddImage.Load("https://lh3.googleusercontent.com/drive-viewer/AITFw-wS6RAUNTNl47sUUVoPu5qMvbp08NQ48aWAXQUFn-TsDK8497WjmJavnGyi0sS0Uvknmg17fx6wTY7MQYhYDIIRn551=w1366-h618");
+                //MessageBox.Show(ex.ToString() + " La Ruta : " + url[index] + " es inaccesible");
+
+            }
+        }
+
+
+        private void pbBackward_Click_1(object sender, EventArgs e)
+        {
+            if (currentIndex > 0)
+            {
+                currentIndex--;
+                LoadImageAtIndex(currentIndex);
+            }
+        }
+
+        private void pbfoward_Click_1(object sender, EventArgs e)
+        {
+            if (currentIndex < item.Images.Count - 1)
+            {
+                currentIndex++;
+                LoadImageAtIndex(currentIndex);
+            }
+        }
+
+ 
+
+        //////////////////////////////           Bottons Events             ///////////////////////////////////
 
         private void bExit_Click(object sender, EventArgs e)
         {
@@ -106,60 +197,7 @@ namespace GUI
             }
         }
 
-        private void frmAdd_Load(object sender, EventArgs e)
-        {
-            BrandManager bManger = new BrandManager();
-            CategoryManager cManager = new CategoryManager();
-
-            try
-            {
-                cbBrand.DataSource = bManger.listar(); 
-                cbBrand.ValueMember = "Id";      
-                cbBrand.DisplayMember = "Descripcion";
-                cbCategory.DataSource = cManager.listar();
-                cbCategory.ValueMember = "Id";
-                cbCategory.DisplayMember = "Descripcion";
-
-                if (item != null)
-                {
-                    tbCodeArt.Text = item.ItemCode;
-                    tbName.Text = item.Name;
-                    tbDescription.Text = item.Description;
-                    tbPrice.Text = item.Price.ToString();
-                    cbBrand.SelectedValue = item.Brand.Id;
-                    cbCategory.SelectedValue = item.Category.Id;
-                    UrlImageManager aux = new UrlImageManager();
-                    item.Images = aux.imagesOfItems(item.Id);
-                    //tbUrlImage.Text =item.Images.
-
-                    foreach (UrlImage elemento in item.Images)
-                    {
-                        if (!string.IsNullOrEmpty(elemento.Url))
-                        {
-                            try
-                            {
-                                pbAddImage.Load(elemento.Url);
-                            }
-                            catch (Exception ex)
-                            {
-                                elemento.Url =null;
-                            }
-                        }
-                        else
-                        {
-                            elemento.Url = null;
-                        }
-
-                    }
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
+        
 
 
         private void pbAddImage_DragEnter(object sender, DragEventArgs e)
@@ -270,5 +308,12 @@ namespace GUI
             pbAddImage.Image = null;
             tbUrlImage.Clear();
         }
+
+     
+
+        //////////////////////////////           Methods Validation               ///////////////////////////////////
     }
+
+
+
 }

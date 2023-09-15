@@ -96,6 +96,7 @@ namespace GUI
                 dgArticles.DataSource = listArticle;
                 dgArticles.Columns["Id"].Visible = false;
                 dgArticles.Columns["Description"].Visible = false;
+   
 
             }
             catch (Exception ex)
@@ -174,23 +175,27 @@ namespace GUI
             }
         }
 
-        private void btnRetroceder_Click(object sender, EventArgs e)
+        private void pbBackward_Click(object sender, EventArgs e)
         {
             if (currentIndex > 0)
             {
                 currentIndex--;
                 LoadImageAtIndex(currentIndex);
             }
+
         }
-        private void btnAvanzar_Click(object sender, EventArgs e)
+
+        private void pbfoward_Click(object sender, EventArgs e)
         {
             if (currentIndex < currentUrls.Count - 1)
             {
                 currentIndex++;
                 LoadImageAtIndex(currentIndex);
             }
-
         }
+
+
+
 
         private void btnSerch_Click(object sender, EventArgs e)
         {
@@ -251,5 +256,7 @@ namespace GUI
             }
 
         }
+
+      
     }
 }
