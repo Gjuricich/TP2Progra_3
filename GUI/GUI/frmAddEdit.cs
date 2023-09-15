@@ -300,7 +300,7 @@ namespace GUI
         
             UrlImage aux = new UrlImage();
             aux.Url = tbUrlImage.Text;
-            aux.IdArticulo = item.Images[0].IdArticulo;
+            aux.IdArticulo = item.Id;
             listUrlImage = item.Images;
             item.Images.Add(aux);
             pbAddImage.Image = null;
