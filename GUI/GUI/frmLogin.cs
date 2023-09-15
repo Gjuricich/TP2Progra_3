@@ -35,6 +35,7 @@ namespace GUI
         private void bLoginUserGuest_Click(object sender, EventArgs e)
         {
             frmMain windowGuest = new frmMain();
+            windowGuest.showBottons(true);
             windowGuest.ShowDialog();
         }
 

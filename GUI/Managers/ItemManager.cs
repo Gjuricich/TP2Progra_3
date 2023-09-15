@@ -12,8 +12,8 @@ namespace Managers
 
     public class ItemManager
     {
-       
-       
+
+
         public List<Item> uploadArticlesList(string query)
         {
             List<Item> articles = new List<Item>();
@@ -32,7 +32,7 @@ namespace Managers
                     article.ItemCode = (string)dataManager.Lector["Codigo"];
                     article.Brand.Descripcion = (string)dataManager.Lector["Marca"];
                     article.Brand.Id = (int)dataManager.Lector["Id"];
-                   
+
                     if (dataManager.Lector.IsDBNull(dataManager.Lector.GetOrdinal("Categoria")))
                     {
                         article.Category.Descripcion = " ";
@@ -62,56 +62,73 @@ namespace Managers
         public List<Item> FiltbyName(string palabra)
         {
             return uploadArticlesList("select A.Id As Id,A.Codigo As Codigo,A.Nombre As Nombre ,A.Descripcion As Descripcion ,M.Descripcion Marca, M.Id Marca,C.Descripcion As Categoria, C.Id Categoria ,A.Precio  As Precio FROM  ARTICULOS A left JOIN  MARCAS M on M.Id= A.IdMarca left JOIN CATEGORIAS C on C.Id= A.IdCategoria  WHERE A.Nombre LIKE '%" + palabra + "%'");
-       }
+        }
         public List<Item> Listacompleta()
         {
-            return uploadArticlesList("select A.Id As Id, A.Codigo As Codigo,A.Nombre As Nombre ,A.Descripcion As Descripcion ,M.Descripcion Marca,C.Descripcion As Categoria ,A.Precio  As Precio FROM  ARTICULOS A left JOIN  MARCAS M on M.Id= A.IdMarca left JOIN CATEGORIAS C on C.Id= A.IdCategoria;");
+            return uploadArticlesList("select A.Id As Id, A.Codigo As Codigo,A.Nombre As Nombre ,A.Descripcion As Descripcion ,M.Descripcion Marca,C.Descripcion As Categoria, C.Id Categoria, M.Id Marca ,A.Precio  As Precio FROM  ARTICULOS A left JOIN  MARCAS M on M.Id= A.IdMarca left JOIN CATEGORIAS C on C.Id= A.IdCategoria;");
         }
 
-
-        public void add(Item add)
+        public int findId(Item item)
         {
             DataManager dataManager = new DataManager();
-           
+            int aux;
+            try
+            {
+                dataManager.setQuery("SELECT Id FROM ARTICULOS WHERE Codigo = @Codigo");
+                dataManager.setParameter("@Codigo", item.ItemCode);
+                dataManager.executeRead();
+                dataManager.Lector.Read();
+                aux = (int)dataManager.Lector["Id"];
+                dataManager.closeConection();
+                return aux;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                dataManager.closeConection();
+            }
+
+
+        }
+
+        public void add(Item item, bool empty)
+        {
+            DataManager dataManager = new DataManager();
+            UrlImageManager imageManager = new UrlImageManager();
+            int aux;
+
 
             try
             {
                 dataManager.setQuery("INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion,Precio, IdMarca, IdCategoria) values(@codigo, @nombre, @descripcion, @precio, @idMarca, @idCategoria)");
-                dataManager.setParameter("@codigo", add.ItemCode);
-                dataManager.setParameter("@nombre", add.Name);
-                dataManager.setParameter("@descripcion", add.Description);
-                dataManager.setParameter("@precio", add.Price);
-                dataManager.setParameter("@idMarca", add.Brand.Id);
-                dataManager.setParameter("@idCategoria", add.Category.Id);
+                dataManager.setParameter("@codigo", item.ItemCode);
+                dataManager.setParameter("@nombre", item.Name);
+                dataManager.setParameter("@descripcion", item.Description);
+                dataManager.setParameter("@precio", item.Price);
+                dataManager.setParameter("@idMarca", item.Brand.Id);
+                dataManager.setParameter("@idCategoria", item.Category.Id);
                 dataManager.executeRead();
                 dataManager.closeConection();
 
-                dataManager = new DataManager();
-                dataManager.setQuery("SELECT Id FROM ARTICULOS WHERE Codigo = @Codigo");
-                dataManager.setParameter("@Codigo", add.ItemCode);
-                dataManager.executeRead();
-                dataManager.Lector.Read();
+                if (empty == false)
+                {
 
-                    for (int i = 0; i < add.Images.Count(); i++)
+                    aux = findId(item);
+                    for (int i = 0; i < item.Images.Count(); i++)
                     {
-                        add.Images[i].IdArticulo = (int)dataManager.Lector["Id"];
+                        item.Images[i].IdArticulo = aux;
                     }
 
-                dataManager.closeConection();
-
-               
-                for (int i = 0; i < add.Images.Count(); i++)
-                {
-                    dataManager = new DataManager();
-                    dataManager.setQuery("INSERT INTO IMAGENES (IdArticulo, ImagenUrl) values (@IdArt,@Url)");
-                    dataManager.setParameter("@IdArt", add.Images[i].IdArticulo);
-                    dataManager.setParameter("@Url", add.Images[i].Url);
-                    dataManager.executeRead();
                     dataManager.closeConection();
+
+
+                    imageManager.addImage(item.Images);
                 }
 
-                
-               
 
 
             }
@@ -128,9 +145,10 @@ namespace Managers
 
         public void delete(string Codigo)
         {
+            DataManager data = new DataManager();
             try
             {
-                DataManager data = new DataManager();
+
                 data.setQuery("delete from ARTICULOS where Codigo = @Codigo");
                 data.setParameter("@Codigo", Codigo);
                 data.executeRead();
@@ -140,35 +158,51 @@ namespace Managers
             {
                 throw ex;
             }
+            finally
+            {
+                data.closeConection();
+            }
         }
 
-        public void edit(Item item)
+        public void edit(Item item, bool empty)
         {
             DataManager dataManager = new DataManager();
+            UrlImageManager imageManager = new UrlImageManager();
+            int aux;
             try
             {
-                
-                    dataManager.setQuery("UPDATE ARTICULOS set Codigo = @codigo, Nombre = @nombre , Descripcion = @descripcion,Precio = @precio, IdMarca = @idMarca, IdCategoria = @idCategoria WHERE Id = @id");
-                    dataManager.setParameter("@codigo", item.ItemCode);
-                    dataManager.setParameter("@nombre", item.Name);
-                    dataManager.setParameter("@descripcion", item.Description);
-                    dataManager.setParameter("@precio", item.Price);
-                    dataManager.setParameter("@idMarca", item.Brand.Id);
-                    dataManager.setParameter("@idCategoria", item.Category.Id);
-                    dataManager.setParameter("@id", item.Id);
-                    dataManager.executeRead();
+
+                dataManager.setQuery("UPDATE ARTICULOS set Codigo = @codigo, Nombre = @nombre , Descripcion = @descripcion,Precio = @precio, IdMarca = @idMarca, IdCategoria = @idCategoria WHERE Id = @id");
+                dataManager.setParameter("@codigo", item.ItemCode);
+                dataManager.setParameter("@nombre", item.Name);
+                dataManager.setParameter("@descripcion", item.Description);
+                dataManager.setParameter("@precio", item.Price);
+                dataManager.setParameter("@idMarca", item.Brand.Id);
+                dataManager.setParameter("@idCategoria", item.Category.Id);
+                dataManager.setParameter("@id", item.Id);
+                dataManager.executeRead();
+                dataManager.closeConection();
+
+                if (!empty)
+                {
+                    imageManager.updateImage(item.Images);
+                }
+                else
+                {
+
+                    aux = findId(item);
+                    for (int i = 0; i < item.Images.Count(); i++)
+                    {
+                        item.Images[i].IdArticulo = aux;
+                    }
+
                     dataManager.closeConection();
 
+                    imageManager.addImage(item.Images);
+                }
 
-                    for (int i = 0; i <item.Images.Count(); i++)
-                    {
-                       dataManager = new DataManager();
-                       dataManager.setQuery("UPDATE IMAGENES set ImagenUrl=@Url  WHERE Id = @Id");
-                       dataManager.setParameter("@Url", item.Images[i].Url);
-                       dataManager.setParameter("@Id", item.Images[i].Id);
-                       dataManager.executeRead();
-                       dataManager.closeConection();
-                     }
+
+
 
             }
             catch (Exception)
@@ -194,17 +228,17 @@ namespace Managers
 
                 if (field == "Codigo")
                 {
-                  
+
                     string filterType;
 
                     switch (criterion)
                     {
-                     
+
                         case "Comienza con":
-                            filterType = "'"+filter + "%' ";
+                            filterType = "'" + filter + "%' ";
                             break;
                         case "Termina con":
-                            filterType = " '%" + filter+"'";
+                            filterType = " '%" + filter + "'";
                             break;
                         default:
                             filterType = "'%" + filter + "%'";
@@ -214,7 +248,7 @@ namespace Managers
 
                 }
 
-               else if (field == "Precio")
+                else if (field == "Precio")
                 {
                     string logicOperand;
                     switch (criterion)
@@ -229,7 +263,7 @@ namespace Managers
                             logicOperand = "=";
                             break;
                     }
-                    consulta += "A.Precio "+logicOperand + filter;
+                    consulta += "A.Precio " + logicOperand + filter;
 
                 }
                 else if (field == "Nombre")
@@ -238,7 +272,7 @@ namespace Managers
 
                     switch (criterion)
                     {
-                     
+
                         case "Comienza con":
                             filterType = "'" + filter + "%' ";
                             break;
