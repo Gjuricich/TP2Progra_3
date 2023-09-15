@@ -163,8 +163,12 @@ namespace GUI
 
                     if (currentUrls[currentIndex].Url != "")
                         pbImgArticles.Load(currentUrls[index].Url);
+                    
+                     
 
                 }
+                else
+                    pbImgArticles.Image = null;
             }
             catch (System.Net.WebException)
             {
@@ -181,6 +185,7 @@ namespace GUI
             {
                 currentIndex--;
                 LoadImageAtIndex(currentIndex);
+               
             }
 
         }

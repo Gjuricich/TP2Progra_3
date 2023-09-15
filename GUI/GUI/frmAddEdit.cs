@@ -17,19 +17,17 @@ namespace GUI
     public partial class frmAddEdit : Form
     {
     
-        private List<UrlImage> listUrlImage;
+        private List<UrlImage> listUrlImage = null;
         private Item item = null;
         private int currentIndex = 0;
-      
-
-       
-       
+        private bool empty = false;
 
         public frmAddEdit()
         {
             InitializeComponent();
             pbAddImage.AllowDrop = false;
             listUrlImage = new List<UrlImage>();
+        
         }
 
         public frmAddEdit(Item item)
@@ -44,6 +42,7 @@ namespace GUI
         {
             BrandManager bManger = new BrandManager();
             CategoryManager cManager = new CategoryManager();
+            UrlImageManager aux = new UrlImageManager();
 
             try
             {
@@ -54,23 +53,42 @@ namespace GUI
                 cbCategory.ValueMember = "Id";
                 cbCategory.DisplayMember = "Descripcion";
 
+                pbfoward.Visible = false;
+                pbBackward.Visible = false;
+                pbAddImage.BorderStyle = BorderStyle.Fixed3D;
+                bDelete.Visible = false;
+                bAddImage.Visible = false;
+                bEditImage.Visible = false;
+                bSaveChanges.Visible = false;
+
                 if (item != null)
                 {
+                    pbfoward.Visible = true;
+                    pbBackward.Visible = true;
+                    bDelete.Visible = true;
+                    bAddImage.Visible = true;
+                    bEditImage.Visible = true;
+                    bSaveImage.Visible = false;
+                    bSaveChanges.Visible = true;
+                    pbAddImage.BorderStyle = BorderStyle.None;
+
                     tbCodeArt.Text = item.ItemCode;
                     tbName.Text = item.Name;
                     tbDescription.Text = item.Description;
                     tbPrice.Text = item.Price.ToString();
                     cbBrand.SelectedValue = item.Brand.Id;
                     cbCategory.SelectedValue = item.Category.Id;
-                    UrlImageManager aux = new UrlImageManager();
                     item.Images = aux.imagesOfItems(item.Id);
-                    //tbUrlImage.Text =item.Images.
-                    currentIndex = 0;
-                    LoadImageAtIndex(currentIndex);
+                   
 
-
-
+                    if (item.Images != null && item.Images.Count > 0)
+                    {      
+                        LoadImageAtIndex(currentIndex);
+                        tbUrlImage.Text = item.Images[currentIndex].Url;
+                    }
+                   
                 }
+            
 
             }
             catch (Exception ex)
@@ -91,6 +109,8 @@ namespace GUI
 
                     if (item.Images[currentIndex].Url != "")
                         pbAddImage.Load(item.Images[index].Url);
+                        tbUrlImage.Text = item.Images[index].Url;
+
 
                 }
             }
@@ -110,6 +130,7 @@ namespace GUI
             {
                 currentIndex--;
                 LoadImageAtIndex(currentIndex);
+                tbUrlImage.Text = item.Images[currentIndex].Url;
             }
         }
 
@@ -119,6 +140,7 @@ namespace GUI
             {
                 currentIndex++;
                 LoadImageAtIndex(currentIndex);
+                tbUrlImage.Text = item.Images[currentIndex].Url;
             }
         }
 
@@ -126,24 +148,43 @@ namespace GUI
 
         //////////////////////////////           Bottons Events             ///////////////////////////////////
 
-        private void bExit_Click(object sender, EventArgs e)
-        {
-            Close();
-
-        }
-
+    
         private void bAddArticle_Click(object sender, EventArgs e)
         {
             
             ItemManager iManager = new ItemManager();
-            Item item = null;
-
+            
+          
             try
             {   
                 if(item == null)
                 {
                      item = new Item();
+                     if(listUrlImage != null)
+                    {
+                        item.Images = listUrlImage;
+                    }
+                    else
+                    {
+                        empty = true;
+                    }
+                     
                 }
+
+                if (item.Images != null && item.Images.Count > 0)
+                {
+                    for (int i = 0; i < item.Images.Count(); i++)
+                    {
+                        item.Images[0].Url = listUrlImage[0].Url; //lo hace solo para una unica imagen con id existente
+
+                    }
+                }
+                else
+                {
+                    empty = true;
+                    item.Images = listUrlImage;
+                }
+
                 item.ItemCode = tbCodeArt.Text;
                 item.Name = tbName.Text;
                 item.Description = tbDescription.Text;
@@ -159,35 +200,22 @@ namespace GUI
 
                 item.Brand=(Brand)cbBrand.SelectedItem;
                 item.Category= (Category)cbCategory.SelectedItem;
-                //Pisa la lista que traia el objeto cuando modifico
-
-                if (item.Images != null && item.Images.Count > 0 && item.Images[0].Id != 0)
-                {
-                    for (int i = 0; i < item.Images.Count(); i++)
-                    {
-                        item.Images[i].Url= listUrlImage[i].Url;
-                     
-                    }                  
-
-                }
-                else
-                {
-                    item.Images = listUrlImage;
-                }
+          
 
                 if (item.Id != 0)
                 {
 
-                    iManager.edit(item);
+                    iManager.edit(item,empty);
                     MessageBox.Show("Successfully edited");
                 }
                 else
                 {
-                    iManager.add(item);
-                    MessageBox.Show("Successfully added");
+
+                    iManager.add(item, empty);
+                    MessageBox.Show("Agregado exitosamente.");
                 }
-                
-               
+          
+
                 listUrlImage.Clear();
                 Close();
             }
@@ -197,44 +225,12 @@ namespace GUI
             }
         }
 
-        
-
-
-        private void pbAddImage_DragEnter(object sender, DragEventArgs e)
-        {
-            e.Effect = DragDropEffects.Copy;
-        }
-
-        private void pbAddImage_DragDrop(object sender, DragEventArgs e)
-        {
-            Image img;
-            foreach (string pic in ((string[])e.Data.GetData(DataFormats.FileDrop)))
-            {
-                
-                img = Image.FromFile(pic);
-                pbAddImage.Image = img;
-            }
-        }
-
-        private void bBrowse_Click(object sender, EventArgs e)
-        {
-            String img;
-            using (OpenFileDialog ofd = new OpenFileDialog())
-            {
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    img = ofd.FileName;
-                    pbAddImage.Image = Image.FromFile(ofd.FileName);
-                }
-            }
-
-          
-
-        }
+       
 
         private void bAddImage_Click(object sender, EventArgs e)
         {
             string url = tbUrlImage.Text;
+
 
             do
             {
@@ -268,48 +264,75 @@ namespace GUI
         {
             UrlImage aux = new UrlImage();
             aux.Url = tbUrlImage.Text;
-            //if (item == null)
-            //{
-             
-                //listUrlImage.Add(aux);
-                //pbAddImage.Image = null;
-                //tbUrlImage.Clear();
-            //}
-
-            //else
-            //{
-
-            //pbAddImage.ImageLocation;
-            //item.Images;
-            //}
-
-            do
+            if (item == null)
             {
-                if (IsValidUrl(aux.Url))
-                {
-                    pbAddImage.Load(aux.Url);
-                    break;
-                }
-                else
-                {
-                    MessageBox.Show("Plis, add a valid URL.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                listUrlImage.Add(aux);
+                pbAddImage.Image = null;
+                tbUrlImage.Clear();
             }
-            while (true);
-            listUrlImage.Add(aux);
-            pbAddImage.Image = null;
-            tbUrlImage.Clear();
+            else
+            {
+                //se guardan los cambios add, delete, edit
+            }
+
+     
 
         }
 
-        private void bclear_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             pbAddImage.Image = null;
             tbUrlImage.Clear();
+
         }
 
-     
+        private void bExit_Click(object sender, EventArgs e)
+        {
+          
+            Close();
+
+        }
+
+        //SOLO FUNCIONA EN LA VENTANA EDIT - FALTA BOTON SAVE CAMBIOS Y CONSULTAS
+        private void bAddImage_Click_1(object sender, EventArgs e)
+        {   
+
+        
+            UrlImage aux = new UrlImage();
+            aux.Url = tbUrlImage.Text;
+            aux.IdArticulo = item.Images[0].IdArticulo;
+            listUrlImage = item.Images;
+            item.Images.Add(aux);
+            pbAddImage.Image = null;
+            tbUrlImage.Clear();
+            LoadImageAtIndex(currentIndex);
+        }
+
+
+        //SOLO FUNCIONA EN LA VENTANA EDIT - FALTA BOTON SAVE CAMBIOS Y CONSULTAS
+        private void bDelete_Click(object sender, EventArgs e)
+        {
+           
+            listUrlImage = item.Images;
+            item.Images.Remove(item.Images[currentIndex]);
+            pbAddImage.Image = null;
+            tbUrlImage.Clear();
+            LoadImageAtIndex(currentIndex);
+
+        }
+
+
+
+        //SOLO FUNCIONA EN LA VENTANA EDIT - FALTA BOTON SAVE CAMBIOS Y CONSULTAS
+        private void bEditImage_Click(object sender, EventArgs e)
+        {
+            item.Images[currentIndex].Url= tbUrlImage.Text;
+            pbAddImage.Image = null;
+            tbUrlImage.Clear();
+            LoadImageAtIndex(currentIndex);
+        }
+
+
 
         //////////////////////////////           Methods Validation               ///////////////////////////////////
     }
