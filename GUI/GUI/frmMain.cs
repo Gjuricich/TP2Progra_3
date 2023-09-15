@@ -10,6 +10,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using Domain;
 using Managers;
 
@@ -23,6 +24,8 @@ namespace GUI
         public frmMain()
         {
             InitializeComponent();
+            loadGrid();
+
         }
 
         private void bExit_Click(object sender, EventArgs e)
@@ -66,7 +69,7 @@ namespace GUI
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
             ItemManager iManager = new ItemManager();
-            dgArticles.DataSource = iManager.FiltbyName(tbSearch.Text);
+           // dgArticles.DataSource = iManager.FiltbyName(tbSearch.Text);
             if (dgArticles.CurrentRow == null)
             {
                 pbImgArticles.Load("https://previews.123rf.com/images/yehorlisnyi/yehorlisnyi2104/yehorlisnyi210400016/167492439-sin-foto-o-icono-de-imagen-en-blanco-cargando-im%C3%A1genes-o-marca-de-imagen-faltante-imagen-no.jpg");
@@ -77,9 +80,12 @@ namespace GUI
         private void frmMain_Load_1(object sender, EventArgs e)
         {
 
-            loadGrid();
-            loadcbxBrands();
-            loadcbxCategorys();
+            
+            cbxField.Items.Add("Codigo");
+            cbxField.Items.Add("Nombre");
+            cbxField.Items.Add("Precio");
+            cbxField.Items.Add("Descripción");
+            btnSerch_Click(sender, e);
         }
         private void loadGrid()
         {
@@ -99,36 +105,7 @@ namespace GUI
         }
 
 
-        public void loadcbxBrands()
-        {
-            BrandManager brandManager = new BrandManager();
-            try
-            {
-                cbxBrand.DataSource = brandManager.listar();
-                cbxBrand.ValueMember = "Id";
-                cbxBrand.DisplayMember = "Descripcion";
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public void loadcbxCategorys()
-        {
-            CategoryManager cManager = new CategoryManager();
-            try
-            {
-                cbxCategory.DataSource = cManager.listar();
-                cbxCategory.ValueMember = "Id";
-                cbxCategory.DisplayMember = "Descripcion";
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
+    
         private void bDelete_Click(object sender, EventArgs e)
         {
             ItemManager iManager = new ItemManager();
@@ -211,6 +188,66 @@ namespace GUI
             {
                 currentIndex++;
                 LoadImageAtIndex(currentIndex);
+            }
+
+        }
+
+        private void btnSerch_Click(object sender, EventArgs e)
+        {
+            ItemManager itemManager = new ItemManager();
+            try
+            {
+                if (cbxField.SelectedIndex.ToString() != "")
+                {
+                    if (cbxCriterion.SelectedIndex.ToString() != "")
+                    {
+                        if (txbSerch.Text != "")
+                        {
+
+                            string field = cbxField.SelectedItem.ToString();
+                            string criterion = cbxCriterion.SelectedItem.ToString();
+                            string filter = txbSerch.Text;
+                            listArticle = itemManager.filtedBy(field, criterion, filter);
+                            dgArticles.DataSource = listArticle;
+                        }
+                        else
+                        {
+                            dgArticles.DataSource = itemManager.Listacompleta();
+
+                        }
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+          
+        }
+
+        private void cbxField_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            string opcion = cbxField.SelectedItem.ToString();
+            if (opcion == "Precio")
+            {
+                
+                cbxCriterion.Items.Clear();
+                cbxCriterion.Text = "";
+                cbxCriterion.Items.Add("Mayor a");
+                cbxCriterion.Items.Add("Menor a");
+                cbxCriterion.Items.Add("Igual a");
+            }
+
+            else
+            {
+                cbxCriterion.Items.Clear();
+                cbxCriterion.Text = "";
+                cbxCriterion.Items.Add("Comienza con");
+                cbxCriterion.Items.Add("Termina con");
+                cbxCriterion.Items.Add("Contiene");
             }
 
         }

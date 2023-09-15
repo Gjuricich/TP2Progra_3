@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using Domain;
 
 namespace Managers
@@ -183,11 +184,127 @@ namespace Managers
 
 
         }
+        public List<Item> filtedBy(string field, string criterion, string filter)
+        {
+            List<Item> list = new List<Item>();
+            DataManager dataManager = new DataManager();
+            try
+            {
+                string consulta = "select A.Id As Id,A.Codigo As Codigo,A.Nombre As Nombre ,A.Descripcion As Descripcion ,M.Descripcion As Marca, C.Descripcion As Categoria, A.Precio As Precio FROM  ARTICULOS A left JOIN  MARCAS M on M.Id = A.IdMarca left JOIN CATEGORIAS C on C.Id = A.IdCategoria  WHERE ";
 
-     
+                if (field == "Codigo")
+                {
+                  
+                    string filterType;
+
+                    switch (criterion)
+                    {
+                     
+                        case "Comienza con":
+                            filterType = "'"+filter + "%' ";
+                            break;
+                        case "Termina con":
+                            filterType = " '%" + filter+"'";
+                            break;
+                        default:
+                            filterType = "'%" + filter + "%'";
+                            break;
+                    }
+                    consulta += "A.Codigo like" + filterType;
+
+                }
+
+               else if (field == "Precio")
+                {
+                    string logicOperand;
+                    switch (criterion)
+                    {
+                        case "Mayor a":
+                            logicOperand = ">";
+                            break;
+                        case "Menor a":
+                            logicOperand = "<";
+                            break;
+                        default:
+                            logicOperand = "=";
+                            break;
+                    }
+                    consulta += "A.Precio "+logicOperand + filter;
+
+                }
+                else if (field == "Nombre")
+                {
+                    string filterType;
+
+                    switch (criterion)
+                    {
+                     
+                        case "Comienza con":
+                            filterType = "'" + filter + "%' ";
+                            break;
+                        case "Termina con":
+                            filterType = " '%" + filter + "'";
+                            break;
+                        default:
+                            filterType = "'%" + filter + "%'";
+                            break;
+                    }
+                    consulta += "A.Nombre like" + filterType;
+                }
+
+                else
+                {
+                    string filterType;
+                    switch (criterion)
+                    {
+                        case "Comienza con":
+                            filterType = "'" + filter + "%' ";
+                            break;
+                        case "Termina con":
+                            filterType = " '%" + filter + "'";
+                            break;
+                        default:
+                            filterType = "'%" + filter + "%'";
+                            break;
+                    }
+                    consulta += " A.Descripcion like" + filterType;
+
+                }
+
+                dataManager.setQuery(consulta);
+                dataManager.executeRead();
+                while (dataManager.Lector.Read())
+                {
+                    Item article = new Item();
+                    article.Id = (int)dataManager.Lector["Id"];
+                    article.Name = (string)dataManager.Lector["Nombre"];
+                    article.Description = (string)dataManager.Lector["Descripcion"];
+                    article.ItemCode = (string)dataManager.Lector["Codigo"];
+                    article.Brand.Descripcion = (string)dataManager.Lector["Marca"];
+                    article.Brand.Id = (int)dataManager.Lector["Id"];
+
+                    if (dataManager.Lector.IsDBNull(dataManager.Lector.GetOrdinal("Categoria")))
+                    {
+                        article.Category.Descripcion = " ";
+                    }
+                    else
+                    {
+                        article.Category.Descripcion = (string)dataManager.Lector["Categoria"];
+                        article.Category.Id = (int)dataManager.Lector["Id"];
+                    }
 
 
 
+                    article.Price = (decimal)dataManager.Lector["Precio"];
+                    list.Add(article);
+                }
 
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
