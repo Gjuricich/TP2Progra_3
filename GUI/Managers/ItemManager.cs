@@ -31,7 +31,7 @@ namespace Managers
                     article.Description = (string)dataManager.Lector["Descripcion"];
                     article.ItemCode = (string)dataManager.Lector["Codigo"];
                     article.Brand.Descripcion = (string)dataManager.Lector["Marca"];
-                    article.Brand.Id = (int)dataManager.Lector["Id"];
+                    article.Brand.Id = (int)dataManager.Lector["IdMarca"];
 
                     if (dataManager.Lector.IsDBNull(dataManager.Lector.GetOrdinal("Categoria")))
                     {
@@ -40,7 +40,7 @@ namespace Managers
                     else
                     {
                         article.Category.Descripcion = (string)dataManager.Lector["Categoria"];
-                        article.Category.Id = (int)dataManager.Lector["Id"];
+                        article.Category.Id = (int)dataManager.Lector["IdCategoria"];
                     }
 
 
@@ -65,7 +65,7 @@ namespace Managers
         }
         public List<Item> Listacompleta()
         {
-            return uploadArticlesList("select A.Id As Id, A.Codigo As Codigo,A.Nombre As Nombre ,A.Descripcion As Descripcion ,M.Descripcion Marca,C.Descripcion As Categoria, C.Id Categoria, M.Id Marca ,A.Precio  As Precio FROM  ARTICULOS A left JOIN  MARCAS M on M.Id= A.IdMarca left JOIN CATEGORIAS C on C.Id= A.IdCategoria;");
+            return uploadArticlesList("select A.Id As Id, A.Codigo As Codigo,A.Nombre As Nombre ,A.Descripcion As Descripcion ,M.Descripcion Marca,C.Descripcion As Categoria, C.Id As IdCategoria, M.Id As IdMarca ,A.Precio  As Precio FROM  ARTICULOS A left JOIN  MARCAS M on M.Id= A.IdMarca left JOIN CATEGORIAS C on C.Id= A.IdCategoria");
         }
 
         public int findId(Item item)
