@@ -67,7 +67,7 @@ namespace GUI
                 bDelete.Visible = false;
                 bAddImage.Visible = false;
                 bEditImage.Visible = false;
-                bSaveChanges.Visible = false;
+                bClear.Visible = true;
 
                 if (item != null)
                 {
@@ -77,7 +77,8 @@ namespace GUI
                     bAddImage.Visible = true;
                     bEditImage.Visible = true;
                     bSaveImage.Visible = false;
-                    bSaveChanges.Visible = true;
+                    bClear.Visible = false;
+                    bLoadImage.Visible = false;
                     pbAddImage.BorderStyle = BorderStyle.None;
 
                     tbCodeArt.Text = item.ItemCode;
@@ -199,45 +200,56 @@ namespace GUI
 
                 item.Brand=(Brand)cbBrand.SelectedItem;
                 item.Category= (Category)cbCategory.SelectedItem;
-          
+
                 //Editar un item existente
 
-                if (item.Id != 0)
+                DialogResult result = MessageBox.Show("Desea guardar los datos?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
                 {
-                    if (idDeleted != null && idDeleted.Count() > 0)
+
+                    if (item.Id != 0)
                     {
-                        foreach(UrlImage element in idDeleted)
+                        cocinarPizza();
+                        if (idDeleted != null && idDeleted.Count() > 0)
                         {
-                            uManager.deleteImage(element.Id);
+                            foreach (UrlImage element in idDeleted)
+                            {
+                                uManager.deleteImage(element.IdArticulo);
+                            }
+
                         }
-                
-                    }
-                    
-                    if(idEdited != null && idEdited.Count() > 0)
-                    {
-                        uManager.updateImage(idEdited);
 
-                    }
-                    
-                    if(idNewAdded != null && idNewAdded.Count() > 0)
-                    {
-                        uManager.addImage(idNewAdded);
+                        if (idEdited != null && idEdited.Count() > 0)
+                        {
+                            uManager.updateImage(idEdited);
 
+                        }
+
+                        if (idNewAdded != null && idNewAdded.Count() > 0)
+                        {
+                            uManager.addImage(idNewAdded);
+
+                        }
+
+                        iManager.edit(item);
+                        MessageBox.Show("Successfully edited");
                     }
-                
-                    iManager.edit(item);
-                    MessageBox.Show("Successfully edited");
+                    else
+                    {
+
+                        iManager.add(item, empty);
+                        MessageBox.Show("Successfully added.");
+                    }
+
+
+                    listUrlImage.Clear();
+                    Close();
                 }
                 else
                 {
-
-                    iManager.add(item, empty);
-                    MessageBox.Show("Successfully added.");
+                    Close();
                 }
-          
-
-                listUrlImage.Clear();
-                Close();
             }
             catch (Exception ex)
             {
@@ -279,54 +291,49 @@ namespace GUI
 
         }
 
+        private void cocinarPizza()
+        {
+
+            foreach (UrlImage element in idDeleted)
+            {
+                if (element.Id == 0)
+                {
+                    idDeleted.Remove(element);
+                }
+            }
+
+            //contamos cuantas imagenes nuevas hay que insertar
+
+            foreach (UrlImage d in idDeleted)
+            {
+                foreach (UrlImage ed in idEdited)
+                {
+
+                    if (d.Id == ed.Id)
+                    {
+                        idEdited.Remove(ed);
+                    }
+                }
+
+                foreach (UrlImage n in idNewAdded)
+                {
+
+                    if (d.Url == n.Url)
+                    {
+                        idNewAdded.Remove(n);
+                    }
+                }
+            }
+        }
 
         private void bSaveImage_Click(object sender, EventArgs e)
         {
             UrlImage aux = new UrlImage();
             aux.Url = tbUrlImage.Text;
-            if (item == null)
-            {
-                listUrlImage.Add(aux);
-                pbAddImage.Image = null;
-                tbUrlImage.Clear();
-            }
-            else
-            {
-                //Descartamos ids que se agregaron y se borraron en memoria app
-
-                foreach (UrlImage element in idDeleted)
-                {
-                    if (element.Id == 0)
-                    {
-                        idDeleted.Remove(element);
-                    }
-                }
-
-                //contamos cuantas imagenes nuevas hay que insertar
-
-                foreach (UrlImage d in idDeleted)
-                {
-                    foreach (UrlImage ed in idEdited)
-                    {
-
-                        if (d.Id == ed.Id)
-                        {
-                            idEdited.Remove(ed);
-                        }
-                    }
-
-                    foreach (UrlImage n in idNewAdded)
-                    {
-
-                        if (d.Url == n.Url)
-                        {
-                            idNewAdded.Remove(n);
-                        }
-                    }
-                }
-                //se guardan los cambios add, delete, edit
-            }
-
+            listUrlImage.Add(aux);
+            pbAddImage.Image = null;
+            tbUrlImage.Clear();
+          
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -355,7 +362,7 @@ namespace GUI
             idNewAdded.Add(aux);
             pbAddImage.Image = null;
             tbUrlImage.Clear();
-            LoadImageAtIndex(currentIndex);
+            LoadImageAtIndex(item.Images.Count()-1);
         }
 
 
@@ -382,6 +389,7 @@ namespace GUI
             tbUrlImage.Clear();
             LoadImageAtIndex(currentIndex);
         }
+
 
 
 

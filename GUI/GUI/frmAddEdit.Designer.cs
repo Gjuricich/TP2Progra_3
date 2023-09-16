@@ -60,7 +60,6 @@ namespace GUI
             this.pbBackward = new System.Windows.Forms.PictureBox();
             this.bClear = new System.Windows.Forms.Button();
             this.bAddImage = new System.Windows.Forms.Button();
-            this.bSaveChanges = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddImage)).BeginInit();
@@ -324,7 +323,7 @@ namespace GUI
             // 
             this.bEditImage.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bEditImage.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bEditImage.Location = new System.Drawing.Point(516, 375);
+            this.bEditImage.Location = new System.Drawing.Point(747, 149);
             this.bEditImage.Name = "bEditImage";
             this.bEditImage.Size = new System.Drawing.Size(79, 23);
             this.bEditImage.TabIndex = 52;
@@ -336,7 +335,7 @@ namespace GUI
             // 
             this.bDelete.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bDelete.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bDelete.Location = new System.Drawing.Point(423, 375);
+            this.bDelete.Location = new System.Drawing.Point(748, 178);
             this.bDelete.Name = "bDelete";
             this.bDelete.Size = new System.Drawing.Size(78, 22);
             this.bDelete.TabIndex = 53;
@@ -382,7 +381,7 @@ namespace GUI
             // 
             this.bAddImage.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bAddImage.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bAddImage.Location = new System.Drawing.Point(613, 375);
+            this.bAddImage.Location = new System.Drawing.Point(748, 120);
             this.bAddImage.Name = "bAddImage";
             this.bAddImage.Size = new System.Drawing.Size(75, 23);
             this.bAddImage.TabIndex = 57;
@@ -390,24 +389,12 @@ namespace GUI
             this.bAddImage.UseVisualStyleBackColor = false;
             this.bAddImage.Click += new System.EventHandler(this.bAddImage_Click_1);
             // 
-            // bSaveChanges
-            // 
-            this.bSaveChanges.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.bSaveChanges.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bSaveChanges.Location = new System.Drawing.Point(747, 178);
-            this.bSaveChanges.Name = "bSaveChanges";
-            this.bSaveChanges.Size = new System.Drawing.Size(75, 35);
-            this.bSaveChanges.TabIndex = 58;
-            this.bSaveChanges.Text = "Save changes";
-            this.bSaveChanges.UseVisualStyleBackColor = false;
-            // 
             // frmAddEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(854, 480);
-            this.Controls.Add(this.bSaveChanges);
             this.Controls.Add(this.bAddImage);
             this.Controls.Add(this.bClear);
             this.Controls.Add(this.pbfoward);
@@ -483,6 +470,5 @@ namespace GUI
         private System.Windows.Forms.PictureBox pbBackward;
         private System.Windows.Forms.Button bClear;
         private System.Windows.Forms.Button bAddImage;
-        private System.Windows.Forms.Button bSaveChanges;
     }
 }
