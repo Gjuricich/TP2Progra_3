@@ -192,7 +192,7 @@ namespace GUI
             // 
             this.bEdit.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bEdit.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bEdit.Location = new System.Drawing.Point(600, 401);
+            this.bEdit.Location = new System.Drawing.Point(599, 401);
             this.bEdit.Name = "bEdit";
             this.bEdit.Size = new System.Drawing.Size(58, 22);
             this.bEdit.TabIndex = 17;
@@ -205,7 +205,7 @@ namespace GUI
             // 
             this.bDelete.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bDelete.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bDelete.Location = new System.Drawing.Point(677, 401);
+            this.bDelete.Location = new System.Drawing.Point(680, 401);
             this.bDelete.Name = "bDelete";
             this.bDelete.Size = new System.Drawing.Size(60, 22);
             this.bDelete.TabIndex = 18;
@@ -308,7 +308,7 @@ namespace GUI
             // 
             this.bAddBrandCategory.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bAddBrandCategory.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bAddBrandCategory.Location = new System.Drawing.Point(759, 401);
+            this.bAddBrandCategory.Location = new System.Drawing.Point(762, 401);
             this.bAddBrandCategory.Name = "bAddBrandCategory";
             this.bAddBrandCategory.Size = new System.Drawing.Size(60, 22);
             this.bAddBrandCategory.TabIndex = 29;
