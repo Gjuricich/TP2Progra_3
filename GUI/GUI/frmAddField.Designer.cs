@@ -252,6 +252,7 @@ namespace GUI
             this.bSave.TabIndex = 64;
             this.bSave.Text = "Save";
             this.bSave.UseVisualStyleBackColor = false;
+            this.bSave.Click += new System.EventHandler(this.bSave_Click);
             // 
             // cbBrandCategory
             // 

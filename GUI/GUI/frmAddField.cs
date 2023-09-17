@@ -78,6 +78,39 @@ namespace GUI
                 Close();
         }
 
+        private void bSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult result = MessageBox.Show("Do you want to save this changes?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    updadeCategoriesChanges();
+                    updateBrandChanges();
+                    nullBrandValidationAndExecuts();
+                    nullCategoryValidationAndExecuts();
+                    MessageBox.Show("Successfully changed");
+                    listCategoriesAux.Clear();
+                    listBrandAux.Clear();
+                    Close();
+                }
+                else
+                {
+                    listCategoriesAux.Clear();
+                    listBrandAux.Clear();
+                    Close();
+                    
+                }
+            }
+
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         private void cbSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
             
@@ -243,7 +276,7 @@ namespace GUI
         }
 
 
-        private void upgradeBrandChanges()
+        private void updateBrandChanges()
         {
 
             for (int i = 0; i < brandsDeleted.Count; i++)
@@ -279,7 +312,7 @@ namespace GUI
         }
 
 
-        private void upgradeCategoriesChanges()
+        private void updadeCategoriesChanges()
         {
 
             for (int i = 0; i < categoriesDeleted.Count; i++)
@@ -312,6 +345,61 @@ namespace GUI
                 }
             }
 
+        }
+
+        private void nullBrandValidationAndExecuts()
+        {
+            BrandManager bManager = new BrandManager();
+          
+            if (brandsDeleted != null && brandsDeleted.Count() > 0)
+            {
+                foreach (Brand element in brandsDeleted)
+                {
+                    bManager.deleteBrand(element.Id);
+                }
+
+            }
+
+            if (brandsEdited!= null && brandsEdited.Count() > 0)
+            {
+                bManager.updateBrand(brandsEdited);
+
+            }
+
+            if (brandsAdded != null && brandsAdded.Count() > 0)
+            {
+                bManager.addBrand(brandsAdded);
+
+            }
+        }
+
+        private void nullCategoryValidationAndExecuts()
+        {
+           
+            CategoryManager cManager = new CategoryManager();
+            if (categoriesDeleted != null && categoriesDeleted.Count() > 0)
+            {
+                foreach (Category element in categoriesDeleted)
+                {
+                    cManager.deleteCategory(element.Id);
+                }
+               
+            }
+
+            
+
+            if (categoriesEdited != null && categoriesEdited.Count() > 0)
+            {
+                cManager.updateCategory(categoriesEdited);
+
+            }
+
+            if (categoriesAdded != null && categoriesAdded.Count() > 0)
+            {
+                cManager.addCategory(categoriesAdded);
+                
+
+            }
         }
 
     }
