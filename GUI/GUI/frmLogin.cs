@@ -17,12 +17,6 @@ namespace GUI
             InitializeComponent();
         }
 
-        //Borrar al final
-        private void tituleLogin_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void cbShowPassword_CheckedChanged(object sender, EventArgs e)
         {
             if(cbShowPassword.Checked == true)
@@ -68,10 +62,6 @@ namespace GUI
                 return false;
         }
 
-        //Borrar al final
-        private void tbUser_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+   
     }
 }

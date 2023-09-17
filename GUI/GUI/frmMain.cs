@@ -21,6 +21,7 @@ namespace GUI
         private List<Item> listArticle;
         private int currentIndex = 0;
         private List<UrlImage> currentUrls;
+        private int currentImage = 1;
         public frmMain()
         {
             InitializeComponent();
@@ -142,6 +143,8 @@ namespace GUI
                     if (selected.Description != "")
                         rtbDescription.Text = selected.Description;
                     LoadImageAtIndex(currentIndex);
+                    currentImage = 1;
+                    ImagesCount.Text = currentImage.ToString() + "/" + currentUrls.Count().ToString();
                 }
             }
             catch (NullReferenceException ex)
@@ -183,9 +186,11 @@ namespace GUI
         {
             if (currentIndex > 0)
             {
+                currentImage--;
                 currentIndex--;
                 LoadImageAtIndex(currentIndex);
-               
+                ImagesCount.Text = currentImage.ToString() + "/" + currentUrls.Count().ToString();
+
             }
 
         }
@@ -194,8 +199,10 @@ namespace GUI
         {
             if (currentIndex < currentUrls.Count - 1)
             {
+                currentImage++;
                 currentIndex++;
                 LoadImageAtIndex(currentIndex);
+                ImagesCount.Text = currentImage.ToString() + "/" + currentUrls.Count().ToString();
             }
         }
 
@@ -207,27 +214,30 @@ namespace GUI
             ItemManager itemManager = new ItemManager();
             try
             {
-                if (cbxField.SelectedIndex.ToString() != "")
+                if (cbxField.SelectedItem == null && cbxCriterion.SelectedItem == null && txbSerch.Text.Count() > 0)
                 {
-                    if (cbxCriterion.SelectedIndex.ToString() != "")
-                    {
-                        if (txbSerch.Text != "")
-                        {
-
-                            string field = cbxField.SelectedItem.ToString();
-                            string criterion = cbxCriterion.SelectedItem.ToString();
-                            string filter = txbSerch.Text;
-                            listArticle = itemManager.filtedBy(field, criterion, filter);
-                            dgArticles.DataSource = listArticle;
-                        }
-                        else
-                        {
-                            dgArticles.DataSource = itemManager.Listacompleta();
-
-                        }
-                    }
-
+                    MessageBox.Show("Please select both field and criterion to search", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+
+                else if ( cbxCriterion.SelectedItem == null && txbSerch.Text.Count() > 0)
+                    
+                {
+                    MessageBox.Show("Please select a criterion to search", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    dgArticles.DataSource = itemManager.Listacompleta();
+                }
+                else if(txbSerch.Text == "")
+                {
+                    dgArticles.DataSource = itemManager.Listacompleta();
+                }
+                else 
+                { 
+                    string field = cbxField.SelectedItem.ToString();
+                    string criterion = cbxCriterion.SelectedItem.ToString();
+                    string filter = txbSerch.Text;
+                    listArticle = itemManager.filtedBy(field, criterion, filter);
+                    dgArticles.DataSource = listArticle;
+                }
+                     
             }
             catch (Exception)
             {
@@ -236,8 +246,7 @@ namespace GUI
             }
           
         }
-
-        private void cbxField_SelectedIndexChanged(object sender, EventArgs e)
+private void cbxField_SelectedIndexChanged(object sender, EventArgs e)
         {
             
             string opcion = cbxField.SelectedItem.ToString();
@@ -262,6 +271,6 @@ namespace GUI
 
         }
 
-      
+        
     }
 }

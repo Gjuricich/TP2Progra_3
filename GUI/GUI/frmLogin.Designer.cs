@@ -122,7 +122,6 @@ namespace GUI
             this.tbUser.Name = "tbUser";
             this.tbUser.Size = new System.Drawing.Size(143, 20);
             this.tbUser.TabIndex = 3;
-            this.tbUser.TextChanged += new System.EventHandler(this.tbUser_TextChanged);
             // 
             // pPassword
             // 
@@ -154,7 +153,7 @@ namespace GUI
             this.tituleLogin.Size = new System.Drawing.Size(93, 25);
             this.tituleLogin.TabIndex = 0;
             this.tituleLogin.Text = "Catalog";
-            this.tituleLogin.Click += new System.EventHandler(this.tituleLogin_Click);
+           
             // 
             // bExit
             // 
