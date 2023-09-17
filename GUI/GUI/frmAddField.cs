@@ -14,8 +14,6 @@ namespace GUI
 {
     public partial class frmAddField : Form
 
-        
-
     {
         private List<Brand> brandsDeleted = null, listBrandAux = null, brandsAdded = null, brandsEdited = null;
         private List<Category> categoriesDeleted = null, listCategoriesAux = null, categoriesAdded = null, categoriesEdited = null;
@@ -39,17 +37,25 @@ namespace GUI
         {
             BrandManager bManager = new BrandManager();
             CategoryManager cManager = new CategoryManager();
-            cbBrandCategory.Visible = false;
-            lBrand.Visible = false;
-            lCategory.Visible = false;
-            lNewBrand.Visible = false;
-            lNewCategory.Visible = false;
-            tbNew.Visible = false;
-            cbSelect.Items.Add("Brands");
-            cbSelect.Items.Add("Categories");
-            listCategoriesAux = cManager.listar();
-            listBrandAux = bManager.listar();
- 
+            try
+            {
+                cbBrandCategory.Visible = false;
+                lBrand.Visible = false;
+                lCategory.Visible = false;
+                lNewBrand.Visible = false;
+                lNewCategory.Visible = false;
+                tbNew.Visible = false;
+                cbSelect.Items.Add("Brands");
+                cbSelect.Items.Add("Categories");
+                listCategoriesAux = cManager.listar();
+                listBrandAux = bManager.listar();
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
 
 
         }
@@ -75,7 +81,7 @@ namespace GUI
 
         private void bClose_Click(object sender, EventArgs e)
         {
-                Close();
+            Close();
         }
 
         private void bSave_Click(object sender, EventArgs e)
@@ -86,7 +92,7 @@ namespace GUI
 
                 if (result == DialogResult.Yes)
                 {
-                    updadeCategoriesChanges();
+                    updateCategoriesChanges();
                     updateBrandChanges();
                     nullBrandValidationAndExecuts();
                     nullCategoryValidationAndExecuts();
@@ -100,7 +106,7 @@ namespace GUI
                     listCategoriesAux.Clear();
                     listBrandAux.Clear();
                     Close();
-                    
+
                 }
             }
 
@@ -113,7 +119,7 @@ namespace GUI
 
         private void cbSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             if (cbSelect.Text == "Brands")
             {
                 lBrand.Visible = true;
@@ -125,7 +131,7 @@ namespace GUI
                 loadBrand();
 
             }
-            else if(cbSelect.Text == "Categories")
+            else if (cbSelect.Text == "Categories")
             {
                 lCategory.Visible = true;
                 cbBrandCategory.Visible = true;
@@ -143,38 +149,47 @@ namespace GUI
 
         private void bdelete_Click(object sender, EventArgs e)
         {
-            if (cbSelect.Text == "Brands")
+            
+            if (string.IsNullOrEmpty(cbSelect.Text))
             {
-                DialogResult result = MessageBox.Show("Do you want to delete this brand?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
-                {
-                    brandsDeleted.Add((Brand)cbBrandCategory.SelectedItem);
-                    listBrandAux.Remove((Brand)cbBrandCategory.SelectedItem);         
-                    cbBrandCategory.DataSource = null;
-                    loadBrand();
-                   
-                }
-                else
-                {
-                    return;
-                }
+                MessageBox.Show("Error. You must select a brand/category.");
+                return;
             }
             else
             {
-                DialogResult result = MessageBox.Show("Do you want to delete this Category?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
+                if (cbSelect.Text == "Brands")
                 {
-                    categoriesDeleted.Add((Category)cbBrandCategory.SelectedItem);
-                    listCategoriesAux.Remove((Category)cbBrandCategory.SelectedItem);
-                    cbBrandCategory.DataSource = null;          
-                    loadCategory();
+                    DialogResult result = MessageBox.Show("Do you want to delete this brand?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
+                    if (result == DialogResult.Yes)
+                    {
+                        brandsDeleted.Add((Brand)cbBrandCategory.SelectedItem);
+                        listBrandAux.Remove((Brand)cbBrandCategory.SelectedItem);
+                        cbBrandCategory.DataSource = null;
+                        loadBrand();
+
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
                 else
                 {
-                    return;
+                    DialogResult result = MessageBox.Show("Do you want to delete this Category?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        categoriesDeleted.Add((Category)cbBrandCategory.SelectedItem);
+                        listCategoriesAux.Remove((Category)cbBrandCategory.SelectedItem);
+                        cbBrandCategory.DataSource = null;
+                        loadCategory();
+
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
             }
         }
@@ -184,101 +199,117 @@ namespace GUI
         private void bEdit_Click(object sender, EventArgs e)
         {
 
-            if (cbSelect.Text == "Brands")
+            if (string.IsNullOrEmpty(tbNew.Text))
             {
-
-                DialogResult result = MessageBox.Show("Do you want to edit this Brand?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
-                {
-              
-                    listBrandAux[cbBrandCategory.SelectedIndex].Descripcion = tbNew.Text; 
-                    brandsEdited.Add(listBrandAux[cbBrandCategory.SelectedIndex]);
-                    tbNew.Clear();
-                    cbBrandCategory.DataSource = null;
-                    loadBrand();
-                   
-
-                }
-                else
-                {
-                    return;
-                }
-
+                MessageBox.Show("Error. The edit field/New is empty.");
+                return;
             }
             else
             {
-                DialogResult result = MessageBox.Show("Do you want to edit this Category?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
+                if (cbSelect.Text == "Brands")
                 {
-                    listCategoriesAux[cbBrandCategory.SelectedIndex].Descripcion = tbNew.Text;
-                    categoriesEdited.Add(listCategoriesAux[cbBrandCategory.SelectedIndex]);
-                    tbNew.Clear();
-                    cbBrandCategory.DataSource = null;
-                    loadCategory();
+
+                    DialogResult result = MessageBox.Show("Do you want to edit this Brand?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.Yes)
+                    {
+
+                        listBrandAux[cbBrandCategory.SelectedIndex].Descripcion = tbNew.Text;
+                        brandsEdited.Add(listBrandAux[cbBrandCategory.SelectedIndex]);
+                        tbNew.Clear();
+                        cbBrandCategory.DataSource = null;
+                        loadBrand();
+
+
+                    }
+                    else
+                    {
+                        return;
+                    }
 
                 }
                 else
                 {
-                    return;
+                    DialogResult result = MessageBox.Show("Do you want to edit this Category?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        listCategoriesAux[cbBrandCategory.SelectedIndex].Descripcion = tbNew.Text;
+                        categoriesEdited.Add(listCategoriesAux[cbBrandCategory.SelectedIndex]);
+                        tbNew.Clear();
+                        cbBrandCategory.DataSource = null;
+                        loadCategory();
+
+                    }
+                    else
+                    {
+                        return;
+                    }
+
+
                 }
-
-
             }
         }
 
         private void bAdd_Click(object sender, EventArgs e)
         {
 
-
-            if (cbSelect.Text == "Brands")
+            if (string.IsNullOrEmpty(tbNew.Text))
             {
-
-                DialogResult result = MessageBox.Show("Do you want to add this Brand?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
-                {
-                    Brand brand = new Brand();
-                    brand.Descripcion = tbNew.Text;
-                    brandsAdded.Add(brand);
-                    listBrandAux.Add(brand);
-                    tbNew.Clear();
-                    cbBrandCategory.DataSource = null;
-                    loadBrand();
-
-
-                }
-                else
-                {
-                    return;
-                }
+                MessageBox.Show("Error. The edit field/New is empty.");
+                return;
             }
             else
             {
-                DialogResult result = MessageBox.Show("Do you want to add this Brand?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
+                if (cbSelect.Text == "Brands")
                 {
-                    Category category = new Category();
-                    category.Descripcion = tbNew.Text;
-                    categoriesAdded.Add(category);
-                    listCategoriesAux.Add(category);
-                    tbNew.Clear();
-                    cbBrandCategory.DataSource = null;
-                    loadCategory();
+
+                    DialogResult result = MessageBox.Show("Do you want to add this Brand?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        Brand brand = new Brand();
+                        brand.Descripcion = tbNew.Text;
+                        brandsAdded.Add(brand);
+                        listBrandAux.Add(brand);
+                        tbNew.Clear();
+                        cbBrandCategory.DataSource = null;
+                        loadBrand();
+
+
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
                 else
                 {
-                    return;
+                    DialogResult result = MessageBox.Show("Do you want to add this Brand?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        Category category = new Category();
+                        category.Descripcion = tbNew.Text;
+                        categoriesAdded.Add(category);
+                        listCategoriesAux.Add(category);
+                        tbNew.Clear();
+                        cbBrandCategory.DataSource = null;
+                        loadCategory();
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
 
 
+                
             }
 
 
-
         }
+    
 
 
         private void updateBrandChanges()
@@ -317,7 +348,7 @@ namespace GUI
         }
 
 
-        private void updadeCategoriesChanges()
+        private void updateCategoriesChanges()
         {
 
             for (int i = 0; i < categoriesDeleted.Count; i++)
@@ -382,6 +413,7 @@ namespace GUI
         {
            
             CategoryManager cManager = new CategoryManager();
+
             if (categoriesDeleted != null && categoriesDeleted.Count() > 0)
             {
                 foreach (Category element in categoriesDeleted)
@@ -406,6 +438,9 @@ namespace GUI
 
             }
         }
+
+  
+
 
     }
 }
