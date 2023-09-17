@@ -42,6 +42,7 @@ namespace GUI
             this.tbCodeArt = new System.Windows.Forms.TextBox();
             this.lMarc = new System.Windows.Forms.Label();
             this.bAddArticle = new System.Windows.Forms.Button();
+            this.tbDescription = new System.Windows.Forms.TextBox();
             this.tbName = new System.Windows.Forms.TextBox();
             this.lDescription = new System.Windows.Forms.Label();
             this.lName = new System.Windows.Forms.Label();
@@ -59,7 +60,6 @@ namespace GUI
             this.pbBackward = new System.Windows.Forms.PictureBox();
             this.bClear = new System.Windows.Forms.Button();
             this.bAddImage = new System.Windows.Forms.Button();
-            this.rtbDescription = new System.Windows.Forms.RichTextBox();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddImage)).BeginInit();
@@ -77,7 +77,7 @@ namespace GUI
             this.panel3.Controls.Add(this.tituleMain1);
             this.panel3.Controls.Add(this.tituleMain);
             this.panel3.Location = new System.Drawing.Point(-1, -1);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1140, 90);
             this.panel3.TabIndex = 1;
@@ -100,7 +100,7 @@ namespace GUI
             this.pbxUser.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbxUser.BackgroundImage")));
             this.pbxUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbxUser.Location = new System.Drawing.Point(999, 41);
-            this.pbxUser.Margin = new System.Windows.Forms.Padding(4);
+            this.pbxUser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pbxUser.Name = "pbxUser";
             this.pbxUser.Size = new System.Drawing.Size(20, 18);
             this.pbxUser.TabIndex = 10;
@@ -137,7 +137,7 @@ namespace GUI
             this.bExit.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bExit.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.bExit.Location = new System.Drawing.Point(983, 549);
-            this.bExit.Margin = new System.Windows.Forms.Padding(4);
+            this.bExit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bExit.Name = "bExit";
             this.bExit.Size = new System.Drawing.Size(113, 27);
             this.bExit.TabIndex = 8;
@@ -149,7 +149,7 @@ namespace GUI
             // 
             this.lPrice.AutoSize = true;
             this.lPrice.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lPrice.Location = new System.Drawing.Point(42, 464);
+            this.lPrice.Location = new System.Drawing.Point(43, 415);
             this.lPrice.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lPrice.Name = "lPrice";
             this.lPrice.Size = new System.Drawing.Size(38, 16);
@@ -159,8 +159,8 @@ namespace GUI
             // tbPrice
             // 
             this.tbPrice.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.tbPrice.Location = new System.Drawing.Point(46, 484);
-            this.tbPrice.Margin = new System.Windows.Forms.Padding(4);
+            this.tbPrice.Location = new System.Drawing.Point(47, 434);
+            this.tbPrice.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbPrice.Name = "tbPrice";
             this.tbPrice.Size = new System.Drawing.Size(364, 22);
             this.tbPrice.TabIndex = 5;
@@ -169,7 +169,7 @@ namespace GUI
             // 
             this.lCategory.AutoSize = true;
             this.lCategory.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lCategory.Location = new System.Drawing.Point(42, 406);
+            this.lCategory.Location = new System.Drawing.Point(43, 357);
             this.lCategory.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lCategory.Name = "lCategory";
             this.lCategory.Size = new System.Drawing.Size(65, 16);
@@ -180,8 +180,7 @@ namespace GUI
             // 
             this.tbCodeArt.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.tbCodeArt.Location = new System.Drawing.Point(47, 151);
-            this.tbCodeArt.Margin = new System.Windows.Forms.Padding(4);
-            this.tbCodeArt.MaxLength = 50;
+            this.tbCodeArt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbCodeArt.Name = "tbCodeArt";
             this.tbCodeArt.Size = new System.Drawing.Size(364, 22);
             this.tbCodeArt.TabIndex = 0;
@@ -190,7 +189,7 @@ namespace GUI
             // 
             this.lMarc.AutoSize = true;
             this.lMarc.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lMarc.Location = new System.Drawing.Point(42, 352);
+            this.lMarc.Location = new System.Drawing.Point(43, 303);
             this.lMarc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lMarc.Name = "lMarc";
             this.lMarc.Size = new System.Drawing.Size(43, 16);
@@ -202,7 +201,7 @@ namespace GUI
             this.bAddArticle.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bAddArticle.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.bAddArticle.Location = new System.Drawing.Point(443, 521);
-            this.bAddArticle.Margin = new System.Windows.Forms.Padding(4);
+            this.bAddArticle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bAddArticle.Name = "bAddArticle";
             this.bAddArticle.Size = new System.Drawing.Size(123, 28);
             this.bAddArticle.TabIndex = 7;
@@ -210,12 +209,20 @@ namespace GUI
             this.bAddArticle.UseVisualStyleBackColor = false;
             this.bAddArticle.Click += new System.EventHandler(this.bAddArticle_Click);
             // 
+            // tbDescription
+            // 
+            this.tbDescription.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.tbDescription.Location = new System.Drawing.Point(47, 266);
+            this.tbDescription.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbDescription.Name = "tbDescription";
+            this.tbDescription.Size = new System.Drawing.Size(364, 22);
+            this.tbDescription.TabIndex = 2;
+            // 
             // tbName
             // 
             this.tbName.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.tbName.Location = new System.Drawing.Point(47, 209);
-            this.tbName.Margin = new System.Windows.Forms.Padding(4);
-            this.tbName.MaxLength = 50;
+            this.tbName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(364, 22);
             this.tbName.TabIndex = 1;
@@ -260,11 +267,12 @@ namespace GUI
             this.cbBrand.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbBrand.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.cbBrand.FormattingEnabled = true;
-            this.cbBrand.Location = new System.Drawing.Point(46, 373);
-            this.cbBrand.Margin = new System.Windows.Forms.Padding(4);
+            this.cbBrand.Location = new System.Drawing.Point(47, 324);
+            this.cbBrand.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbBrand.Name = "cbBrand";
             this.cbBrand.Size = new System.Drawing.Size(364, 24);
             this.cbBrand.TabIndex = 44;
+          
             // 
             // cbCategory
             // 
@@ -273,8 +281,8 @@ namespace GUI
             this.cbCategory.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbCategory.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.cbCategory.FormattingEnabled = true;
-            this.cbCategory.Location = new System.Drawing.Point(46, 424);
-            this.cbCategory.Margin = new System.Windows.Forms.Padding(4);
+            this.cbCategory.Location = new System.Drawing.Point(47, 375);
+            this.cbCategory.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbCategory.Name = "cbCategory";
             this.cbCategory.Size = new System.Drawing.Size(364, 24);
             this.cbCategory.TabIndex = 45;
@@ -284,19 +292,19 @@ namespace GUI
             this.bLoadImage.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bLoadImage.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.bLoadImage.Location = new System.Drawing.Point(997, 148);
-            this.bLoadImage.Margin = new System.Windows.Forms.Padding(4);
+            this.bLoadImage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bLoadImage.Name = "bLoadImage";
             this.bLoadImage.Size = new System.Drawing.Size(100, 28);
             this.bLoadImage.TabIndex = 46;
             this.bLoadImage.Text = "Load Image";
             this.bLoadImage.UseVisualStyleBackColor = false;
-            this.bLoadImage.Click += new System.EventHandler(this.bLoadImage_Click);
+            this.bLoadImage.Click += new System.EventHandler(this.bAddImage_Click);
             // 
             // pbAddImage
             // 
             this.pbAddImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbAddImage.Location = new System.Drawing.Point(564, 193);
-            this.pbAddImage.Margin = new System.Windows.Forms.Padding(4);
+            this.pbAddImage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pbAddImage.Name = "pbAddImage";
             this.pbAddImage.Size = new System.Drawing.Size(353, 261);
             this.pbAddImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -308,7 +316,7 @@ namespace GUI
             this.bSaveImage.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bSaveImage.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.bSaveImage.Location = new System.Drawing.Point(997, 219);
-            this.bSaveImage.Margin = new System.Windows.Forms.Padding(4);
+            this.bSaveImage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bSaveImage.Name = "bSaveImage";
             this.bSaveImage.Size = new System.Drawing.Size(100, 28);
             this.bSaveImage.TabIndex = 48;
@@ -331,7 +339,7 @@ namespace GUI
             // 
             this.tbUrlImage.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.tbUrlImage.Location = new System.Drawing.Point(524, 151);
-            this.tbUrlImage.Margin = new System.Windows.Forms.Padding(4);
+            this.tbUrlImage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbUrlImage.Name = "tbUrlImage";
             this.tbUrlImage.Size = new System.Drawing.Size(433, 22);
             this.tbUrlImage.TabIndex = 50;
@@ -341,7 +349,7 @@ namespace GUI
             this.bEditImage.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bEditImage.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.bEditImage.Location = new System.Drawing.Point(996, 183);
-            this.bEditImage.Margin = new System.Windows.Forms.Padding(4);
+            this.bEditImage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bEditImage.Name = "bEditImage";
             this.bEditImage.Size = new System.Drawing.Size(105, 28);
             this.bEditImage.TabIndex = 52;
@@ -353,8 +361,8 @@ namespace GUI
             // 
             this.bDelete.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bDelete.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bDelete.Location = new System.Drawing.Point(996, 220);
-            this.bDelete.Margin = new System.Windows.Forms.Padding(4);
+            this.bDelete.Location = new System.Drawing.Point(997, 219);
+            this.bDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bDelete.Name = "bDelete";
             this.bDelete.Size = new System.Drawing.Size(104, 27);
             this.bDelete.TabIndex = 53;
@@ -367,7 +375,7 @@ namespace GUI
             this.pbfoward.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbfoward.BackgroundImage")));
             this.pbfoward.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbfoward.Location = new System.Drawing.Point(917, 298);
-            this.pbfoward.Margin = new System.Windows.Forms.Padding(4);
+            this.pbfoward.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pbfoward.Name = "pbfoward";
             this.pbfoward.Size = new System.Drawing.Size(41, 41);
             this.pbfoward.TabIndex = 55;
@@ -379,7 +387,7 @@ namespace GUI
             this.pbBackward.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbBackward.BackgroundImage")));
             this.pbBackward.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbBackward.Location = new System.Drawing.Point(521, 298);
-            this.pbBackward.Margin = new System.Windows.Forms.Padding(4);
+            this.pbBackward.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pbBackward.Name = "pbBackward";
             this.pbBackward.Size = new System.Drawing.Size(41, 41);
             this.pbBackward.TabIndex = 54;
@@ -390,8 +398,8 @@ namespace GUI
             // 
             this.bClear.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bClear.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bClear.Location = new System.Drawing.Point(996, 184);
-            this.bClear.Margin = new System.Windows.Forms.Padding(4);
+            this.bClear.Location = new System.Drawing.Point(997, 183);
+            this.bClear.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bClear.Name = "bClear";
             this.bClear.Size = new System.Drawing.Size(100, 28);
             this.bClear.TabIndex = 56;
@@ -404,7 +412,7 @@ namespace GUI
             this.bAddImage.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bAddImage.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.bAddImage.Location = new System.Drawing.Point(997, 148);
-            this.bAddImage.Margin = new System.Windows.Forms.Padding(4);
+            this.bAddImage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bAddImage.Name = "bAddImage";
             this.bAddImage.Size = new System.Drawing.Size(100, 28);
             this.bAddImage.TabIndex = 57;
@@ -412,24 +420,12 @@ namespace GUI
             this.bAddImage.UseVisualStyleBackColor = false;
             this.bAddImage.Click += new System.EventHandler(this.bAddImage_Click_1);
             // 
-            // rtbDescription
-            // 
-            this.rtbDescription.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.rtbDescription.Location = new System.Drawing.Point(47, 266);
-            this.rtbDescription.Margin = new System.Windows.Forms.Padding(4);
-            this.rtbDescription.MaxLength = 150;
-            this.rtbDescription.Name = "rtbDescription";
-            this.rtbDescription.Size = new System.Drawing.Size(364, 73);
-            this.rtbDescription.TabIndex = 58;
-            this.rtbDescription.Text = "";
-            // 
             // frmAddEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1139, 591);
-            this.Controls.Add(this.rtbDescription);
             this.Controls.Add(this.bAddImage);
             this.Controls.Add(this.bClear);
             this.Controls.Add(this.pbfoward);
@@ -449,6 +445,7 @@ namespace GUI
             this.Controls.Add(this.tbCodeArt);
             this.Controls.Add(this.lMarc);
             this.Controls.Add(this.bAddArticle);
+            this.Controls.Add(this.tbDescription);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.lDescription);
             this.Controls.Add(this.lName);
@@ -457,7 +454,7 @@ namespace GUI
             this.Controls.Add(this.panel3);
             this.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "frmAddEdit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAdd";
@@ -487,6 +484,7 @@ namespace GUI
         private System.Windows.Forms.TextBox tbCodeArt;
         private System.Windows.Forms.Label lMarc;
         private System.Windows.Forms.Button bAddArticle;
+        private System.Windows.Forms.TextBox tbDescription;
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.Label lDescription;
         private System.Windows.Forms.Label lName;
@@ -504,6 +502,5 @@ namespace GUI
         private System.Windows.Forms.PictureBox pbBackward;
         private System.Windows.Forms.Button bClear;
         private System.Windows.Forms.Button bAddImage;
-        private System.Windows.Forms.RichTextBox rtbDescription;
     }
 }
