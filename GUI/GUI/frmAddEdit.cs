@@ -20,6 +20,7 @@ namespace GUI
        
         private Item item = null;
         private int currentIndex = 0;
+        private int currentImage = 1;
         private List<UrlImage> listUrlImage = null;
         private List<UrlImage> listImageDeleted = null; 
         private List<UrlImage> listImageEdited = null;
@@ -60,7 +61,7 @@ namespace GUI
                 cbCategory.DataSource = cManager.listar();
                 cbCategory.ValueMember = "Id";
                 cbCategory.DisplayMember = "Descripcion";
-
+                imageCount.Visible = false;
                 pbfoward.Visible = false;
                 pbBackward.Visible = false;
                 pbAddImage.BorderStyle = BorderStyle.Fixed3D;
@@ -78,6 +79,7 @@ namespace GUI
                     bEditImage.Visible = true;
                     bSaveImage.Visible = false;
                     bClear.Visible = false;
+                    imageCount.Visible = true;
                     bLoadImage.Visible = false;
                     pbAddImage.BorderStyle = BorderStyle.None;
 
@@ -88,7 +90,8 @@ namespace GUI
                     cbBrand.SelectedValue = item.Brand.Id;
                     cbCategory.SelectedValue = item.Category.Id;
                     item.Images = aux.imagesOfItems(item.Id);
-                   
+                    imageCount.Text = currentImage.ToString() + "/" + item.Images.Count().ToString();
+
 
                     if (item.Images != null && item.Images.Count > 0)
                     {      
@@ -136,8 +139,11 @@ namespace GUI
         {
             if (currentIndex > 0)
             {
+                currentImage--;
                 currentIndex--;
                 LoadImageAtIndex(currentIndex);
+                imageCount.Text = currentImage.ToString() + "/" + item.Images.Count().ToString();
+
             }
         }
 
@@ -145,8 +151,11 @@ namespace GUI
         {
             if (currentIndex < item.Images.Count - 1)
             {
+                currentImage++;
                 currentIndex++;
                 LoadImageAtIndex(currentIndex);
+                imageCount.Text = currentImage.ToString() + "/" + item.Images.Count().ToString();
+
               
             }
         }
@@ -378,6 +387,7 @@ namespace GUI
                 pbAddImage.Image = null;
                 tbUrlImage.Clear();
                 LoadImageAtIndex(currentIndex);
+                imageCount.Text = currentIndex + "/" + item.Images.Count().ToString();
             }
 
         }
