@@ -148,6 +148,8 @@ namespace GUI
                     currentIndex = 0;
                     if (selected.Description != "")
                         rtbDescription.Text = selected.Description;
+                    else
+                        rtbDescription.Text = "";
                     LoadImageAtIndex(currentIndex);
                     
                     if (currentUrls.Count() > 0)
