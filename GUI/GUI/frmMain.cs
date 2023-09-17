@@ -21,6 +21,7 @@ namespace GUI
         private List<Item> listArticle;
         private int currentIndex = 0;
         private List<UrlImage> currentUrls;
+        private int currentImage = 1;
         public frmMain()
         {
             InitializeComponent();
@@ -142,6 +143,8 @@ namespace GUI
                     if (selected.Description != "")
                         rtbDescription.Text = selected.Description;
                     LoadImageAtIndex(currentIndex);
+                    currentImage = 1;
+                    ImagesCount.Text = currentImage.ToString() + "/" + currentUrls.Count().ToString();
                 }
             }
             catch (NullReferenceException ex)
@@ -183,9 +186,11 @@ namespace GUI
         {
             if (currentIndex > 0)
             {
+                currentImage--;
                 currentIndex--;
                 LoadImageAtIndex(currentIndex);
-               
+                ImagesCount.Text = currentImage.ToString() + "/" + currentUrls.Count().ToString();
+
             }
 
         }
@@ -194,8 +199,10 @@ namespace GUI
         {
             if (currentIndex < currentUrls.Count - 1)
             {
+                currentImage++;
                 currentIndex++;
                 LoadImageAtIndex(currentIndex);
+                ImagesCount.Text = currentImage.ToString() + "/" + currentUrls.Count().ToString();
             }
         }
 
@@ -264,6 +271,6 @@ private void cbxField_SelectedIndexChanged(object sender, EventArgs e)
 
         }
 
-      
+        
     }
 }
