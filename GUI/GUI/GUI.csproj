@@ -46,11 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmAdminBrandCategory.cs">
+    <Compile Include="frmAddField.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAdminBrandCategory.Designer.cs">
-      <DependentUpon>frmAdminBrandCategory.cs</DependentUpon>
+    <Compile Include="frmAddField.Designer.cs">
+      <DependentUpon>frmAddField.cs</DependentUpon>
     </Compile>
     <Compile Include="frmAddEdit.cs">
       <SubType>Form</SubType>
@@ -72,8 +72,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frmAdminBrandCategory.resx">
-      <DependentUpon>frmAdminBrandCategory.cs</DependentUpon>
+    <EmbeddedResource Include="frmAddField.resx">
+      <DependentUpon>frmAddField.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAddEdit.resx">
       <DependentUpon>frmAddEdit.cs</DependentUpon>

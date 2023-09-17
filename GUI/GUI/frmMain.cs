@@ -40,6 +40,12 @@ namespace GUI
             bDelete.Visible = show;
             tituleUser.Text = "Maxi Programa";
         }
+        private void bAddField_Click(object sender, EventArgs e)
+        {
+            frmAddField windowField = new frmAddField();
+            windowField.ShowDialog();
+            loadGrid();
+        }
         private void bAdd_Click(object sender, EventArgs e)
         {
             frmAddEdit windowAdd = new frmAddEdit();
@@ -271,6 +277,6 @@ private void cbxField_SelectedIndexChanged(object sender, EventArgs e)
 
         }
 
-        
+      
     }
 }

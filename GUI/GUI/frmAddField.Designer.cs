@@ -1,7 +1,7 @@
 ﻿
 namespace GUI
 {
-    partial class frmAdminBrandCategory
+    partial class frmAddField
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace GUI
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAdminBrandCategory));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddField));
             this.panel3 = new System.Windows.Forms.Panel();
             this.tituleUser = new System.Windows.Forms.Label();
             this.pbxUser = new System.Windows.Forms.PictureBox();
@@ -161,6 +161,7 @@ namespace GUI
             // 
             this.tbNew.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.tbNew.Location = new System.Drawing.Point(274, 258);
+            this.tbNew.MaxLength = 50;
             this.tbNew.Name = "tbNew";
             this.tbNew.Size = new System.Drawing.Size(263, 20);
             this.tbNew.TabIndex = 47;
@@ -171,9 +172,9 @@ namespace GUI
             this.lNewBrand.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.lNewBrand.Location = new System.Drawing.Point(271, 242);
             this.lNewBrand.Name = "lNewBrand";
-            this.lNewBrand.Size = new System.Drawing.Size(59, 13);
+            this.lNewBrand.Size = new System.Drawing.Size(85, 13);
             this.lNewBrand.TabIndex = 51;
-            this.lNewBrand.Text = "New brand";
+            this.lNewBrand.Text = "New/Edit  brand";
             // 
             // bAdd
             // 
@@ -227,9 +228,9 @@ namespace GUI
             this.lNewCategory.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.lNewCategory.Location = new System.Drawing.Point(271, 242);
             this.lNewCategory.Name = "lNewCategory";
-            this.lNewCategory.Size = new System.Drawing.Size(77, 13);
+            this.lNewCategory.Size = new System.Drawing.Size(100, 13);
             this.lNewCategory.TabIndex = 62;
-            this.lNewCategory.Text = "New  Category";
+            this.lNewCategory.Text = "New/Edit  Category";
             // 
             // lCategory
             // 
@@ -264,7 +265,7 @@ namespace GUI
             this.cbBrandCategory.Size = new System.Drawing.Size(263, 21);
             this.cbBrandCategory.TabIndex = 65;
             // 
-            // frmAdminBrandCategory
+            // frmAddField
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -286,7 +287,7 @@ namespace GUI
             this.Controls.Add(this.bClose);
             this.Controls.Add(this.panel3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "frmAdminBrandCategory";
+            this.Name = "frmAddField";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.frmAdminBrandCategory_Load);

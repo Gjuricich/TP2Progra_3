@@ -12,7 +12,7 @@ using Managers;
 
 namespace GUI
 {
-    public partial class frmAdminBrandCategory : Form
+    public partial class frmAddField : Form
 
         
 
@@ -22,7 +22,7 @@ namespace GUI
 
 
 
-        public frmAdminBrandCategory()
+        public frmAddField()
         {
             InitializeComponent();
             brandsDeleted = new List<Brand>();
@@ -241,5 +241,78 @@ namespace GUI
 
 
         }
+
+
+        private void upgradeBrandChanges()
+        {
+
+            for (int i = 0; i < brandsDeleted.Count; i++)
+            {
+                for (int j = 0; j < brandsEdited.Count; j++)
+                {
+                    if (brandsDeleted[i].Id == brandsEdited[j].Id)
+                    {
+                        brandsEdited.RemoveAt(j);
+                        j--;
+                    }
+                }
+
+                for (int k = 0; k < brandsAdded.Count; k++)
+                {
+                    if (brandsDeleted[i].Descripcion== brandsAdded[k].Descripcion)  
+                    {
+                        brandsAdded.RemoveAt(k);
+                        k--;
+                    }
+                }
+            }
+
+            for (int m = 0; m < brandsDeleted.Count; m++)
+            {
+                if (brandsDeleted[m].Id == 0)
+                {
+                    brandsDeleted.RemoveAt(m);
+                    m--;
+                }
+            }
+
+        }
+
+
+        private void upgradeCategoriesChanges()
+        {
+
+            for (int i = 0; i < categoriesDeleted.Count; i++)
+            {
+                for (int j = 0; j < categoriesEdited.Count; j++)
+                {
+                    if (categoriesDeleted[i].Id == categoriesEdited[j].Id)
+                    {
+                        categoriesEdited.RemoveAt(j);
+                        j--;
+                    }
+                }
+
+                for (int k = 0; k < categoriesAdded.Count; k++)
+                {
+                    if (categoriesDeleted[i].Descripcion == categoriesAdded[k].Descripcion)
+                    {
+                        categoriesAdded.RemoveAt(k);
+                        k--;
+                    }
+                }
+            }
+
+            for (int m = 0; m < categoriesDeleted.Count; m++)
+            {
+                if (categoriesDeleted[m].Id == 0)
+                {
+                    categoriesDeleted.RemoveAt(m);
+                    m--;
+                }
+            }
+
+        }
+
     }
 }
