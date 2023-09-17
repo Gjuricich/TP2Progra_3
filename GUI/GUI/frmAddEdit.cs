@@ -21,7 +21,7 @@ namespace GUI
         private Item item = null;
         private int currentIndex = 0;
         private List<UrlImage> listUrlImage = null;
-        private List<UrlImage> listImageDeleted = null; //cambiar nombre VER QUE PASA SI SE SIGUE
+        private List<UrlImage> listImageDeleted = null; 
         private List<UrlImage> listImageEdited = null;
         private List<UrlImage> listImageNewAdded = null;
         
