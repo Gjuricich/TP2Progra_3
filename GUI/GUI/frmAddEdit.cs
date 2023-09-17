@@ -349,7 +349,7 @@ namespace GUI
         private void bAddImage_Click_1(object sender, EventArgs e)
         {
 
-            DialogResult result = MessageBox.Show("Desea agregar la imagen?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult result = MessageBox.Show("Do you add the image?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (result == DialogResult.Yes)
             {
@@ -369,12 +369,16 @@ namespace GUI
     
         private void bDelete_Click(object sender, EventArgs e)
         {
+            DialogResult result = MessageBox.Show("Do you want to delete the image?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            listImageDeleted.Add(item.Images[currentIndex]);//si la id =0 nunca se guardó en la base
-            item.Images.Remove(item.Images[currentIndex]);
-            pbAddImage.Image = null;
-            tbUrlImage.Clear();
-            LoadImageAtIndex(currentIndex);
+            if(result == DialogResult.Yes)
+            {
+                listImageDeleted.Add(item.Images[currentIndex]);//si la id =0 nunca se guardó en la base
+                item.Images.Remove(item.Images[currentIndex]);
+                pbAddImage.Image = null;
+                tbUrlImage.Clear();
+                LoadImageAtIndex(currentIndex);
+            }
 
         }
 
@@ -383,11 +387,16 @@ namespace GUI
     
         private void bEditImage_Click(object sender, EventArgs e)
         {
-            item.Images[currentIndex].Url= tbUrlImage.Text;
-            listImageEdited.Add(item.Images[currentIndex]);
-            pbAddImage.Image = null;
-            tbUrlImage.Clear();
-            LoadImageAtIndex(currentIndex);
+            DialogResult result = MessageBox.Show("Do you want to edit the image?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if(result == DialogResult.Yes)
+            {
+                item.Images[currentIndex].Url= tbUrlImage.Text;
+                listImageEdited.Add(item.Images[currentIndex]);
+                pbAddImage.Image = null;
+                tbUrlImage.Clear();
+                LoadImageAtIndex(currentIndex);
+            }
         }
 
      
