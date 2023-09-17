@@ -384,6 +384,12 @@ namespace GUI
       
         private void bAddImage_Click_1(object sender, EventArgs e)
         {
+            
+            if (string.IsNullOrEmpty(tbUrlImage.Text))
+            {
+                MessageBox.Show("URL field is mandatory.");
+                return;
+            }
 
             DialogResult result = MessageBox.Show("Do you add the image?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
@@ -442,6 +448,12 @@ namespace GUI
     
         private void bEditImage_Click(object sender, EventArgs e)
         {
+            if(string.IsNullOrEmpty(tbUrlImage.Text))
+            {
+                MessageBox.Show("URL field is mandatory");
+                return;
+            }
+
             DialogResult result = MessageBox.Show("Do you want to edit the image?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if(result == DialogResult.Yes)
