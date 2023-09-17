@@ -178,7 +178,9 @@ namespace GUI
             
           
             try
-            {   
+            { 
+                List<Item> aux = new List<Item>();
+                aux = iManager.Listacompleta();
                 //Caso agregar uno nuevo
                 if(item == null)
                 {
@@ -193,13 +195,24 @@ namespace GUI
 
             
                 //Propiedades en comun 
+                for (int i = 0; i < aux.Count(); i++)
+                {
+                    if (aux[i].ItemCode == tbCodeArt.Text || aux[i].ItemCode == tbCodeArt.Text.ToUpper()) 
+                    {
+                        MessageBox.Show("There is already an item with this code.");
+                        return;
 
+                    }
+
+                }
+                
                 item.ItemCode = tbCodeArt.Text;
                 if(string.IsNullOrEmpty(tbCodeArt.Text))
                 {
                     MessageBox.Show("The code field is mandatory.");
                     return;
                 }
+
                 item.Name = tbName.Text;
                 item.Description = rtbDescription.Text;
                 if (string.IsNullOrWhiteSpace(tbPrice.Text))

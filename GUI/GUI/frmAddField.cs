@@ -119,7 +119,9 @@ namespace GUI
                 lBrand.Visible = true;
                 cbBrandCategory.Visible = true;
                 lNewBrand.Visible = true;
+                lCategory.Visible = false;
                 tbNew.Visible = true;
+                lNewCategory.Text = "New / Edit  Brand";
                 loadBrand();
 
             }
@@ -129,7 +131,10 @@ namespace GUI
                 cbBrandCategory.Visible = true;
                 lNewCategory.Visible = true;
                 tbNew.Visible = true;
+                lBrand.Visible = false;
+                lNewCategory.Text = "New / Edit  Category";
                 loadCategory();
+
             }
         }
 
