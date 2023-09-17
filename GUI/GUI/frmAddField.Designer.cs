@@ -144,9 +144,9 @@ namespace GUI
             this.lSelect.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.lSelect.Location = new System.Drawing.Point(271, 131);
             this.lSelect.Name = "lSelect";
-            this.lSelect.Size = new System.Drawing.Size(71, 13);
+            this.lSelect.Size = new System.Drawing.Size(69, 13);
             this.lSelect.TabIndex = 49;
-            this.lSelect.Text = "Select a label";
+            this.lSelect.Text = "Select option";
             // 
             // lMarc
             // 
