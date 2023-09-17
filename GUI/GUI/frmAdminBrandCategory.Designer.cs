@@ -37,7 +37,6 @@ namespace GUI
             this.tituleMain = new System.Windows.Forms.Label();
             this.bClose = new System.Windows.Forms.Button();
             this.cbSelect = new System.Windows.Forms.ComboBox();
-            this.cbCategoryBrand = new System.Windows.Forms.ComboBox();
             this.lSelect = new System.Windows.Forms.Label();
             this.lMarc = new System.Windows.Forms.Label();
             this.tbNew = new System.Windows.Forms.TextBox();
@@ -49,10 +48,9 @@ namespace GUI
             this.lNewCategory = new System.Windows.Forms.Label();
             this.lCategory = new System.Windows.Forms.Label();
             this.bSave = new System.Windows.Forms.Button();
-            this.dgBrandCategory = new System.Windows.Forms.DataGridView();
+            this.cbBrandCategory = new System.Windows.Forms.ComboBox();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxUser)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgBrandCategory)).BeginInit();
             this.SuspendLayout();
             // 
             // panel3
@@ -125,6 +123,7 @@ namespace GUI
             this.bClose.TabIndex = 9;
             this.bClose.Text = "Close";
             this.bClose.UseVisualStyleBackColor = false;
+            this.bClose.Click += new System.EventHandler(this.bClose_Click);
             // 
             // cbSelect
             // 
@@ -133,28 +132,17 @@ namespace GUI
             this.cbSelect.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbSelect.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.cbSelect.FormattingEnabled = true;
-            this.cbSelect.Location = new System.Drawing.Point(43, 141);
+            this.cbSelect.Location = new System.Drawing.Point(274, 147);
             this.cbSelect.Name = "cbSelect";
             this.cbSelect.Size = new System.Drawing.Size(263, 21);
             this.cbSelect.TabIndex = 46;
-            // 
-            // cbCategoryBrand
-            // 
-            this.cbCategoryBrand.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.cbCategoryBrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbCategoryBrand.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cbCategoryBrand.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.cbCategoryBrand.FormattingEnabled = true;
-            this.cbCategoryBrand.Location = new System.Drawing.Point(43, 197);
-            this.cbCategoryBrand.Name = "cbCategoryBrand";
-            this.cbCategoryBrand.Size = new System.Drawing.Size(263, 21);
-            this.cbCategoryBrand.TabIndex = 50;
+            this.cbSelect.SelectedIndexChanged += new System.EventHandler(this.cbSelect_SelectedIndexChanged);
             // 
             // lSelect
             // 
             this.lSelect.AutoSize = true;
             this.lSelect.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lSelect.Location = new System.Drawing.Point(40, 125);
+            this.lSelect.Location = new System.Drawing.Point(271, 131);
             this.lSelect.Name = "lSelect";
             this.lSelect.Size = new System.Drawing.Size(71, 13);
             this.lSelect.TabIndex = 49;
@@ -164,7 +152,7 @@ namespace GUI
             // 
             this.lMarc.AutoSize = true;
             this.lMarc.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lMarc.Location = new System.Drawing.Point(40, 125);
+            this.lMarc.Location = new System.Drawing.Point(271, 131);
             this.lMarc.Name = "lMarc";
             this.lMarc.Size = new System.Drawing.Size(0, 13);
             this.lMarc.TabIndex = 48;
@@ -172,7 +160,7 @@ namespace GUI
             // tbNew
             // 
             this.tbNew.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.tbNew.Location = new System.Drawing.Point(43, 248);
+            this.tbNew.Location = new System.Drawing.Point(274, 258);
             this.tbNew.Name = "tbNew";
             this.tbNew.Size = new System.Drawing.Size(263, 20);
             this.tbNew.TabIndex = 47;
@@ -181,7 +169,7 @@ namespace GUI
             // 
             this.lNewBrand.AutoSize = true;
             this.lNewBrand.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lNewBrand.Location = new System.Drawing.Point(40, 232);
+            this.lNewBrand.Location = new System.Drawing.Point(271, 242);
             this.lNewBrand.Name = "lNewBrand";
             this.lNewBrand.Size = new System.Drawing.Size(59, 13);
             this.lNewBrand.TabIndex = 51;
@@ -191,40 +179,43 @@ namespace GUI
             // 
             this.bAdd.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bAdd.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bAdd.Location = new System.Drawing.Point(678, 142);
+            this.bAdd.Location = new System.Drawing.Point(582, 146);
             this.bAdd.Name = "bAdd";
             this.bAdd.Size = new System.Drawing.Size(60, 20);
             this.bAdd.TabIndex = 58;
             this.bAdd.Text = "Add ";
             this.bAdd.UseVisualStyleBackColor = false;
+            this.bAdd.Click += new System.EventHandler(this.bAdd_Click);
             // 
             // bdelete
             // 
             this.bdelete.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bdelete.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bdelete.Location = new System.Drawing.Point(678, 194);
+            this.bdelete.Location = new System.Drawing.Point(582, 198);
             this.bdelete.Name = "bdelete";
             this.bdelete.Size = new System.Drawing.Size(60, 20);
             this.bdelete.TabIndex = 59;
             this.bdelete.Text = "Delete";
             this.bdelete.UseVisualStyleBackColor = false;
+            this.bdelete.Click += new System.EventHandler(this.bdelete_Click);
             // 
             // bEdit
             // 
             this.bEdit.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.bEdit.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.bEdit.Location = new System.Drawing.Point(678, 168);
+            this.bEdit.Location = new System.Drawing.Point(582, 172);
             this.bEdit.Name = "bEdit";
             this.bEdit.Size = new System.Drawing.Size(60, 20);
             this.bEdit.TabIndex = 60;
             this.bEdit.Text = "Edit";
             this.bEdit.UseVisualStyleBackColor = false;
+            this.bEdit.Click += new System.EventHandler(this.bEdit_Click);
             // 
             // lBrand
             // 
             this.lBrand.AutoSize = true;
             this.lBrand.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lBrand.Location = new System.Drawing.Point(40, 181);
+            this.lBrand.Location = new System.Drawing.Point(271, 187);
             this.lBrand.Name = "lBrand";
             this.lBrand.Size = new System.Drawing.Size(35, 13);
             this.lBrand.TabIndex = 61;
@@ -234,7 +225,7 @@ namespace GUI
             // 
             this.lNewCategory.AutoSize = true;
             this.lNewCategory.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lNewCategory.Location = new System.Drawing.Point(105, 232);
+            this.lNewCategory.Location = new System.Drawing.Point(271, 242);
             this.lNewCategory.Name = "lNewCategory";
             this.lNewCategory.Size = new System.Drawing.Size(77, 13);
             this.lNewCategory.TabIndex = 62;
@@ -244,7 +235,7 @@ namespace GUI
             // 
             this.lCategory.AutoSize = true;
             this.lCategory.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lCategory.Location = new System.Drawing.Point(81, 181);
+            this.lCategory.Location = new System.Drawing.Point(271, 187);
             this.lCategory.Name = "lCategory";
             this.lCategory.Size = new System.Drawing.Size(49, 13);
             this.lCategory.TabIndex = 63;
@@ -261,18 +252,17 @@ namespace GUI
             this.bSave.Text = "Save";
             this.bSave.UseVisualStyleBackColor = false;
             // 
-            // dgBrandCategory
+            // cbBrandCategory
             // 
-            this.dgBrandCategory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgBrandCategory.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dgBrandCategory.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgBrandCategory.Location = new System.Drawing.Point(389, 141);
-            this.dgBrandCategory.Margin = new System.Windows.Forms.Padding(2);
-            this.dgBrandCategory.Name = "dgBrandCategory";
-            this.dgBrandCategory.RowHeadersWidth = 51;
-            this.dgBrandCategory.RowTemplate.Height = 24;
-            this.dgBrandCategory.Size = new System.Drawing.Size(198, 243);
-            this.dgBrandCategory.TabIndex = 65;
+            this.cbBrandCategory.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.cbBrandCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbBrandCategory.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cbBrandCategory.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.cbBrandCategory.FormattingEnabled = true;
+            this.cbBrandCategory.Location = new System.Drawing.Point(274, 203);
+            this.cbBrandCategory.Name = "cbBrandCategory";
+            this.cbBrandCategory.Size = new System.Drawing.Size(263, 21);
+            this.cbBrandCategory.TabIndex = 65;
             // 
             // frmAdminBrandCategory
             // 
@@ -280,7 +270,7 @@ namespace GUI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(854, 480);
-            this.Controls.Add(this.dgBrandCategory);
+            this.Controls.Add(this.cbBrandCategory);
             this.Controls.Add(this.bSave);
             this.Controls.Add(this.lCategory);
             this.Controls.Add(this.lNewCategory);
@@ -289,7 +279,6 @@ namespace GUI
             this.Controls.Add(this.bdelete);
             this.Controls.Add(this.bAdd);
             this.Controls.Add(this.lNewBrand);
-            this.Controls.Add(this.cbCategoryBrand);
             this.Controls.Add(this.lSelect);
             this.Controls.Add(this.lMarc);
             this.Controls.Add(this.tbNew);
@@ -298,11 +287,12 @@ namespace GUI
             this.Controls.Add(this.panel3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmAdminBrandCategory";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.frmAdminBrandCategory_Load);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxUser)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgBrandCategory)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -317,7 +307,6 @@ namespace GUI
         private System.Windows.Forms.Label tituleMain;
         private System.Windows.Forms.Button bClose;
         private System.Windows.Forms.ComboBox cbSelect;
-        private System.Windows.Forms.ComboBox cbCategoryBrand;
         private System.Windows.Forms.Label lSelect;
         private System.Windows.Forms.Label lMarc;
         private System.Windows.Forms.TextBox tbNew;
@@ -329,6 +318,6 @@ namespace GUI
         private System.Windows.Forms.Label lNewCategory;
         private System.Windows.Forms.Label lCategory;
         private System.Windows.Forms.Button bSave;
-        private System.Windows.Forms.DataGridView dgBrandCategory;
+        private System.Windows.Forms.ComboBox cbBrandCategory;
     }
 }
