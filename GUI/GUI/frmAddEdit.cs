@@ -190,11 +190,16 @@ namespace GUI
                 //Propiedades en comun 
 
                 item.ItemCode = tbCodeArt.Text;
+                if(string.IsNullOrEmpty(tbCodeArt.Text))
+                {
+                    MessageBox.Show("The code field is mandatory.");
+                    return;
+                }
                 item.Name = tbName.Text;
                 item.Description = rtbDescription.Text;
                 if (string.IsNullOrWhiteSpace(tbPrice.Text))
                 {
-                    item.Price = 00000;
+                    item.Price = 000;
 
                 }
                 else if (decimal.TryParse(tbPrice.Text, out decimal price))

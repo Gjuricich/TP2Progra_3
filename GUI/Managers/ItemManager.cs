@@ -43,9 +43,8 @@ namespace Managers
                         article.Category.Id = (int)dataManager.Lector["IdCategoria"];
                     }
 
-
-
                     article.Price = (decimal)dataManager.Lector["Precio"];
+                    article.Price = Math.Round(article.Price, 2);
                     articles.Add(article);
                 }
 
