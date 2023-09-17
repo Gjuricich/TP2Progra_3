@@ -85,7 +85,7 @@ namespace GUI
 
                     tbCodeArt.Text = item.ItemCode;
                     tbName.Text = item.Name;
-                    tbDescription.Text = item.Description;
+                    rtbDescription.Text = item.Description;
                     tbPrice.Text = item.Price.ToString();
                     cbBrand.SelectedValue = item.Brand.Id;
                     cbCategory.SelectedValue = item.Category.Id;
@@ -191,8 +191,13 @@ namespace GUI
 
                 item.ItemCode = tbCodeArt.Text;
                 item.Name = tbName.Text;
-                item.Description = tbDescription.Text;
-                if (decimal.TryParse(tbPrice.Text, out decimal price))
+                item.Description = rtbDescription.Text;
+                if (string.IsNullOrWhiteSpace(tbPrice.Text))
+                {
+                    item.Price = 00000;
+
+                }
+                else if (decimal.TryParse(tbPrice.Text, out decimal price))
                 {
                     item.Price = price;
                 }
@@ -207,7 +212,7 @@ namespace GUI
 
                 //Editar un item existente
 
-                DialogResult result = MessageBox.Show("Desea guardar los datos?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show("Do you want to save the data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.Yes)
                 {
@@ -266,7 +271,6 @@ namespace GUI
         private void bAddImage_Click(object sender, EventArgs e)
         {
             string url = tbUrlImage.Text;
-
 
             do
             {
@@ -334,7 +338,20 @@ namespace GUI
         {
             UrlImage aux = new UrlImage();
             aux.Url = tbUrlImage.Text;
-            listUrlImage.Add(aux);
+            do
+            {
+                if (IsValidUrl(aux.Url))
+                {
+                    listUrlImage.Add(aux);
+                    break;
+                }
+                else
+                {
+                    MessageBox.Show("Plis, add a valid URL.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            while (true);
             pbAddImage.Image = null;
             tbUrlImage.Clear();
           

@@ -42,7 +42,6 @@ namespace GUI
             this.tbCodeArt = new System.Windows.Forms.TextBox();
             this.lMarc = new System.Windows.Forms.Label();
             this.bAddArticle = new System.Windows.Forms.Button();
-            this.tbDescription = new System.Windows.Forms.TextBox();
             this.tbName = new System.Windows.Forms.TextBox();
             this.lDescription = new System.Windows.Forms.Label();
             this.lName = new System.Windows.Forms.Label();
@@ -61,6 +60,7 @@ namespace GUI
             this.bClear = new System.Windows.Forms.Button();
             this.bAddImage = new System.Windows.Forms.Button();
             this.imageCount = new System.Windows.Forms.Label();
+            this.rtbDescription = new System.Windows.Forms.RichTextBox();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddImage)).BeginInit();
@@ -150,7 +150,7 @@ namespace GUI
             // 
             this.lPrice.AutoSize = true;
             this.lPrice.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lPrice.Location = new System.Drawing.Point(43, 415);
+            this.lPrice.Location = new System.Drawing.Point(42, 477);
             this.lPrice.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lPrice.Name = "lPrice";
             this.lPrice.Size = new System.Drawing.Size(38, 16);
@@ -160,7 +160,7 @@ namespace GUI
             // tbPrice
             // 
             this.tbPrice.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.tbPrice.Location = new System.Drawing.Point(47, 434);
+            this.tbPrice.Location = new System.Drawing.Point(46, 496);
             this.tbPrice.Margin = new System.Windows.Forms.Padding(4);
             this.tbPrice.Name = "tbPrice";
             this.tbPrice.Size = new System.Drawing.Size(364, 22);
@@ -170,7 +170,7 @@ namespace GUI
             // 
             this.lCategory.AutoSize = true;
             this.lCategory.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lCategory.Location = new System.Drawing.Point(43, 357);
+            this.lCategory.Location = new System.Drawing.Point(42, 419);
             this.lCategory.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lCategory.Name = "lCategory";
             this.lCategory.Size = new System.Drawing.Size(65, 16);
@@ -182,6 +182,7 @@ namespace GUI
             this.tbCodeArt.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.tbCodeArt.Location = new System.Drawing.Point(47, 151);
             this.tbCodeArt.Margin = new System.Windows.Forms.Padding(4);
+            this.tbCodeArt.MaxLength = 50;
             this.tbCodeArt.Name = "tbCodeArt";
             this.tbCodeArt.Size = new System.Drawing.Size(364, 22);
             this.tbCodeArt.TabIndex = 0;
@@ -190,7 +191,7 @@ namespace GUI
             // 
             this.lMarc.AutoSize = true;
             this.lMarc.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.lMarc.Location = new System.Drawing.Point(43, 303);
+            this.lMarc.Location = new System.Drawing.Point(42, 365);
             this.lMarc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lMarc.Name = "lMarc";
             this.lMarc.Size = new System.Drawing.Size(43, 16);
@@ -210,20 +211,12 @@ namespace GUI
             this.bAddArticle.UseVisualStyleBackColor = false;
             this.bAddArticle.Click += new System.EventHandler(this.bAddArticle_Click);
             // 
-            // tbDescription
-            // 
-            this.tbDescription.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.tbDescription.Location = new System.Drawing.Point(47, 266);
-            this.tbDescription.Margin = new System.Windows.Forms.Padding(4);
-            this.tbDescription.Name = "tbDescription";
-            this.tbDescription.Size = new System.Drawing.Size(364, 22);
-            this.tbDescription.TabIndex = 2;
-            // 
             // tbName
             // 
             this.tbName.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.tbName.Location = new System.Drawing.Point(47, 209);
             this.tbName.Margin = new System.Windows.Forms.Padding(4);
+            this.tbName.MaxLength = 50;
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(364, 22);
             this.tbName.TabIndex = 1;
@@ -268,7 +261,7 @@ namespace GUI
             this.cbBrand.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbBrand.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.cbBrand.FormattingEnabled = true;
-            this.cbBrand.Location = new System.Drawing.Point(47, 324);
+            this.cbBrand.Location = new System.Drawing.Point(46, 386);
             this.cbBrand.Margin = new System.Windows.Forms.Padding(4);
             this.cbBrand.Name = "cbBrand";
             this.cbBrand.Size = new System.Drawing.Size(364, 24);
@@ -281,7 +274,7 @@ namespace GUI
             this.cbCategory.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbCategory.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.cbCategory.FormattingEnabled = true;
-            this.cbCategory.Location = new System.Drawing.Point(47, 375);
+            this.cbCategory.Location = new System.Drawing.Point(46, 437);
             this.cbCategory.Margin = new System.Windows.Forms.Padding(4);
             this.cbCategory.Name = "cbCategory";
             this.cbCategory.Size = new System.Drawing.Size(364, 24);
@@ -429,12 +422,24 @@ namespace GUI
             this.imageCount.TabIndex = 58;
             this.imageCount.Text = "0/0";
             // 
+            // rtbDescription
+            // 
+            this.rtbDescription.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.rtbDescription.Location = new System.Drawing.Point(46, 266);
+            this.rtbDescription.Margin = new System.Windows.Forms.Padding(4);
+            this.rtbDescription.MaxLength = 150;
+            this.rtbDescription.Name = "rtbDescription";
+            this.rtbDescription.Size = new System.Drawing.Size(365, 85);
+            this.rtbDescription.TabIndex = 59;
+            this.rtbDescription.Text = "";
+            // 
             // frmAddEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1139, 591);
+            this.Controls.Add(this.rtbDescription);
             this.Controls.Add(this.imageCount);
             this.Controls.Add(this.bAddImage);
             this.Controls.Add(this.bClear);
@@ -455,7 +460,6 @@ namespace GUI
             this.Controls.Add(this.tbCodeArt);
             this.Controls.Add(this.lMarc);
             this.Controls.Add(this.bAddArticle);
-            this.Controls.Add(this.tbDescription);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.lDescription);
             this.Controls.Add(this.lName);
@@ -494,7 +498,6 @@ namespace GUI
         private System.Windows.Forms.TextBox tbCodeArt;
         private System.Windows.Forms.Label lMarc;
         private System.Windows.Forms.Button bAddArticle;
-        private System.Windows.Forms.TextBox tbDescription;
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.Label lDescription;
         private System.Windows.Forms.Label lName;
@@ -513,5 +516,6 @@ namespace GUI
         private System.Windows.Forms.Button bClear;
         private System.Windows.Forms.Button bAddImage;
         private System.Windows.Forms.Label imageCount;
+        private System.Windows.Forms.RichTextBox rtbDescription;
     }
 }
