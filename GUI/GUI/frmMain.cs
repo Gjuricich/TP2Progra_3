@@ -149,8 +149,16 @@ namespace GUI
                     if (selected.Description != "")
                         rtbDescription.Text = selected.Description;
                     LoadImageAtIndex(currentIndex);
-                    currentImage = 1;
-                    ImagesCount.Text = currentImage.ToString() + "/" + currentUrls.Count().ToString();
+                    
+                    if (currentUrls.Count() > 0)
+                    {
+                        currentImage = 1;
+                        ImagesCount.Text = currentImage.ToString() + "/" + currentUrls.Count().ToString();
+                    }
+                    else
+                    {
+                        ImagesCount.Text = 0 + "/" + 0;
+                    }
                 }
             }
             catch (NullReferenceException ex)

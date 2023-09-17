@@ -90,9 +90,14 @@ namespace GUI
                     cbBrand.SelectedValue = item.Brand.Id;
                     cbCategory.SelectedValue = item.Category.Id;
                     item.Images = aux.imagesOfItems(item.Id);
-                    imageCount.Text = currentImage.ToString() + "/" + item.Images.Count().ToString();
-
-
+                    if (item.Images.Count() > 0)
+                    {
+                        imageCount.Text = currentImage.ToString() + "/" + item.Images.Count().ToString();
+                    }
+                    else
+                    {
+                        imageCount.Text = 0 + "/" + 0;
+                    }
                     if (item.Images != null && item.Images.Count > 0)
                     {      
                         LoadImageAtIndex(currentIndex);
@@ -404,12 +409,30 @@ namespace GUI
 
             if(result == DialogResult.Yes)
             {
-                listImageDeleted.Add(item.Images[currentIndex]);//si la id =0 nunca se guardó en la base
-                item.Images.Remove(item.Images[currentIndex]);
-                pbAddImage.Image = null;
-                tbUrlImage.Clear();
-                LoadImageAtIndex(currentIndex);
-                imageCount.Text = currentIndex + "/" + item.Images.Count().ToString();
+                try
+                {
+                    if (item.Images.Count() > 0)
+                    {
+                        listImageDeleted.Add(item.Images[currentIndex]);//si la id =0 nunca se guardó en la base
+                        item.Images.Remove(item.Images[currentIndex]);
+                        pbAddImage.Image = null;
+                        tbUrlImage.Clear();
+                        LoadImageAtIndex(currentIndex);
+                        imageCount.Text = currentIndex + "/" + item.Images.Count().ToString();
+                    }
+                    else
+                    {
+                        DialogResult resulted = MessageBox.Show("This article does not have any images", "Attention", MessageBoxButtons.OK, MessageBoxIcon.None);
+
+                    }
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+               
             }
 
         }
