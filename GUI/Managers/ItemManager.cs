@@ -95,7 +95,7 @@ namespace Managers
 
         }
 
-        public void add(Item item, bool empty)
+        public void add(Item item)
         {
             DataManager dataManager = new DataManager();
             UrlImageManager imageManager = new UrlImageManager();
@@ -114,7 +114,7 @@ namespace Managers
                 dataManager.executeRead();
                 dataManager.closeConection();
 
-                if (empty == false)
+                if (item.Images != null && item.Images.Count() > 0)
                 {
 
                     aux = findId(item);
@@ -123,13 +123,8 @@ namespace Managers
                         item.Images[i].IdArticulo = aux;
                     }
 
-                    dataManager.closeConection();
-
-
                     imageManager.addImage(item.Images);
                 }
-
-
 
             }
             catch (Exception ex)

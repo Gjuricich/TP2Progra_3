@@ -17,13 +17,13 @@ namespace GUI
     public partial class frmAddEdit : Form
     {
     
-        private List<UrlImage> listUrlImage = null;
+       
         private Item item = null;
         private int currentIndex = 0;
-        private bool empty = false;
-        private List<UrlImage> idDeleted = null;
-        private List<UrlImage> idEdited = null;
-        private List<UrlImage> idNewAdded = null;
+        private List<UrlImage> listUrlImage = null;
+        private List<UrlImage> listImageDeleted = null; //cambiar nombre VER QUE PASA SI SE SIGUE
+        private List<UrlImage> listImageEdited = null;
+        private List<UrlImage> listImageNewAdded = null;
         
 
         public frmAddEdit()
@@ -31,7 +31,7 @@ namespace GUI
             InitializeComponent();
             pbAddImage.AllowDrop = false;
             listUrlImage = new List<UrlImage>();
-        
+      
         }
 
         public frmAddEdit(Item item)
@@ -39,9 +39,9 @@ namespace GUI
             InitializeComponent();
             pbAddImage.AllowDrop = false;
             listUrlImage = new List<UrlImage>();
-            idDeleted = new List<UrlImage>();
-            idEdited = new List<UrlImage>();
-            idNewAdded =  new List<UrlImage>();
+            listImageDeleted = new List<UrlImage>();
+            listImageEdited = new List<UrlImage>();
+            listImageNewAdded =  new List<UrlImage>();
 
             this.item = item;
         }
@@ -93,7 +93,6 @@ namespace GUI
                     if (item.Images != null && item.Images.Count > 0)
                     {      
                         LoadImageAtIndex(currentIndex);
-                        tbUrlImage.Text = item.Images[currentIndex].Url;
                     }
                    
                 }
@@ -106,7 +105,7 @@ namespace GUI
             }
         }
 
-        //////////////////////////////           Index                ///////////////////////////////////
+        //////////////////////////////           NAVIGATION               ///////////////////////////////////
 
         private void LoadImageAtIndex(int index)
         {
@@ -118,7 +117,7 @@ namespace GUI
 
                     if (item.Images[currentIndex].Url != "")
                         pbAddImage.Load(item.Images[index].Url);
-                        tbUrlImage.Text = item.Images[index].Url;
+                        
 
 
                 }
@@ -139,7 +138,6 @@ namespace GUI
             {
                 currentIndex--;
                 LoadImageAtIndex(currentIndex);
-                tbUrlImage.Text = item.Images[currentIndex].Url;
             }
         }
 
@@ -149,13 +147,13 @@ namespace GUI
             {
                 currentIndex++;
                 LoadImageAtIndex(currentIndex);
-                tbUrlImage.Text = item.Images[currentIndex].Url;
+              
             }
         }
 
  
 
-        //////////////////////////////           Bottons Events             ///////////////////////////////////
+        //////////////////////////////           Bottons Events            ///////////////////////////////////
 
     
         private void bAddArticle_Click(object sender, EventArgs e)
@@ -171,14 +169,11 @@ namespace GUI
                 if(item == null)
                 {
                      item = new Item();
-                     if(listUrlImage != null)
+                     if(listUrlImage != null && listUrlImage.Count()>0)
                     {
                         item.Images = listUrlImage;
                     }
-                    else
-                    {
-                        empty = true;
-                    }
+                    
                      
                 }
 
@@ -210,25 +205,25 @@ namespace GUI
 
                     if (item.Id != 0)
                     {
-                        cocinarPizza();
-                        if (idDeleted != null && idDeleted.Count() > 0)
+                        updateChanges();
+                        if (listImageDeleted != null && listImageDeleted.Count() > 0)
                         {
-                            foreach (UrlImage element in idDeleted)
+                            foreach (UrlImage element in listImageDeleted)
                             {
                                 uManager.deleteImage(element.IdArticulo);
                             }
 
                         }
 
-                        if (idEdited != null && idEdited.Count() > 0)
+                        if (listImageEdited != null && listImageEdited.Count() > 0)
                         {
-                            uManager.updateImage(idEdited);
+                            uManager.updateImage(listImageEdited);
 
                         }
 
-                        if (idNewAdded != null && idNewAdded.Count() > 0)
+                        if (listImageNewAdded != null && listImageNewAdded.Count() > 0)
                         {
-                            uManager.addImage(idNewAdded);
+                            uManager.addImage(listImageNewAdded);
 
                         }
 
@@ -238,7 +233,7 @@ namespace GUI
                     else
                     {
 
-                        iManager.add(item, empty);
+                        iManager.add(item);
                         MessageBox.Show("Successfully added.");
                     }
 
@@ -291,40 +286,40 @@ namespace GUI
 
         }
 
-        private void cocinarPizza()
+        private void updateChanges()
         {
-
-            foreach (UrlImage element in idDeleted)
+           
+            for (int i = 0; i < listImageDeleted.Count; i++)
             {
-                if (element.Id == 0)
+                for (int j = 0; j < listImageEdited.Count; j++)
                 {
-                    idDeleted.Remove(element);
+                    if (listImageDeleted[i].Id == listImageEdited[j].Id)
+                    {
+                        listImageEdited.RemoveAt(j);
+                        j--; 
+                    }
+                }
+
+                for (int k = 0; k < listImageNewAdded.Count; k++)
+                {
+                    if (listImageDeleted[i].Url == listImageNewAdded[k].Url)
+                    {
+                        listImageNewAdded.RemoveAt(k);
+                        k--; 
+                    }
                 }
             }
 
-            //contamos cuantas imagenes nuevas hay que insertar
-
-            foreach (UrlImage d in idDeleted)
+            for (int m = 0; m < listImageDeleted.Count; m++)
             {
-                foreach (UrlImage ed in idEdited)
+                if (listImageDeleted[m].Id == 0)
                 {
-
-                    if (d.Id == ed.Id)
-                    {
-                        idEdited.Remove(ed);
-                    }
-                }
-
-                foreach (UrlImage n in idNewAdded)
-                {
-
-                    if (d.Url == n.Url)
-                    {
-                        idNewAdded.Remove(n);
-                    }
+                    listImageDeleted.RemoveAt(m);
+                    m--;
                 }
             }
         }
+
 
         private void bSaveImage_Click(object sender, EventArgs e)
         {
@@ -350,27 +345,32 @@ namespace GUI
 
         }
 
-        //SOLO FUNCIONA EN LA VENTANA EDIT - FALTA BOTON SAVE CAMBIOS Y CONSULTAS
+      
         private void bAddImage_Click_1(object sender, EventArgs e)
-        {   
+        {
 
-        
-            UrlImage aux = new UrlImage();
-            aux.Url = tbUrlImage.Text;
-            aux.IdArticulo = item.Id;
-            item.Images.Add(aux);
-            idNewAdded.Add(aux);
-            pbAddImage.Image = null;
-            tbUrlImage.Clear();
-            LoadImageAtIndex(item.Images.Count()-1);
+            DialogResult result = MessageBox.Show("Desea agregar la imagen?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                UrlImage aux = new UrlImage();
+                aux.Url = tbUrlImage.Text;
+                aux.IdArticulo = item.Id;
+                item.Images.Add(aux);
+                listImageNewAdded.Add(aux);
+                pbAddImage.Image = null;
+                tbUrlImage.Clear();
+                LoadImageAtIndex(item.Images.Count() - 1);
+            }
+
         }
 
 
-        //SOLO FUNCIONA EN LA VENTANA EDIT - FALTA BOTON SAVE CAMBIOS Y CONSULTAS
+    
         private void bDelete_Click(object sender, EventArgs e)
         {
 
-            idDeleted.Add(item.Images[currentIndex]);//si la id =0 nunca se guardó en la base
+            listImageDeleted.Add(item.Images[currentIndex]);//si la id =0 nunca se guardó en la base
             item.Images.Remove(item.Images[currentIndex]);
             pbAddImage.Image = null;
             tbUrlImage.Clear();
@@ -380,11 +380,11 @@ namespace GUI
 
 
 
-        //SOLO FUNCIONA EN LA VENTANA EDIT - FALTA BOTON SAVE CAMBIOS Y CONSULTAS
+    
         private void bEditImage_Click(object sender, EventArgs e)
         {
             item.Images[currentIndex].Url= tbUrlImage.Text;
-            idEdited.Add(item.Images[currentIndex]);
+            listImageEdited.Add(item.Images[currentIndex]);
             pbAddImage.Image = null;
             tbUrlImage.Clear();
             LoadImageAtIndex(currentIndex);
