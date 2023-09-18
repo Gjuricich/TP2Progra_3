@@ -38,6 +38,7 @@ namespace GUI
             bAdd.Visible = show;
             bEdit.Visible = show;
             bDelete.Visible = show;
+            bAddField.Visible = show;
             tituleUser.Text = "Maxi Programa";
         }
         private void bAddField_Click(object sender, EventArgs e)
@@ -255,10 +256,10 @@ namespace GUI
                 }
                      
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
           
         }
@@ -271,18 +272,18 @@ private void cbxField_SelectedIndexChanged(object sender, EventArgs e)
                 
                 cbxCriterion.Items.Clear();
                 cbxCriterion.Text = "";
-                cbxCriterion.Items.Add("Mayor a");
-                cbxCriterion.Items.Add("Menor a");
-                cbxCriterion.Items.Add("Igual a");
+                cbxCriterion.Items.Add("Greater than");
+                cbxCriterion.Items.Add("Less than");
+                cbxCriterion.Items.Add(" Equal to");
             }
 
             else
             {
                 cbxCriterion.Items.Clear();
                 cbxCriterion.Text = "";
-                cbxCriterion.Items.Add("Comienza con");
-                cbxCriterion.Items.Add("Termina con");
-                cbxCriterion.Items.Add("Contiene");
+                cbxCriterion.Items.Add("Starts with");
+                cbxCriterion.Items.Add("Ends with");
+                cbxCriterion.Items.Add("Contains");
             }
 
         }

@@ -49,39 +49,20 @@ namespace GUI
 
         private void frmAdd_Load(object sender, EventArgs e)
         {
-            BrandManager bManger = new BrandManager();
-            CategoryManager cManager = new CategoryManager();
+           
             UrlImageManager aux = new UrlImageManager();
 
             try
-            {
-                cbBrand.DataSource = bManger.listar();
-                cbBrand.ValueMember = "Id";
-                cbBrand.DisplayMember = "Descripcion";
-                cbCategory.DataSource = cManager.listar();
-                cbCategory.ValueMember = "Id";
-                cbCategory.DisplayMember = "Descripcion";
-                imageCount.Visible = false;
-                pbfoward.Visible = false;
-                pbBackward.Visible = false;
-                pbAddImage.BorderStyle = BorderStyle.Fixed3D;
-                bDelete.Visible = false;
-                bAddImage.Visible = false;
-                bEditImage.Visible = false;
-                bClear.Visible = true;
+            {        
+                LoadComboBox();
 
-                if (item != null)
+                if(item == null)
                 {
-                    pbfoward.Visible = true;
-                    pbBackward.Visible = true;
-                    bDelete.Visible = true;
-                    bAddImage.Visible = true;
-                    bEditImage.Visible = true;
-                    bSaveImage.Visible = false;
-                    bClear.Visible = false;
-                    imageCount.Visible = true;
-                    bLoadImage.Visible = false;
-                    pbAddImage.BorderStyle = BorderStyle.None;
+                    LoadAdd();
+                }
+                else 
+                {
+                    LoadEdit();
 
                     tbCodeArt.Text = item.ItemCode;
                     tbName.Text = item.Name;
@@ -113,6 +94,56 @@ namespace GUI
             }
         }
 
+        private void LoadComboBox()
+        {
+            BrandManager bManger = new BrandManager();
+            CategoryManager cManager = new CategoryManager();
+            try
+            {
+                cbBrand.DataSource = bManger.listar();
+                cbBrand.ValueMember = "Id";
+                cbBrand.DisplayMember = "Descripcion";
+                cbCategory.DataSource = cManager.listar();
+                cbCategory.ValueMember = "Id";
+                cbCategory.DisplayMember = "Descripcion";
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+
+        }
+
+        private void LoadAdd()
+        {
+            imageCount.Visible = false;
+            pbfoward.Visible = false;
+            pbBackward.Visible = false;
+            pbAddImage.BorderStyle = BorderStyle.Fixed3D;
+            bDelete.Visible = false;
+            bAddImage.Visible = false;
+            bEditImage.Visible = false;
+            bClear.Visible = true;
+
+        }
+
+
+        private void LoadEdit()
+        {
+            pbfoward.Visible = true;
+            pbBackward.Visible = true;
+            bDelete.Visible = true;
+            bAddImage.Visible = true;
+            bEditImage.Visible = true;
+            bSaveImage.Visible = false;
+            bClear.Visible = false;
+            imageCount.Visible = true;
+            bLoadImage.Visible = false;
+            pbAddImage.BorderStyle = BorderStyle.None;
+
+        }
         //////////////////////////////           NAVIGATION               ///////////////////////////////////
 
         private void LoadImageAtIndex(int index)
@@ -165,130 +196,23 @@ namespace GUI
             }
         }
 
- 
+
 
         //////////////////////////////           Bottons Events            ///////////////////////////////////
 
-    
-        private void bAddArticle_Click(object sender, EventArgs e)
+        private void bClear_Click(object sender, EventArgs e)
         {
-            
-            ItemManager iManager = new ItemManager();
-            UrlImageManager uManager = new UrlImageManager();
-            
-          
-            try
-            { 
-                List<Item> aux = new List<Item>();
-                aux = iManager.Listacompleta();
-                //Caso agregar uno nuevo
-                if(item == null)
-                {
-                     item = new Item();
-                     if(listUrlImage != null && listUrlImage.Count()>0)
-                    {
-                        item.Images = listUrlImage;
-                    }
-                    
-                     
-                }
-
-            
-                //Propiedades en comun 
-                for (int i = 0; i < aux.Count(); i++)
-                {
-                    if (aux[i].ItemCode == tbCodeArt.Text || aux[i].ItemCode == tbCodeArt.Text.ToUpper()) 
-                    {
-                        MessageBox.Show("There is already an item with this code.");
-                        return;
-
-                    }
-
-                }
-                
-                item.ItemCode = tbCodeArt.Text;
-                if(string.IsNullOrEmpty(tbCodeArt.Text))
-                {
-                    MessageBox.Show("The code field is mandatory.");
-                    return;
-                }
-
-                item.Name = tbName.Text;
-                item.Description = rtbDescription.Text;
-                if (string.IsNullOrWhiteSpace(tbPrice.Text))
-                {
-                    item.Price = 000;
-
-                }
-                else if (decimal.TryParse(tbPrice.Text, out decimal price))
-                {
-                    item.Price = price;
-                }
-                else
-                {
-                    MessageBox.Show("The price value is not valid.");
-                    return;
-                }
-
-                item.Brand=(Brand)cbBrand.SelectedItem;
-                item.Category= (Category)cbCategory.SelectedItem;
-
-                //Editar un item existente
-
-                DialogResult result = MessageBox.Show("Do you want to save the data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
-                {
-
-                    if (item.Id != 0)
-                    {
-                        updateChanges();
-                        if (listImageDeleted != null && listImageDeleted.Count() > 0)
-                        {
-                            foreach (UrlImage element in listImageDeleted)
-                            {
-                                uManager.deleteImage(element.IdArticulo);
-                            }
-
-                        }
-
-                        if (listImageEdited != null && listImageEdited.Count() > 0)
-                        {
-                            uManager.updateImage(listImageEdited);
-
-                        }
-
-                        if (listImageNewAdded != null && listImageNewAdded.Count() > 0)
-                        {
-                            uManager.addImage(listImageNewAdded);
-
-                        }
-
-                        iManager.edit(item);
-                        MessageBox.Show("Successfully edited");
-                    }
-                    else
-                    {
-
-                        iManager.add(item);
-                        MessageBox.Show("Successfully added.");
-                    }
-
-
-                    listUrlImage.Clear();
-                    Close();
-                }
-                else
-                {
-                    Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+            pbAddImage.Image = null;
+            tbUrlImage.Clear();
         }
 
+        private void bExit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+
+       
        
 
         private void bAddImage_Click(object sender, EventArgs e)
@@ -304,7 +228,7 @@ namespace GUI
                 }
                 else
                 {
-                    MessageBox.Show("Plis, add a valid URL.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please, add a valid URL.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
@@ -313,50 +237,8 @@ namespace GUI
             pbAddImage.Load(tbUrlImage.Text);
         }
 
-        private bool IsValidUrl(string url)
-        {
-            Uri result;
-            return Uri.TryCreate(url, UriKind.Absolute, out result) &&
-                   (result.Scheme == Uri.UriSchemeHttp || result.Scheme == Uri.UriSchemeHttps);
 
-
-        }
-
-        private void updateChanges()
-        {
-           
-            for (int i = 0; i < listImageDeleted.Count; i++)
-            {
-                for (int j = 0; j < listImageEdited.Count; j++)
-                {
-                    if (listImageDeleted[i].Id == listImageEdited[j].Id)
-                    {
-                        listImageEdited.RemoveAt(j);
-                        j--; 
-                    }
-                }
-
-                for (int k = 0; k < listImageNewAdded.Count; k++)
-                {
-                    if (listImageDeleted[i].Url == listImageNewAdded[k].Url)
-                    {
-                        listImageNewAdded.RemoveAt(k);
-                        k--; 
-                    }
-                }
-            }
-
-            for (int m = 0; m < listImageDeleted.Count; m++)
-            {
-                if (listImageDeleted[m].Id == 0)
-                {
-                    listImageDeleted.RemoveAt(m);
-                    m--;
-                }
-            }
-        }
-
-
+   
         private void bSaveImage_Click(object sender, EventArgs e)
         {
             UrlImage aux = new UrlImage();
@@ -380,23 +262,96 @@ namespace GUI
           
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void bSave_Click(object sender, EventArgs e)
         {
-            pbAddImage.Image = null;
-            tbUrlImage.Clear();
 
+            List<Item> aux = new List<Item>();
+            ItemManager iManager = new ItemManager();
+
+            try
+            {
+
+                aux = iManager.Listacompleta();
+
+                if (item == null)
+                {
+                    item = new Item();
+                    if (listUrlImage != null && listUrlImage.Count() > 0)
+                    {
+                        item.Images = listUrlImage;
+                    }
+
+                    for (int i = 0; i < aux.Count(); i++)
+                    {
+                        if (aux[i].ItemCode == tbCodeArt.Text || aux[i].ItemCode == tbCodeArt.Text.ToUpper())
+                        {
+                            MessageBox.Show("There is already an item with this code.");
+                            return;
+                        }
+                    }
+                }
+
+                item.ItemCode = tbCodeArt.Text;
+                if (string.IsNullOrEmpty(tbCodeArt.Text))
+                {
+                    MessageBox.Show("The code field is mandatory.");
+                    return;
+                }
+
+                item.Name = tbName.Text;
+                item.Description = rtbDescription.Text;
+                if (string.IsNullOrWhiteSpace(tbPrice.Text))
+                {
+                    item.Price = 000;
+
+                }
+                else if (decimal.TryParse(tbPrice.Text, out decimal price))
+                {
+                    item.Price = price;
+                }
+                else
+                {
+                    MessageBox.Show("The price value is not valid.");
+                    return;
+                }
+
+                item.Brand = (Brand)cbBrand.SelectedItem;
+                item.Category = (Category)cbCategory.SelectedItem;
+
+
+                DialogResult result = MessageBox.Show("Do you want to save this data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+
+                    if (item.Id != 0)
+                    {
+                        updateChanges();
+                        nullImageValidationAndExecuts();
+                        iManager.edit(item);
+                        MessageBox.Show("Successfully edited");
+                    }
+                    else
+                    {
+                        iManager.add(item);
+                        MessageBox.Show("Successfully added.");
+                    }
+                    Close();
+                }
+                else
+                {
+                    Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
-        private void bExit_Click(object sender, EventArgs e)
-        {
-          
-            Close();
 
-        }
-
-      
-        private void bAddImage_Click_1(object sender, EventArgs e)
-        {
+            private void bAddImage_Click_1(object sender, EventArgs e)
+          {
             
             if (string.IsNullOrEmpty(tbUrlImage.Text))
             {
@@ -455,10 +410,7 @@ namespace GUI
             }
 
         }
-
-
-
-    
+   
         private void bEditImage_Click(object sender, EventArgs e)
         {
             if(string.IsNullOrEmpty(tbUrlImage.Text))
@@ -479,12 +431,88 @@ namespace GUI
             }
         }
 
-     
 
+        //////////////////////////////         Validation  Methods  and  More           ///////////////////////////////////
 
+        private bool IsValidUrl(string url)
+        {
+            Uri result;
+            return Uri.TryCreate(url, UriKind.Absolute, out result) &&
+                   (result.Scheme == Uri.UriSchemeHttp || result.Scheme == Uri.UriSchemeHttps);
+        }
 
+        private void updateChanges()
+        {
 
-        //////////////////////////////           Methods Validation               ///////////////////////////////////
+            for (int i = 0; i < listImageDeleted.Count; i++)
+            {
+                for (int j = 0; j < listImageEdited.Count; j++)
+                {
+                    if (listImageDeleted[i].Id == listImageEdited[j].Id)
+                    {
+                        listImageEdited.RemoveAt(j);
+                        j--;
+                    }
+                }
+
+                for (int k = 0; k < listImageNewAdded.Count; k++)
+                {
+                    if (listImageDeleted[i].Url == listImageNewAdded[k].Url)
+                    {
+                        listImageNewAdded.RemoveAt(k);
+                        k--;
+                    }
+                }
+            }
+
+            for (int m = 0; m < listImageDeleted.Count; m++)
+            {
+                if (listImageDeleted[m].Id == 0)
+                {
+                    listImageDeleted.RemoveAt(m);
+                    m--;
+                }
+            }
+        }
+
+        private void nullImageValidationAndExecuts()
+        {
+            ItemManager iManager = new ItemManager();
+            UrlImageManager uManager = new UrlImageManager();
+            try
+            {
+                
+                    if (listImageDeleted != null && listImageDeleted.Count() > 0)
+                    {
+                        foreach (UrlImage element in listImageDeleted)
+                        {
+                            uManager.deleteImage(element.IdArticulo);
+                        }
+
+                    }
+
+                    if (listImageEdited != null && listImageEdited.Count() > 0)
+                    {
+                        uManager.updateImage(listImageEdited);
+
+                    }
+
+                    if (listImageNewAdded != null && listImageNewAdded.Count() > 0)
+                    {
+                        uManager.addImage(listImageNewAdded);
+
+                    }
+                }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        
+
+            
+        
     }
 
 

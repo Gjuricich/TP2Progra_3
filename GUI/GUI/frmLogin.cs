@@ -29,7 +29,6 @@ namespace GUI
         private void bLoginUserGuest_Click(object sender, EventArgs e)
         {
             frmMain windowGuest = new frmMain();
-            windowGuest.showBottons(true);
             windowGuest.ShowDialog();
         }
 
@@ -50,7 +49,7 @@ namespace GUI
 
             }
             else
-                MessageBox.Show("Login failed (User: Maxi - Password: Programa)"); 
+                MessageBox.Show("Login failed (User: Maxi - Password: programa)"); 
 
         }
 

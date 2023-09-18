@@ -114,6 +114,7 @@ namespace GUI
             {
 
                 throw;
+
             }
         }
 
@@ -201,7 +202,7 @@ namespace GUI
 
             if (string.IsNullOrEmpty(tbNew.Text))
             {
-                MessageBox.Show("Error. The edit field/New is empty.");
+                MessageBox.Show("Error. You must select a brand/category and the edit/New field cannot be empty.");
                 return;
             }
             else
@@ -256,7 +257,7 @@ namespace GUI
 
             if (string.IsNullOrEmpty(tbNew.Text))
             {
-                MessageBox.Show("Error. The edit field/New is empty.");
+                MessageBox.Show("Error. You must select a brand/category and the edit/New field cannot be empty.");
                 return;
             }
             else

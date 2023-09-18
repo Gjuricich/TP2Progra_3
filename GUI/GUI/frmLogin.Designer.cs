@@ -153,7 +153,6 @@ namespace GUI
             this.tituleLogin.Size = new System.Drawing.Size(93, 25);
             this.tituleLogin.TabIndex = 0;
             this.tituleLogin.Text = "Catalog";
-           
             // 
             // bExit
             // 
@@ -179,7 +178,7 @@ namespace GUI
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Catalog Management - Login";
             this.pLogin.ResumeLayout(false);
             this.pLogin.PerformLayout();
             this.ResumeLayout(false);
