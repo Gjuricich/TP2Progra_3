@@ -55,7 +55,7 @@ namespace GUI
 
         private bool authentication()
         {
-            if (tbUser.Text.ToLower() == "maxi" && tbPassword.Text == "Programa")
+            if (tbUser.Text.ToLower() == "maxi" && tbPassword.Text == "programa")
                 return true;
             else
                 return false;

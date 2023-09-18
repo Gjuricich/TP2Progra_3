@@ -47,12 +47,29 @@ namespace GUI
             windowField.ShowDialog();
             loadGrid();
         }
+
         private void bAdd_Click(object sender, EventArgs e)
         {
             frmAddEdit windowAdd = new frmAddEdit();
             windowAdd.ShowDialog();
             loadGrid();
         }
+
+        private bool rowSelectedValidationOk()
+        {
+            
+            if (dgArticles.CurrentRow ==null)
+            {
+                MessageBox.Show("Please select an item", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            else
+            {  
+                return true;
+            }
+         
+        }
+
 
         private void bEdit_Click(object sender, EventArgs e)
         {
@@ -61,10 +78,18 @@ namespace GUI
 
             try
             {
-                selected = (Item)dgArticles.CurrentRow.DataBoundItem;
-                frmAddEdit windowEdit = new frmAddEdit(selected);
-                windowEdit.ShowDialog();
-                loadGrid();
+                if (rowSelectedValidationOk())
+                {
+                    selected = (Item)dgArticles.CurrentRow.DataBoundItem;
+                    frmAddEdit windowEdit = new frmAddEdit(selected);
+                    windowEdit.ShowDialog();
+                    loadGrid();
+                }
+                else
+                {
+                    return;
+                }
+               
             }
             catch (Exception ex)
             {
@@ -121,12 +146,19 @@ namespace GUI
             Item selected;
             try
             {
-                DialogResult answer = MessageBox.Show("The selected article will be deleted. Please confirm if you want to delete it.", "Removing", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (answer == DialogResult.Yes)
+                if (rowSelectedValidationOk())
                 {
-                    selected = (Item)dgArticles.CurrentRow.DataBoundItem;
-                    iManager.delete(selected.ItemCode);
-                    loadGrid();
+                    DialogResult answer = MessageBox.Show("The selected article will be deleted. Please confirm if you want to delete it.", "Removing", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (answer == DialogResult.Yes)
+                    {
+                        selected = (Item)dgArticles.CurrentRow.DataBoundItem;
+                        iManager.delete(selected.ItemCode);
+                        loadGrid();
+                    }
+                }
+                else
+                {
+                    return;
                 }
             }
             catch (Exception ex)
