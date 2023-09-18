@@ -267,11 +267,12 @@ namespace GUI
 
             List<Item> aux = new List<Item>();
             ItemManager iManager = new ItemManager();
+            aux = iManager.Listacompleta();
 
             try
             {
 
-                aux = iManager.Listacompleta();
+               
 
                 if (item == null)
                 {
@@ -286,12 +287,14 @@ namespace GUI
                         if (aux[i].ItemCode == tbCodeArt.Text || aux[i].ItemCode == tbCodeArt.Text.ToUpper())
                         {
                             MessageBox.Show("There is already an item with this code.");
+                            item = null;
                             return;
                         }
+                      
                     }
                 }
 
-                item.ItemCode = tbCodeArt.Text;
+               
                 if (string.IsNullOrEmpty(tbCodeArt.Text))
                 {
                     MessageBox.Show("The code field is mandatory.");
