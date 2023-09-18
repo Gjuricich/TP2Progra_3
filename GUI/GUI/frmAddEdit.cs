@@ -299,6 +299,11 @@ namespace GUI
                 }
 
                 item.Name = tbName.Text;
+                if(string.IsNullOrEmpty(tbName.Text))
+                {
+                    MessageBox.Show("The name is mandatory.");
+                    return;
+                }
                 item.Description = rtbDescription.Text;
                 if (string.IsNullOrWhiteSpace(tbPrice.Text))
                 {
