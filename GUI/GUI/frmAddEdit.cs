@@ -324,7 +324,17 @@ namespace GUI
                 }
 
                 item.Brand = (Brand)cbBrand.SelectedItem;
+                if (string.IsNullOrEmpty(cbBrand.Text))
+                {
+                    MessageBox.Show("Add a brand before saving.");
+                    return;
+                }
                 item.Category = (Category)cbCategory.SelectedItem;
+                if(string.IsNullOrEmpty(cbCategory.Text)) 
+                {
+                    MessageBox.Show("Add a category before saving.");
+                    return;
+                }
 
 
                 DialogResult result = MessageBox.Show("Do you want to save this data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
