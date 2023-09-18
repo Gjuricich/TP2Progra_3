@@ -258,44 +258,72 @@ namespace GUI
 
 
 
+        private bool onlyNumbers(string aux)
+        {
+            foreach (char caracter in aux)
+            {
+                if (!(char.IsNumber(caracter)))
+                    return false;
+            }
+            return true;
+        }
+
+        private bool numberValidation()
+        {
+            if (cbxField.SelectedItem.ToString() == "Precio")
+            {            
+                if (!(onlyNumbers(txbSerch.Text)))
+                {
+        
+                    MessageBox.Show("Only numbers for filtering by a numeric field.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return true;
+                }
+
+            }
+            return false;
+        }
+
         private void btnSerch_Click(object sender, EventArgs e)
         {
             ItemManager itemManager = new ItemManager();
             try
             {
-                if (cbxField.SelectedItem == null && cbxCriterion.SelectedItem == null && txbSerch.Text.Count() > 0)
+
+                if (cbxField.SelectedIndex < 0 && cbxCriterion.SelectedIndex < 0 && txbSerch.Text.Count() > 0)
                 {
                     MessageBox.Show("Please select both field and criterion to search", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-
-                else if ( cbxCriterion.SelectedItem == null && txbSerch.Text.Count() > 0)
-                    
+                else if (cbxCriterion.SelectedIndex < 0 && txbSerch.Text.Count() > 0)
                 {
                     MessageBox.Show("Please select a criterion to search", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     dgArticles.DataSource = itemManager.Listacompleta();
                 }
-                else if(txbSerch.Text == "")
+                else if (txbSerch.Text == "")
                 {
                     dgArticles.DataSource = itemManager.Listacompleta();
                 }
-                else 
-                { 
+                else if (numberValidation())
+                {
+                    return;
+                }
+                else
+                {
                     string field = cbxField.SelectedItem.ToString();
                     string criterion = cbxCriterion.SelectedItem.ToString();
                     string filter = txbSerch.Text;
                     listArticle = itemManager.filtedBy(field, criterion, filter);
                     dgArticles.DataSource = listArticle;
                 }
-                     
+
             }
             catch (Exception ex)
             {
 
                 throw ex;
             }
-          
+
         }
-private void cbxField_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbxField_SelectedIndexChanged(object sender, EventArgs e)
         {
             
             string opcion = cbxField.SelectedItem.ToString();
@@ -306,7 +334,7 @@ private void cbxField_SelectedIndexChanged(object sender, EventArgs e)
                 cbxCriterion.Text = "";
                 cbxCriterion.Items.Add("Greater than");
                 cbxCriterion.Items.Add("Less than");
-                cbxCriterion.Items.Add(" Equal to");
+                cbxCriterion.Items.Add("Equal to");
             }
 
             else

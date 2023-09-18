@@ -225,10 +225,10 @@ namespace Managers
                     string logicOperand;
                     switch (criterion)
                     {
-                        case "Mayor a":
+                        case "Greater than":
                             logicOperand = ">";
                             break;
-                        case "Menor a":
+                        case "Less than":
                             logicOperand = "<";
                             break;
                         default:
@@ -245,10 +245,10 @@ namespace Managers
                     switch (criterion)
                     {
 
-                        case "Comienza con":
+                        case "Starts with":
                             filterType = "'" + filter + "%' ";
                             break;
-                        case "Termina con":
+                        case "Ends with":
                             filterType = " '%" + filter + "'";
                             break;
                         default:
@@ -263,10 +263,10 @@ namespace Managers
                     string filterType;
                     switch (criterion)
                     {
-                        case "Comienza con":
+                        case "Starts with":
                             filterType = "'" + filter + "%' ";
                             break;
-                        case "Termina con":
+                        case "Ends with":
                             filterType = " '%" + filter + "'";
                             break;
                         default:
@@ -302,6 +302,7 @@ namespace Managers
 
 
                     article.Price = (decimal)dataManager.Lector["Precio"];
+                    article.Price = Math.Round(article.Price, 2);
                     list.Add(article);
                 }
 
