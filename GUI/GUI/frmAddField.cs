@@ -153,7 +153,7 @@ namespace GUI
             
             if (string.IsNullOrEmpty(cbSelect.Text))
             {
-                MessageBox.Show("Error. You must select a brand/category.");
+                MessageBox.Show("You must select a brand/category.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             else
@@ -222,7 +222,7 @@ namespace GUI
 
             if (string.IsNullOrEmpty(tbNew.Text))
             {
-                MessageBox.Show("Error. You must select a brand/category and the edit/New field cannot be empty.");
+                MessageBox.Show("You must select a brand/category and the edit/New field cannot be empty.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             else
@@ -276,8 +276,8 @@ namespace GUI
         {
 
             if (string.IsNullOrEmpty(tbNew.Text))
-            {
-                MessageBox.Show("Error. You must select a brand/category and the edit/New field cannot be empty.");
+            {              
+                MessageBox.Show("You must select a brand/category and the edit/New field cannot be empty.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             else

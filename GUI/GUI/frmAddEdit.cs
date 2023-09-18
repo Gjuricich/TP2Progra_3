@@ -252,7 +252,7 @@ namespace GUI
                 }
                 else
                 {
-                    MessageBox.Show("Plis, add a valid URL.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please, add a valid URL.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
@@ -262,18 +262,32 @@ namespace GUI
           
         }
 
+        private bool itemCodeValidation(List<Item> aux,ItemManager iManager)
+        {
+            bool isNew = true;
+            for (int i = 0; i < aux.Count(); i++)
+            {
+                if (aux[i].ItemCode == tbCodeArt.Text || aux[i].ItemCode == tbCodeArt.Text.ToUpper())
+                {
+                    MessageBox.Show("There is already an item with this code.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    isNew = false;
+                    
+                }
+
+            }
+            return isNew;
+
+        }
+
         private void bSave_Click(object sender, EventArgs e)
         {
-
-            List<Item> aux = new List<Item>();
+           
             ItemManager iManager = new ItemManager();
+            List<Item> aux = new List<Item>();
             aux = iManager.Listacompleta();
-
             try
             {
-
-               
-
+             
                 if (item == null)
                 {
                     item = new Item();
@@ -281,20 +295,17 @@ namespace GUI
                     {
                         item.Images = listUrlImage;
                     }
-
-                    for (int i = 0; i < aux.Count(); i++)
+                    if (itemCodeValidation(aux,iManager))
                     {
-                        if (aux[i].ItemCode == tbCodeArt.Text || aux[i].ItemCode == tbCodeArt.Text.ToUpper())
-                        {
-                            MessageBox.Show("There is already an item with this code.");
-                            item = null;
-                            return;
-                        }
-                      
+                        item.ItemCode = tbCodeArt.Text;
                     }
+                    else
+                    {
+                        item = null;
+                        return;
+                    }          
                 }
 
-               
                 if (string.IsNullOrEmpty(tbCodeArt.Text))
                 {
                     MessageBox.Show("The code field is mandatory.");
