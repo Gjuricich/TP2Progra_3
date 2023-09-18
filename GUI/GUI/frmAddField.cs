@@ -160,6 +160,16 @@ namespace GUI
             {
                 if (cbSelect.Text == "Brands")
                 {
+                    Brand selectedBrand = (Brand)cbBrandCategory.SelectedItem;
+
+                    int brandId = selectedBrand.Id;
+
+                    if (brandId >= 1 && brandId <= 5)
+                    {
+                        MessageBox.Show("You can only edit, not delete this brand.");
+                        return;
+                    }
+
                     DialogResult result = MessageBox.Show("Do you want to delete this brand?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                     if (result == DialogResult.Yes)
@@ -177,6 +187,16 @@ namespace GUI
                 }
                 else
                 {
+                    Category selectedCategory = (Category)cbBrandCategory.SelectedItem;
+
+                    int categoryId = selectedCategory.Id;
+
+                    if (categoryId >= 1 && categoryId <= 4)
+                    {
+                        MessageBox.Show("You can only edit, not delete this category.");
+                        return;
+                    }
+
                     DialogResult result = MessageBox.Show("Do you want to delete this Category?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                     if (result == DialogResult.Yes)
