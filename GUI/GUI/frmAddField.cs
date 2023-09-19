@@ -157,59 +157,63 @@ namespace GUI
                 return;
             }
             else
-            {
+            {   
                 if (cbSelect.Text == "Brands")
                 {
+                  
                     Brand selectedBrand = (Brand)cbBrandCategory.SelectedItem;
 
-                    int brandId = selectedBrand.Id;
-
-                    if (brandId >= 1 && brandId <= 5)
+                    if (isUsed("brand",selectedBrand.Id))
                     {
-                        MessageBox.Show("You can only edit, not delete this brand.");
+                        MessageBox.Show("This brand is currently in use by an item. If you wish to delete it, you must remove those items that contain it.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
-                    }
-
-                    DialogResult result = MessageBox.Show("Do you want to delete this brand?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                    if (result == DialogResult.Yes)
-                    {
-                        brandsDeleted.Add((Brand)cbBrandCategory.SelectedItem);
-                        listBrandAux.Remove((Brand)cbBrandCategory.SelectedItem);
-                        cbBrandCategory.DataSource = null;
-                        loadBrand();
-
                     }
                     else
-                    {
-                        return;
+                    {         
+
+                        DialogResult result = MessageBox.Show("Do you want to delete this brand?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                        if (result == DialogResult.Yes)
+                        {
+                            brandsDeleted.Add((Brand)cbBrandCategory.SelectedItem);
+                            listBrandAux.Remove((Brand)cbBrandCategory.SelectedItem);
+                            cbBrandCategory.DataSource = null;
+                            loadBrand();
+
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
                 }
                 else
                 {
                     Category selectedCategory = (Category)cbBrandCategory.SelectedItem;
 
-                    int categoryId = selectedCategory.Id;
 
-                    if (categoryId >= 1 && categoryId <= 4)
+                    if (isUsed("category", selectedCategory.Id))
                     {
-                        MessageBox.Show("You can only edit, not delete this category.");
+                        MessageBox.Show("This category is currently in use by an item. If you wish to delete it, you must remove those items that contain it.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
-                    }
-
-                    DialogResult result = MessageBox.Show("Do you want to delete this Category?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                    if (result == DialogResult.Yes)
-                    {
-                        categoriesDeleted.Add((Category)cbBrandCategory.SelectedItem);
-                        listCategoriesAux.Remove((Category)cbBrandCategory.SelectedItem);
-                        cbBrandCategory.DataSource = null;
-                        loadCategory();
-
                     }
                     else
                     {
-                        return;
+
+                        DialogResult result = MessageBox.Show("Do you want to delete this Category?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                        if (result == DialogResult.Yes)
+                        {
+                            categoriesDeleted.Add((Category)cbBrandCategory.SelectedItem);
+                            listCategoriesAux.Remove((Category)cbBrandCategory.SelectedItem);
+                            cbBrandCategory.DataSource = null;
+                            loadCategory();
+
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
                 }
             }
@@ -458,6 +462,54 @@ namespace GUI
                 
 
             }
+        }
+
+        private bool isUsed(string type,int id) 
+        {
+            ItemManager iManager = new ItemManager();
+            List<Item> itemList = new List<Item>();
+
+            try
+            {
+                itemList = iManager.Listacompleta();
+
+                if (type == "brand")
+                {
+                    for (int i = 0; i < itemList.Count; i++)
+                    {
+                        if (itemList[i].Brand.Id == id)
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+                else
+                {
+                    for (int j = 0; j < itemList.Count; j++)
+                    {
+                        if (itemList[j].Category.Id == id)
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+                
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+                return false;
+            }
+
+         
+
+
+
+
+
         }
 
   

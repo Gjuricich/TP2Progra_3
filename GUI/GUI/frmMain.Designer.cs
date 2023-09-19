@@ -302,7 +302,7 @@ namespace GUI
             this.bAddField.Name = "bAddField";
             this.bAddField.Size = new System.Drawing.Size(60, 22);
             this.bAddField.TabIndex = 29;
-            this.bAddField.Text = "Add Field";
+            this.bAddField.Text = "Edit Field";
             this.bAddField.UseVisualStyleBackColor = false;
             this.bAddField.Visible = false;
             this.bAddField.Click += new System.EventHandler(this.bAddField_Click);

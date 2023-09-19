@@ -49,7 +49,7 @@ namespace GUI
 
             }
             else
-                MessageBox.Show("Login failed (User: Maxi - Password: programa)"); 
+                MessageBox.Show("Login failed(User: Maxi - Password: programa)", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
         }
 
