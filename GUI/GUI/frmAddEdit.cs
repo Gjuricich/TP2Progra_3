@@ -291,33 +291,43 @@ namespace GUI
                 if (item == null)
                 {
                     item = new Item();
-                    if (listUrlImage != null && listUrlImage.Count() > 0)
+                    if(string.IsNullOrWhiteSpace(tbCodeArt.Text))
                     {
-                        item.Images = listUrlImage;
+                        MessageBox.Show("The code field is mandatory.");
+                        item = null;
+                        return;
                     }
+                    
                     if (itemCodeValidation(aux,iManager))
-                    {
-                        item.ItemCode = tbCodeArt.Text;
-                    }
+                         {
+                          item.ItemCode = tbCodeArt.Text;
+                         }
                     else
                     {
                         item = null;
                         return;
-                    }          
+                    }
+                    if (listUrlImage != null && listUrlImage.Count() > 0)
+                    {
+                        item.Images = listUrlImage;
+                    }
+
                 }
 
-                if (string.IsNullOrEmpty(tbCodeArt.Text))
+
+                if (string.IsNullOrWhiteSpace(tbCodeArt.Text))
                 {
                     MessageBox.Show("The code field is mandatory.");
                     return;
                 }
 
                 item.Name = tbName.Text;
-                if(string.IsNullOrEmpty(tbName.Text))
+                if(string.IsNullOrWhiteSpace(tbName.Text))
                 {
                     MessageBox.Show("The name is mandatory.");
                     return;
                 }
+                
                 item.Description = rtbDescription.Text;
                 if (string.IsNullOrWhiteSpace(tbPrice.Text))
                 {
