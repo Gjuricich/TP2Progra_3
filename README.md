@@ -1,6 +1,6 @@
 # Catalog Manager
 
-**Catalog Manager** es un proyecto desarrollado en el marco de la materia **Programación 3** de la [Tecnicatura Universitaria en Programación (UTN)](https://www.frgp.utn.edu.ar/carreras/tup_tuss). Desarrollado por Guada Juricich, [Alejandro Morales](https://github.com/AlejandroDanielMorales) y [Alex Welz](https://github.com/alexwelz). Este proyecto consiste un catálogo de artículos. El desarrollo de **Catalog Manager** se llevó a cabo utilizando **Visual Studio Community**, y las tecnologías empleadas fueron **C#** y **Winforms**.
+**Catalog Manager** es un proyecto desarrollado en el marco de la materia **Programación 3** de la [Tecnicatura Universitaria en Programación (UTN)](https://www.frgp.utn.edu.ar/carreras/tup_tuss). Desarrollado por Guada Juricich, [Alejandro Morales](https://github.com/AlejandroDanielMorales) y [Alex Welz](https://github.com/alexwelz). Este proyecto consiste un catálogo de artículos. El desarrollo de **Catalog Manager** se llevó a cabo utilizando **Visual Studio Community** y **Azure Data Studio**. Las tecnologías empleadas fueron **C#**, **Winforms** y **SQL**.
 
 <img src="portada.PNG" alt="portada" width="600"/>
 
@@ -18,6 +18,7 @@
 Para ejecutar este proyecto:
 
 - Cloná el repositorio.
+- Ejecutá el script de la base de datos.
 - Abrí el archivo CatalogApp.sln en Visual Studio Community.
 - Selecciona la configuración Debug o Release y compila el proyecto.
 - Ejecuta el proyecto.
